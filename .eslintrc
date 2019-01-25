@@ -1,0 +1,23 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "parser": "babel-eslint",
+    "extends": "airbnb-base",
+    "rules": {
+        "class-methods-use-this": "off",
+        "max-len": [1, 200],
+        "no-underscore-dangle": "off",
+        "linebreak-style": [0, "windows"],
+        "indent": "off",
+        "comma-dangle": ["error", { "functions": "ignore" }],
+        "no-console": "off",
+        "eol-last": ["error", "never"],
+        "func-names": ["error", "never"],
+        "prefer-template": 2,
+        "no-useless-concat": 2,
+        "no-unused-vars": ["error", { "args": "none" }],
+        "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"]
+    }
+}
