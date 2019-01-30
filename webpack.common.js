@@ -6,81 +6,73 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 /* eslint-enable import/no-extraneous-dependencies */
 
 const includePaths = [
-  fs.realpathSync(`${__dirname}/src`),
-  fs.realpathSync(`${__dirname}/node_modules/tuiomanager/`),
+    fs.realpathSync(`${__dirname}/src`),
+    fs.realpathSync(`${__dirname}/node_modules/tuiomanager/`),
 ];
 
 const resolvePaths = [
-  fs.realpathSync(`${__dirname}/node_modules/`),
+    fs.realpathSync(`${__dirname}/node_modules/`),
 ];
 
 const htmlWebpackPluginInstance = new HtmlWebpackPlugin({
-  template: './index.ejs',
-  filename: './index.html',
-  showErrors: true,
+    template: './index.ejs',
+    filename: './index.html',
+    showErrors: true,
 });
 const copyWebpackPluginInstance = new CopyWebpackPlugin(
-  [
-    { from: './assets', to: './assets' },
-  ],
-  {
-    copyUnmodified: false,
-    debug: 'debug',
-  }
+    [
+        { from: './assets', to: './assets' },
+    ], {
+        copyUnmodified: false,
+        debug: 'debug',
+    }
 );
 
-module.exports = () => (
-  {
+module.exports = () => ({
     mode: 'development',
     devServer: {
-      inline: true,
-      historyApiFallback: true,
-      port: 3000,
+        inline: true,
+        historyApiFallback: true,
+        port: 3000,
     },
     entry: './src/index.js',
     output: {
-      path: path.join(__dirname, 'dist'),
-      publicPath: '/',
-      filename: 'index.js',
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/',
+        filename: 'index.js',
     },
     resolve: {
-      extensions: ['.js'],
-      modules: resolvePaths,
-      enforceExtension: false,
+        extensions: ['.js'],
+        modules: resolvePaths,
+        enforceExtension: false,
     },
     resolveLoader: {
-      modules: resolvePaths,
+        modules: resolvePaths,
     },
     module: {
-      rules: [
-        {
-          test: /\.js?$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              query: {
-                babelrc: false,
-                presets: [
-                  'env',
-                ].map(dep => require.resolve(`@babel/preset-${dep}`)),
-              },
+        rules: [{
+                test: /\.js?$/,
+                use: [{
+                        loader: 'babel-loader',
+                        query: {
+                            babelrc: false
+                        },
+                    },
+                    {
+                        loader: 'eslint-loader',
+                    },
+                ],
+                include: includePaths,
+                exclude: /node_modules/,
             },
             {
-              loader: 'eslint-loader',
+                test: /\.json$/,
+                loader: 'json',
             },
-          ],
-          include: includePaths,
-          exclude: /node_modules/,
-        },
-        {
-          test: /\.json$/,
-          loader: 'json',
-        },
-      ],
+        ],
     },
     plugins: [
-      htmlWebpackPluginInstance,
-      copyWebpackPluginInstance
+        htmlWebpackPluginInstance,
+        copyWebpackPluginInstance
     ]
-  }
-);
+});

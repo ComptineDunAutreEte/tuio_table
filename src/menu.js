@@ -7,6 +7,7 @@
 import $ from 'jquery/dist/jquery.min';
 import io from 'socket.io-client';
 import TUIOManager from 'tuiomanager/core/TUIOManager';
+import ButtonWidget from 'ButtonWidget';
 // Import ImageWidget
 import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
 import VideoElementWidget from 'tuiomanager/widgets/ElementWidget/VideoElementWidget/VideoElementWidget';
