@@ -1,8 +1,4 @@
-/**
- * @author Christian Brel <ch.brel@gmail.com>
- * @author Vincent Forquet
- * @author Nicolas Forget
- */
+/* eslint-disable */
 
 // Import JQuery
 import $ from 'jquery/dist/jquery.min';
@@ -10,7 +6,8 @@ import $ from 'jquery/dist/jquery.min';
 // Import TUIOManager
 import TUIOManager from 'tuiomanager/core/TUIOManager';
 import ButtonWidget from './ButtonWidget';
-// import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
+import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
+import buildMenu from './menu';
 /* * TUIOManager starter * */
 const tuioManager = new TUIOManager();
 tuioManager.start();
@@ -18,15 +15,8 @@ tuioManager.start();
 /* * App Code * */
 
 const buildApp = () => {
-    // $('#app').append('<div id="example-container"> </div>');
-    $('document').ready(() => {
-
-    });
-    // $('#app').load('src/test.html');
-    const button = new ButtonWidget(100, 150, 110, 110, 0, 1, 'assets/example-health/candies.png', 'B3', 'C9', '38');
+    const button = new ButtonWidget(0, 0, 100, 100, 'assets/example-health/candies.png');
     button.addTo('#app');
-    // const puz = new ImageElementWidget(50, 200, 200, 200, 0, 2, 'assets/example-puzzle/1.png', 'B3', 'C9', '38');
-    // puz.addTo('#example-container');
 };
 
 $(window).ready(() => {

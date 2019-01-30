@@ -1,13 +1,9 @@
-/**
- * @author Kevin Duglué
- * @author Rémy Kaloustian
- */
+/* eslint-disable */
 
 // Import JQuery
 import $ from 'jquery/dist/jquery.min';
 import io from 'socket.io-client';
 import TUIOManager from 'tuiomanager/core/TUIOManager';
-import ButtonWidget from 'ButtonWidget';
 // Import ImageWidget
 import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
 import VideoElementWidget from 'tuiomanager/widgets/ElementWidget/VideoElementWidget/VideoElementWidget';
@@ -15,13 +11,12 @@ import VideoElementWidget from 'tuiomanager/widgets/ElementWidget/VideoElementWi
 import CircularMenu from 'tuiomanager/widgets/CircularMenu/CircularMenu';
 import LibraryStack from 'tuiomanager/widgets/Library/LibraryStack/LibraryStack';
 import MenuItem from 'tuiomanager/widgets/CircularMenu/MenuItem';
-
 import {
     CREATE_SOCKETIO_ACTION,
     UPDATE_SOCKETIO_ACTION,
     DELETE_SOCKETIO_ACTION
 } from 'tuiomanager/core/constants';
-
+import ButtonWidget from './ButtonWidget';
 import buildNoobWork from './dev-test';
 
 let widgets = [];
