@@ -9,7 +9,7 @@ import MainScreen from './MainScreen/MainScreen';
 import TUIOManager from 'tuiomanager/core/TUIOManager';
 import ButtonWidget from './Widgets/ButtonWidget';
 import Lifecycle from './LifeCycle/Lifecycle'
-import FormationWidget from './Widgets/FormationWidget';
+import FormationWidget from './FormationScreen/FormationWidget';
 import FormationBWidget from './FormationScreen/FormationBWidget';
 import FormationRWidget from './FormationScreen/FormationRWidget';
 import FirstScreen from './FirstScreen/FirstScreen';
@@ -65,28 +65,7 @@ function buildFormation() {
     const okB = new FormationWidget("OkB", xOkB, yOkB, tok / 2, tok / 2, 'assets/Formation/okB.PNG');
     okB.addTo('#example-container');
 
-
-
-    /*  if (okR.isTouched()){
-          console.log("il a etet t");
-      }
-
-        tuioManager.handleUpdate(okR); */
 }
-
-/* * App Code * */
-
-/* test of button widget */
-/* const buildSecondScreen = () => {
-    buildFormation();
-
-
-  /*  $('document').ready(() => {
-    });*/
-    // $('#app').load('src/test.html');
-   /* const button = new ButtonWidget(100, 150, 900, 900, 'assets/example-health/candies.png');
-    button.addTo('#app');*/
-//};
 
 function loadFirstScreen() {
     const firstScreen = new FirstScreen(manager);
@@ -105,7 +84,8 @@ function comeAlive() {
 
 $('document').ready(() => {
     console.log("Document well loaded");
+    comeAlive()
     //loadFirstScreen();
-    buildFormation();
+    //buildFormation();
    //loadMainScreen();
 });
