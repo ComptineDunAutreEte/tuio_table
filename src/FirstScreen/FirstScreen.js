@@ -2,12 +2,13 @@
 const io = require('socket.io-client');             // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 
 class FirstScreen {
-    constructor() {
+    constructor(obs) {
         this.playerCount = 2;
         this.difficultyLevel = 1; // 1-3 => facile difficile
         this.id = "firstScreen"
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
+        this.observer = obs;
     }
 
     populate(id) {
@@ -74,7 +75,10 @@ class FirstScreen {
         const btnID = "confirmFirstScreenBtn";
         const that = this;
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
-        document.getElementById(btnID).onclick = () => { that.notifyServer(that); };
+        document.getElementById(btnID).onclick = () => { 
+            that.notifyServer(that);
+            that.observer.finishedFirstscreen();
+         };
         const message = this.playerCount + "," + this.difficultyLevel;
         console.log("should be : " + message);
         /*
@@ -122,6 +126,5 @@ class FirstScreen {
     getDifficultyLevel() {
         return this.difficultyLevel;
     }
-
 
 } export default FirstScreen;
