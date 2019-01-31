@@ -5,7 +5,7 @@ import $ from 'jquery/dist/jquery.min';
 
 // Import TUIOManager
 import TUIOManager from 'tuiomanager/core/TUIOManager';
-import ButtonWidget from './ButtonWidget';
+import ButtonWidget from './Widgets/ButtonWidget';
 import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
 import buildMenu from './menu';
 
@@ -23,10 +23,8 @@ const buildApp = () => {
 };
 
 function loadFirstScreen() {
-    console.log("loading First Screen...");
     const firstScreen = new FirstScreen();
     firstScreen.populate("app");
-    console.log("finished loading First Screen.");
 }
 
 $(window).ready(() => {

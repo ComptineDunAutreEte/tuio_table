@@ -16,7 +16,7 @@ import {
     UPDATE_SOCKETIO_ACTION,
     DELETE_SOCKETIO_ACTION
 } from 'tuiomanager/core/constants';
-import ButtonWidget from './ButtonWidget';
+import ButtonWidget from './Widgets/ButtonWidget';
 import buildNoobWork from './dev-test';
 
 let widgets = [];
