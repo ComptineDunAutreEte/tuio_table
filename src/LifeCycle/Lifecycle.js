@@ -55,7 +55,7 @@ class Lifecycle {
     }
 
     loadMainScreen() {
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT,this);
         mainScreen.populate("app");
     }
 
@@ -89,8 +89,8 @@ class Lifecycle {
         }
     }
 
-    test(a, b) {
-        console.log("life cycle reached !\n first arg : " + a + " second arg : " + b)
+    test(a) {
+        console.log("life cycle reached !\n first arg : " + a)
     }
 
 } export default Lifecycle;

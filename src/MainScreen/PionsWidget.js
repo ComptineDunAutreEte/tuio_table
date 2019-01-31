@@ -56,13 +56,13 @@ class PionsWidget extends ElementWidget {
             for (var i = 0; i < PionsWidget.nbPions; i++){
                 if (PionsWidget.getPionsTouches()[i] == 1){
                     PionsWidget.setPionsTouches(i, 0);
+                    this.observer.test(this.src)
                    // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
                 }
             }
             PionsWidget.setPionsTouches(this.idp, 1);
             // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionB.png';
             console.log(PionsWidget.pionsTouches);
-
         }
     }
 
