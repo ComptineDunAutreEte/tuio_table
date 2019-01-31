@@ -29,6 +29,14 @@ class Lifecycle {
         this.finishedFormationScreen();
     }
 
+    pawnMoved(){
+        const message = "startQuestions"
+        const channel = "table"; // TOBE DEFINED
+        this.sendMessage(message,channel);
+        this.clearScreen();
+        this.loadWaitingScreen();
+    }
+
 
     // finishing functions
     finishedFirstscreen() {
@@ -61,12 +69,13 @@ class Lifecycle {
 
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
-        waitScreen.populate();
+        waitScreen.populate("app");
+        this.waitForResponse('table')
     }
 
     /* server communication functions */
     sendMessage(msg, channel) {
-        console.log("je notifiiieee le serveeeer");
+        console.log("je notifiiieee le serveeeer : " + msg);
         const socketIOUrl = 'http://localhost:4000';
         const socketServer = io.connect(socketIOUrl);
 
@@ -81,6 +90,16 @@ class Lifecycle {
         });
     }
 
+    waitForResponse(channel){
+        const socketIOUrl = 'http://localhost:4000';
+        const socketServer = io.connect(socketIOUrl);
+        socketServer.on(channel, (msg) => {
+           console.log(msg);
+           this.loadMainScreen();
+        });
+    }
+
+    /* MISC */
     clearScreen(t) {
         const root = document.getElementById("app");
         while (root.firstChild) {

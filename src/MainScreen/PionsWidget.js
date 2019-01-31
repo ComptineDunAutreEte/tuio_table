@@ -56,7 +56,7 @@ class PionsWidget extends ElementWidget {
             for (var i = 0; i < PionsWidget.nbPions; i++){
                 if (PionsWidget.getPionsTouches()[i] == 1){
                     PionsWidget.setPionsTouches(i, 0);
-                    this.observer.test(this.src)
+                    this.pawnTouched();
                    // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
                 }
             }
@@ -67,8 +67,13 @@ class PionsWidget extends ElementWidget {
     }
 
     onTouchUpdate(tuioTouch) {
-
     }
+
+    /* FOR DEMO SAKE */ 
+    pawnTouched(){
+        this.observer.pawnMoved();
+    }
+    /* END DEMO CODE */
 
     get domElem() { return this._domElem; }
 }
