@@ -25,8 +25,8 @@ class Lifecycle {
     formationChosen(RED_TEAM, BLUE_TEAM) {
         const message = "" + RED_TEAM + separator + BLUE_TEAM;
         const channel = "table"; // TOBE REDIFINED
-        console.log(message)
         this.sendMessage(message,channel)
+        this.finishedFormationScreen();
     }
 
 
@@ -37,7 +37,7 @@ class Lifecycle {
         this.loadFormationScreen();
     }
 
-    finishedSecondScreen() {
+    finishedFormationScreen() {
         console.log("FormationScreen DONE. transition to next screen")
         this.clearScreen();
         this.loadMainScreen();
