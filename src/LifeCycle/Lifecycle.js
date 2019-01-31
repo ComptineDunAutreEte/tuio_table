@@ -17,9 +17,8 @@ class Lifecycle {
     }
 
     start() {
-        console.log("starting")
-        //this.loadFirstScreen();
-         this.loadWaitingScreen();
+        this.loadFirstScreen();
+        // this.loadWaitingScreen();
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {
@@ -70,7 +69,7 @@ class Lifecycle {
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
         waitScreen.populate("app");
-        this.waitForResponse('table')
+        this.waitForResponse('table');
     }
 
     /* server communication functions */
