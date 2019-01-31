@@ -12,7 +12,7 @@ class FirstScreen {
 
     populate(id) {
         const pid = "#" + id;
-        const str = '<div id="firstScreen" class="row align-self-center align-items-center w-100"> </div>';
+        const str = '<div id="' + this.id + '" class="row align-self-center align-items-center w-100"> </div>';
         $(pid).append(str);
         this.createPlayerCountCOL(this.id);
         this.createConfirmBtn(this.id);
@@ -79,7 +79,6 @@ class FirstScreen {
             that.observer.finishedFirstscreen();
          };
         const message = this.playerCount + "," + this.difficultyLevel;
-        console.log("should be : " + message);
         /*
         const message = this.playerCount + "," + this.difficultyLevel;
         console.log("should be : " + message)

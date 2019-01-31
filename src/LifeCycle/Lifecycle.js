@@ -17,7 +17,6 @@ class Lifecycle {
     }
 
     start() {
-        console.log("starting")
         this.loadFirstScreen();
         // this.loadWaitingScreen();
     }
@@ -27,6 +26,14 @@ class Lifecycle {
         const channel = "table"; // TOBE REDIFINED
         this.sendMessage(message,channel)
         this.finishedFormationScreen();
+    }
+
+    pawnMoved(){
+        const message = "startQuestions"
+        const channel = "table"; // TOBE DEFINED
+        this.sendMessage(message,channel);
+        this.clearScreen();
+        this.loadWaitingScreen();
     }
 
 
@@ -55,18 +62,19 @@ class Lifecycle {
     }
 
     loadMainScreen() {
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT,this);
         mainScreen.populate("app");
     }
 
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
-        waitScreen.populate();
+        waitScreen.populate("app");
+        this.waitForResponse('table');
     }
 
     /* server communication functions */
     sendMessage(msg, channel) {
-        console.log("je notifiiieee le serveeeer");
+        console.log("je notifiiieee le serveeeer : " + msg);
         const socketIOUrl = 'http://localhost:4000';
         const socketServer = io.connect(socketIOUrl);
 
@@ -81,6 +89,16 @@ class Lifecycle {
         });
     }
 
+    waitForResponse(channel){
+        const socketIOUrl = 'http://localhost:4000';
+        const socketServer = io.connect(socketIOUrl);
+        socketServer.on(channel, (msg) => {
+           console.log(msg);
+           this.loadMainScreen();
+        });
+    }
+
+    /* MISC */
     clearScreen(t) {
         const root = document.getElementById("app");
         while (root.firstChild) {
@@ -89,8 +107,8 @@ class Lifecycle {
         }
     }
 
-    test(a, b) {
-        console.log("life cycle reached !\n first arg : " + a + " second arg : " + b)
+    test(a) {
+        console.log("life cycle reached !\n first arg : " + a)
     }
 
 } export default Lifecycle;
