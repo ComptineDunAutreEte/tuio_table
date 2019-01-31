@@ -66,6 +66,18 @@ class FirstScreen {
 
     notifyServer() {
         console.log("je notifiiieee");
+        const socketIOUrl = 'http://localhost:4000';
+        const io = require('socket.io-client');
+        const socketServer = io.connect(socketIOUrl);
+        socketServer.emit('loginTable', 'ézeuby');
+        console.log('table-out');
+        socketServer.on('table', (msg) => {
+          console.log(msg);
+        });
+      
+        socketServer.on('response', (msg) => {
+          console.log(msg);
+        });
     }
 
     // getters and setters
