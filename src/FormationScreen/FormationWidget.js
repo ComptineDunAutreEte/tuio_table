@@ -14,7 +14,7 @@ class FormationWidget extends ElementWidget {
      * @param {number} width - ImageWidget's width.
      * @param {number} height - ImageWidget's height.
      */
-    constructor(x, y, width, height, imgSrc) {
+    constructor(idf, x, y, width, height, imgSrc) {
         super(x, y, width, height, 0, 1);
         if (new.target === ElementWidget) {
             throw new TypeError('ElementWidget is an abstract class. It cannot be instanciated');
@@ -29,17 +29,40 @@ class FormationWidget extends ElementWidget {
         this._domElem.css('left', `${x}px`);
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
+        this.idf = idf;
     }
 
-    changeSrc(src){
-        this.src = src;
+    getId(){
+        return this.idf;
     }
 
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            console.log(" terrain touché");
+            if (this.src == 'assets/Formation/okR.PNG') {
+                if (!FormationWidget.okR){
+                    FormationWidget.okR = true;
+                    console.log("okR");
+                    document.getElementById("textEquipeR").innerHTML = "Vous avez choisi la " + FormationWidget.formationRChoisie.getId();
+                    // console.log("L'équipe rouge a choisi la formation" + FormationWidget.formationRChoisie.getId());
+                }
+            }
+            else if (this.src == 'assets/Formation/okB.PNG'){
+                if (!FormationWidget.okB){
+                    FormationWidget.okB = true;
+                    console.log("okB");
+                    document.getElementById("textEquipeB").innerHTML = "Vous avez choisi la " + FormationWidget.formationBChoisie.getId();
+                    // console.log("L'équipe bleue a choisi la formation" + FormationWidget.formationBChoisie.getId());
+                }
+            }
+            if (FormationWidget.okR && FormationWidget.okB){
+                this.envoiServeur("formation choisie");
+            }
         }
+    }
+
+    envoiServeur(msg){
+
     }
 
     onTouchUpdate(tuioTouch) {
@@ -48,5 +71,9 @@ class FormationWidget extends ElementWidget {
 
     get domElem() { return this._domElem; }
 }
+FormationWidget.okR = false;
+FormationWidget.okB = false;
+FormationWidget.formationRChoisie = null;
+FormationWidget.formationBChoisie = null;
 
 export default FormationWidget;

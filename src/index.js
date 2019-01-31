@@ -15,6 +15,8 @@ import MainScreen from './MainScreen/MainScreen';
 import TUIOManager from 'tuiomanager/core/TUIOManager';
 import ButtonWidget from './Widgets/ButtonWidget';
 import FormationWidget from './FormationScreen/FormationWidget';
+import FormationRWidget from './FormationScreen/FormationRWidget';
+import FormationBWidget from './FormationScreen/FormationBWidget';
 
 import FirstScreen from './FirstScreen/FirstScreen';
 /* * TUIOManager starter * */
@@ -32,7 +34,6 @@ function RemoveWidgets() {
 }
 
 function buildFormation() {
-    RemoveWidgets();
 
     console.log(WINDOW_HEIGHT);
     console.log(WINDOW_WIDTH);
@@ -54,22 +55,24 @@ function buildFormation() {
     const yOkR = yR + tok / 4;
     const yOkB = yB + tok / 4;
 
-    const form1R = new FormationWidget(xR1, yR, largeur, hauteur, 'assets/Formation/form1R.PNG');
+    const form1R = new FormationRWidget("formation 1", xR1, yR, largeur, hauteur, 'assets/Formation/form1R.PNG');
     form1R.addTo('#example-container');
-    const form2R = new FormationWidget(xR2, yR, largeur, hauteur,'assets/Formation/form2R.PNG');
+    const form2R = new FormationRWidget("formation 2", xR2, yR, largeur, hauteur,'assets/Formation/form2R.PNG');
     form2R.addTo('#example-container');
-    const form3R = new FormationWidget(xR3, yR, largeur, hauteur,'assets/Formation/form3R.PNG');
+    const form3R = new FormationRWidget("formation 3", xR3, yR, largeur, hauteur,'assets/Formation/form3R.PNG');
     form3R.addTo('#example-container');
-    const form1B = new FormationWidget(xB1, yB, largeur, hauteur,'assets/Formation/form1B.PNG');
+    const form1B = new FormationBWidget("formation 1", xB1, yB, largeur, hauteur,'assets/Formation/form1B.PNG');
     form1B.addTo('#example-container');
-    const form2B = new FormationWidget(xB2, yB, largeur, hauteur, 'assets/Formation/form2B.PNG');
+    const form2B = new FormationBWidget("formation 2", xB2, yB, largeur, hauteur, 'assets/Formation/form2B.PNG');
     form2B.addTo('#example-container');
-    const form3B = new FormationWidget(xB3, yB, largeur, hauteur,  'assets/Formation/form3B.PNG');
+    const form3B = new FormationBWidget("formation 3", xB3, yB, largeur, hauteur,  'assets/Formation/form3B.PNG');
     form3B.addTo('#example-container');
-    const okR = new FormationWidget(xOkR, yOkR, tok / 2, tok / 2,  'assets/Formation/okR.PNG');
+    const okR = new FormationWidget("OkR", xOkR, yOkR, tok / 2, tok / 2,  'assets/Formation/okR.PNG');
     okR.addTo('#example-container');
-    const okB = new FormationWidget(xOkB, yOkB, tok / 2, tok / 2, 'assets/Formation/okB.PNG');
+    const okB = new FormationWidget("OkB", xOkB, yOkB, tok / 2, tok / 2, 'assets/Formation/okB.PNG');
     okB.addTo('#example-container');
+
+
 
     /*  if (okR.isTouched()){
           console.log("il a etet t");
@@ -81,8 +84,7 @@ function buildFormation() {
 /* * App Code * */
 
 /* test of button widget */
-const buildSecondScreen = () => {
-    $('#app').append('<div id="example-container"> </div>');
+/* const buildSecondScreen = () => {
     buildFormation();
 
 
@@ -91,7 +93,7 @@ const buildSecondScreen = () => {
     // $('#app').load('src/test.html');
    /* const button = new ButtonWidget(100, 150, 900, 900, 'assets/example-health/candies.png');
     button.addTo('#app');*/
-};
+//};
 
 function loadFirstScreen() {
     const firstScreen = new FirstScreen();
@@ -107,6 +109,6 @@ $(window).ready(() => {
 
     console.log("Document well loaded");
     //loadFirstScreen();
-    //buildSecondScreen();
-   loadMainScreen();
+    buildFormation();
+   //loadMainScreen();
 });

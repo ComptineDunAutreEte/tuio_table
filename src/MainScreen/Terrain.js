@@ -1,12 +1,12 @@
 /*eslint-disable*/
-import FormationWidget from "../FormationScreen/FormationWidget";
 import Pions from "./Pions";
 import PionsWidget from "./PionsWidget";
+import TerrainWidget from "./TerrainWidget";
 
 class Terrain{
     constructor(x, y, width, height, div){
         this.div = div;
-        this.widget = new FormationWidget(x,y,width, height, 'assets/MainScreen/terrain1.png');
+        this.widget = new TerrainWidget(x,y,width, height, 'assets/MainScreen/terrain1.png');
         this.widget.addTo(div);
         this.pions = this.createPions();
      /*   this.pionsEquipeR = this.createPionsR();
@@ -15,16 +15,26 @@ class Terrain{
 
     createPions(){
         let t = {};
+        let inc = 2;
         let mx = 0;
-        let my = 0
-        for (var i = 0; i < 35; i++){
+        let my = 0;
+        let mt = 0;
+        for (var i = 0; i < 40; i++){
             if (i % 5 == 0){
+                if (inc == 2) inc = 1;
+                else inc = 2;
                 mx = i;
-                my = i * 40;
+                my = i * 38;
             }
-            t[i] = new Pions(280 + i + my,200 + (i-mx) * 150,"none");
+         /*   if (inc == 2){
+                mt = 85;
+            }
+            else {
+                mt = 0;
+            } */
+            t[i] = new Pions(220 + i + my,200 + (i-mx) * 150 - mt,"none");
         }
-        for (var j = 0; j < 35 ; j++){
+        for (var j = 0; j < 36 ; j++){
             console.log(PionsWidget.getPionsTouches()[j]);
         }
         return t;
