@@ -18,8 +18,8 @@ class Lifecycle {
 
     start() {
         console.log("starting")
-        this.loadFirstScreen();
-        // this.loadWaitingScreen();
+        //this.loadFirstScreen();
+         this.loadWaitingScreen();
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {

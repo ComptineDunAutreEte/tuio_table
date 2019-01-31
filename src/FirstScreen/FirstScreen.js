@@ -12,7 +12,7 @@ class FirstScreen {
 
     populate(id) {
         const pid = "#" + id;
-        const str = '<div id="firstScreen" class="row align-self-center align-items-center w-100"> </div>';
+        const str = '<div id="' + firstScreen + '" class="row align-self-center align-items-center w-100"> </div>';
         $(pid).append(str);
         this.createPlayerCountCOL(this.id);
         this.createConfirmBtn(this.id);
