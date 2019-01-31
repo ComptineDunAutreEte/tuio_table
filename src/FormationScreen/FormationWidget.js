@@ -33,7 +33,7 @@ class FormationWidget extends ElementWidget {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
             if (this.src == 'assets/Formation/okR.PNG') {
-                if (!FormationWidget.okR){
+                if (!FormationWidget.okR && FormationWidget.formationRChoisie !== null){
                     FormationWidget.okR = true;
                     console.log("okR");
                     document.getElementById("textEquipeR").innerHTML = "Vous avez choisi la " + FormationWidget.formationRChoisie.getId();
@@ -41,7 +41,7 @@ class FormationWidget extends ElementWidget {
                 }
             }
             else if (this.src == 'assets/Formation/okB.PNG'){
-                if (!FormationWidget.okB){
+                if (!FormationWidget.okB && FormationWidget.formationBChoisie !== null){
                     FormationWidget.okB = true;
                     console.log("okB");
                     document.getElementById("textEquipeB").innerHTML = "Vous avez choisi la " + FormationWidget.formationBChoisie.getId();
