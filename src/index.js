@@ -1,11 +1,5 @@
 /*eslint-disable*/
 
-/**
- * @author Christian Brel <ch.brel@gmail.com>
- * @author Vincent Forquet
- * @author Nicolas Forget
- */
-
 // Import JQuery
 import $ from 'jquery/dist/jquery.min';
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
@@ -15,14 +9,13 @@ import MainScreen from './MainScreen/MainScreen';
 import TUIOManager from 'tuiomanager/core/TUIOManager';
 import ButtonWidget from './Widgets/ButtonWidget';
 import FormationWidget from './FormationScreen/FormationWidget';
-
+import Lifecycle from './LifeCycle/Lifecycle'
 import FirstScreen from './FirstScreen/FirstScreen';
 /* * TUIOManager starter * */
 const tuioManager = new TUIOManager();
 tuioManager.start();
 
 let widgets = [];
-
 function RemoveWidgets() {
     $('#example-container').empty();
     for (let i = 0; i < widgets.length; i += 1) {
@@ -84,17 +77,10 @@ function buildFormation() {
 const buildSecondScreen = () => {
     $('#app').append('<div id="example-container"> </div>');
     buildFormation();
-
-
-  /*  $('document').ready(() => {
-    });*/
-    // $('#app').load('src/test.html');
-   /* const button = new ButtonWidget(100, 150, 900, 900, 'assets/example-health/candies.png');
-    button.addTo('#app');*/
 };
 
 function loadFirstScreen() {
-    const firstScreen = new FirstScreen();
+    const firstScreen = new FirstScreen(manager);
     firstScreen.populate("app");
 }
 
@@ -103,10 +89,15 @@ function loadMainScreen(){
     mainScreen.populate("app");
 }
 
-$(window).ready(() => {
+function comeAlive(){
+    const manager = new Lifecycle();
+    manager.start();
+}
 
+$('document').ready(() => {
     console.log("Document well loaded");
     //loadFirstScreen();
     //buildSecondScreen();
-   loadMainScreen();
+   //loadMainScreen();
+    comeAlive()
 });
