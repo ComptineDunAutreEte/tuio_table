@@ -20,6 +20,7 @@ class FirstScreen {
         document.getElementById(this.containerID).className = this.containerClass + " " + "firstScreenBackground";
     }
 
+    /** populate function **/
     createPlayerCountCOL(parentID) {
         const pid = "#" + parentID;
         // contenu
@@ -30,6 +31,12 @@ class FirstScreen {
         const btnsTexts = ['2 players', '4 players', '6 players'];
         const colors = ["secondary", "secondary", "secondary"];
         this.createRadioBtnGroup(btnsIDs, btnsTexts, colors, 'playerCountHalfRow');
+
+        for(let i = 0; i < btnsIDs.length; i++){
+            document.getElementById(btnsIDs[i]).onclick = () => {
+                this.setPlayerCount((i+1) *2);
+            }
+        }
     }
 
     createDifficultyLevelCOL(parentID) {
@@ -42,6 +49,12 @@ class FirstScreen {
         const btnsTexts = ['facile', 'moyen', 'difficile'];
         const colors = ["success", "warning", "danger"];
         this.createRadioBtnGroup(btnsIDs, btnsTexts, colors, 'diffHalfRow');
+
+        for(let i = 0; i < btnsIDs.length; i++){
+            document.getElementById(btnsIDs[i]).onclick = () => {
+                this.setDifficultyLevel(i + 1);
+            }
+        }
     }
 
     createRadioBtnGroup(ids, texts, colors, parentID) {
@@ -51,8 +64,8 @@ class FirstScreen {
         const selfstring = '<div id="' + selfIDstr + '" class="btn-group-lg btn-group-toggle" data-toggle="buttons"></div>'
         $(pid).append(selfstring);
         for (let i = 0; i < ids.length; i++) {
-            $(selfID).append('<label class="btn btn-' + colors[i] + '"> \
-            <input type="radio" name="options" id=' + ids[i] + 'autocomplete="off" checked>' + texts[i] + '</label>');
+            $(selfID).append('<label id="' + ids[i] + '" class="btn btn-' + colors[i] + '"> \
+            <input type="radio" name="options" autocomplete="off" checked>' + texts[i] + '</label>');
         }
     }
 
@@ -62,8 +75,10 @@ class FirstScreen {
         const that = this;
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
         document.getElementById(btnID).onclick = () => { that.notifyServer(that) };
+        /*
         const message = this.playerCount + "," + this.difficultyLevel;
         console.log("should be : " + message)
+        */
     }
 
     notifyServer(that) {
@@ -71,7 +86,7 @@ class FirstScreen {
         const socketIOUrl = 'http://localhost:4000';
         const socketServer = io.connect(socketIOUrl);
 
-        const message = that.playerCount + "," + that.difficultyLevel;
+        const message = that.getPlayerCount() + "," + that.getDifficultyLevel();
         
         console.log("sent : " + message)
         socketServer.emit('loginTable', message);
