@@ -1,5 +1,4 @@
 /* eslint-disable */
-const io = require('socket.io-client');             // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 
 class FirstScreen {
     constructor(obs) {
@@ -88,29 +87,12 @@ class FirstScreen {
     }
 
     notifyServer(that) {
-        console.log("je notifiiieee");
-        const socketIOUrl = 'http://localhost:4000';
-        const socketServer = io.connect(socketIOUrl);
         const message = that.playerCount + "," + that.difficultyLevel;
-
-        console.log("sent : " + message);
-   /*     const message = that.getPlayerCount() + "," + that.getDifficultyLevel();
-
-        console.log("sent : " + message)*/
-        socketServer.emit('loginTable', message);
-        console.log('table-out');
-        socketServer.on('table', (msg) => {
-            console.log(msg);
-        });
-
-        socketServer.on('response', (msg) => {
-            console.log(msg);
-        });
+        that.observer.sendMessage(message,'loginTable'); 
     }
 
     // getters and setters
     setPlayerCount(i) {
-        // add verification ?
         this.playerCount = i;
     }
 
@@ -119,7 +101,6 @@ class FirstScreen {
     }
 
     setDifficultyLevel(i) {
-        // add verification ?
         this.difficultyLevel = i;
     }
 
