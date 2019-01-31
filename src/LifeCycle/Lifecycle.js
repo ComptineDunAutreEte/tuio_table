@@ -2,6 +2,7 @@
 
 import FirstScreen from '../FirstScreen/FirstScreen';
 import MainScreen from '../MainScreen/MainScreen'
+import FormationScreen from '../FormationScreen/FormationScreen'
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 
 class Lifecycle {
@@ -16,27 +17,28 @@ class Lifecycle {
     }
 
     finishedFirstscreen() {
-        console.log("first screen DONE. Transition to second screen");
+        console.log("first screen DONE. Transition to next screen");
         this.clearScreen(this);
-        this.loadMainScreen();
+        this.loadFormationScreen();
     }
 
     finishedSecondScreen() {
-
+        console.log("FormationScreen DONE. transition to next screen")
     }
 
     /* Screens inflaters */
-    buildSecondScreen() {
+    loadFormationScreen() {
         $('#app').append('<div id="example-container"> </div>');
-        buildFormation();
-    };
-    
+        const formationScreen = new FormationScreen();
+        formationScreen.buildFormation();
+    }
+
     loadFirstScreen() {
         const firstScreen = new FirstScreen(this);
         firstScreen.populate("app");
     }
-    
-    loadMainScreen(){
+
+    loadMainScreen() {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT);
         mainScreen.populate("app");
     }

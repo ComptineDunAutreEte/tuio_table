@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import FormationWidget from "../FormationScreen/FormationWidget";
+import FormationWidget from "../Widgets/FormationWidget";
 import Pions from "./Pions";
 import PionsWidget from "./PionsWidget";
 
