@@ -4,7 +4,6 @@ import FirstScreen from '../FirstScreen/FirstScreen';
 import FormationScreen from '../FormationScreen/FormationScreen';
 import MainScreen from '../MainScreen/MainScreen';
 
-
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 import WaitingScreen from '../WaitingScreen/WaitingScreen';
 
@@ -18,8 +17,8 @@ class Lifecycle {
 
     start() {
         console.log("starting")
-        //this.loadFirstScreen();
-        this.loadWaitingScreen();
+        this.loadFirstScreen();
+       // this.loadWaitingScreen();
     }
 
     finishedFirstscreen() {
@@ -36,7 +35,7 @@ class Lifecycle {
 
     /* Screens inflaters */
     loadFormationScreen() {
-        const formationScreen = new FormationScreen();
+        const formationScreen = new FormationScreen(this);
         formationScreen.buildFormation();
     }
 
@@ -78,6 +77,10 @@ class Lifecycle {
             root.className = "container-fluid d-flex h-100";
             root.removeChild(root.firstChild);
         }
+    }
+
+    test(a,b){
+        console.log("life cycle reached !\n first arg : " + a + " second arg : " + b)
     }
 
 } export default Lifecycle;

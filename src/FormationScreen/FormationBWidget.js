@@ -11,7 +11,7 @@ class FormationBWidget extends FormationWidget{
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
             if (!FormationWidget.okB) {
                 console.log("L'équipe B a choisi la formation " + this.getId());
-                FormationWidget.formationRChoisie = this;
+                FormationWidget.formationBChoisie = this;
                 document.getElementById("textEquipeB").innerHTML = "L'équipe bleu a choisi la " + this.getId();
             }
             else {

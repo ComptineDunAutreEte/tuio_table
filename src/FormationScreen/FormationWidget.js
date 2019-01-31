@@ -22,6 +22,7 @@ class FormationWidget extends ElementWidget {
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
         this.idf = idf;
+        this.observer = null;
     }
 
     getId(){
@@ -48,7 +49,7 @@ class FormationWidget extends ElementWidget {
                 }
             }
             if (FormationWidget.okR && FormationWidget.okB){
-                this.envoiServeur("formation choisie");
+                this.observer.test(FormationWidget.formationBChoisie.getId(),FormationWidget.formationRChoisie.getId());
             }
         }
     }
