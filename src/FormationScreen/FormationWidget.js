@@ -49,13 +49,9 @@ class FormationWidget extends ElementWidget {
                 }
             }
             if (FormationWidget.okR && FormationWidget.okB){
-                this.observer.test(FormationWidget.formationBChoisie.getId(),FormationWidget.formationRChoisie.getId());
+                this.observer.formationChosen(FormationWidget.formationRChoisie.getId(),FormationWidget.formationBChoisie.getId());
             }
         }
-    }
-
-    envoiServeur(msg){
-
     }
 
     onTouchUpdate(tuioTouch) {

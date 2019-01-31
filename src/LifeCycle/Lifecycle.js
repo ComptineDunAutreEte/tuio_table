@@ -8,6 +8,7 @@ import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 import WaitingScreen from '../WaitingScreen/WaitingScreen';
 
 const io = require('socket.io-client');             // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
+const separator = ",";
 
 class Lifecycle {
 
@@ -18,9 +19,18 @@ class Lifecycle {
     start() {
         console.log("starting")
         this.loadFirstScreen();
-       // this.loadWaitingScreen();
+        // this.loadWaitingScreen();
     }
 
+    formationChosen(RED_TEAM, BLUE_TEAM) {
+        const message = "" + RED_TEAM + separator + BLUE_TEAM;
+        const channel = "table"; // TOBE REDIFINED
+        console.log(message)
+        this.sendMessage(message,channel)
+    }
+
+
+    // finishing functions
     finishedFirstscreen() {
         console.log("first screen DONE. Transition to next screen");
         this.clearScreen(this);
@@ -49,7 +59,7 @@ class Lifecycle {
         mainScreen.populate("app");
     }
 
-    loadWaitingScreen(){
+    loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
         waitScreen.populate();
     }
@@ -79,7 +89,7 @@ class Lifecycle {
         }
     }
 
-    test(a,b){
+    test(a, b) {
         console.log("life cycle reached !\n first arg : " + a + " second arg : " + b)
     }
 
