@@ -7,15 +7,6 @@ import Pions from "./Pions";
 
 class PionsWidget extends ElementWidget {
 
-    /**
-     * ImageWidget constructor.
-     *
-     * @constructor
-     * @param {number} x - ImageWidget's upperleft coin abscissa.
-     * @param {number} y - ImageWidget's upperleft coin ordinate.
-     * @param {number} width - ImageWidget's width.
-     * @param {number} height - ImageWidget's height.
-     */
     constructor(x, y, width, height, imgSrc) {
         super(x, y, width, height, 0, 1);
         if (new.target === ElementWidget) {
