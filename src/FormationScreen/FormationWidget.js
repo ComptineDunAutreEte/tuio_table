@@ -4,7 +4,7 @@ import $ from 'jquery/dist/jquery.min';
 import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 
 
-class ButtonWidget extends ElementWidget {
+class FormationWidget extends ElementWidget {
     /**
      * ImageWidget constructor.
      *
@@ -31,6 +31,10 @@ class ButtonWidget extends ElementWidget {
         this.hasDuplicate = false;
     }
 
+    changeSrc(src){
+        this.src = src;
+    }
+
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
@@ -38,7 +42,11 @@ class ButtonWidget extends ElementWidget {
         }
     }
 
+    onTouchUpdate(tuioTouch) {
+
+    }
+
     get domElem() { return this._domElem; }
 }
 
-export default ButtonWidget;
+export default FormationWidget;

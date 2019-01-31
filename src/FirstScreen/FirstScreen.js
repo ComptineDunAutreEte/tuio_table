@@ -61,9 +61,9 @@ class FirstScreen {
         const btnID = "confirmFirstScreenBtn";
         const that = this;
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
-        document.getElementById(btnID).onclick = () => { that.notifyServer(that) };
+        document.getElementById(btnID).onclick = () => { that.notifyServer(that); };
         const message = this.playerCount + "," + this.difficultyLevel;
-        console.log("should be : " + message)
+        console.log("should be : " + message);
     }
 
     notifyServer(that) {
@@ -72,8 +72,8 @@ class FirstScreen {
         const socketServer = io.connect(socketIOUrl);
 
         const message = that.playerCount + "," + that.difficultyLevel;
-        
-        console.log("sent : " + message)
+
+        console.log("sent : " + message);
         socketServer.emit('loginTable', message);
         console.log('table-out');
         socketServer.on('table', (msg) => {
