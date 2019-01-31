@@ -1,4 +1,5 @@
 /* eslint-disable */
+const io = require('socket.io-client');             // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 
 class FirstScreen {
     constructor() {
@@ -44,7 +45,6 @@ class FirstScreen {
     }
 
     createRadioBtnGroup(ids, texts, colors, parentID) {
-        console.log("creating radio buttons...")
         const pid = "#" + parentID;
         const selfIDstr = parentID + "radioGroup";
         const selfID = "#" + selfIDstr;
@@ -61,22 +61,27 @@ class FirstScreen {
         const btnID = "confirmFirstScreenBtn";
         const that = this;
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
-        document.getElementById(btnID).onclick = that.notifyServer;
+        document.getElementById(btnID).onclick = () => { that.notifyServer(that) };
+        const message = this.playerCount + "," + this.difficultyLevel;
+        console.log("should be : " + message)
     }
 
-    notifyServer() {
+    notifyServer(that) {
         console.log("je notifiiieee");
         const socketIOUrl = 'http://localhost:4000';
-        const io = require('socket.io-client');
         const socketServer = io.connect(socketIOUrl);
-        socketServer.emit('loginTable', 'ézeuby');
+
+        const message = that.playerCount + "," + that.difficultyLevel;
+        
+        console.log("sent : " + message)
+        socketServer.emit('loginTable', message);
         console.log('table-out');
         socketServer.on('table', (msg) => {
-          console.log(msg);
+            console.log(msg);
         });
-      
+
         socketServer.on('response', (msg) => {
-          console.log(msg);
+            console.log(msg);
         });
     }
 
