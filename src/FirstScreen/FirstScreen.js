@@ -58,7 +58,14 @@ class FirstScreen {
 
     createConfirmBtn(parentID) {
         const pid = "#" + parentID;
-        $(pid).append('<button id="confirmFirstScreenBtn" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
+        const btnID = "confirmFirstScreenBtn";
+        const that = this;
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
+        document.getElementById(btnID).onclick = that.notifyServer;
+    }
+
+    notifyServer() {
+        console.log("je notifiiieee");
     }
 
     // getters and setters

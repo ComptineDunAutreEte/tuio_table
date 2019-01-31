@@ -14,10 +14,6 @@ import FirstScreen from './FirstScreen/FirstScreen'
 const tuioManager = new TUIOManager();
 tuioManager.start();
 
-/** Main container infos **/
-const mainContainerID = "app";
-const mainContainerClass = "container-fluid d-flex h-100";
-
 /* * App Code * */
 
 /* test of button widget */
@@ -29,7 +25,7 @@ const buildApp = () => {
 function loadFirstScreen() {
     console.log("loading First Screen...");
     const firstScreen = new FirstScreen();
-    firstScreen.populate(mainContainerID);
+    firstScreen.populate("app");
     console.log("finished loading First Screen.");
 }
 
