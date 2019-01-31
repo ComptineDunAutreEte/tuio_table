@@ -38,7 +38,7 @@ class FormationWidget extends ElementWidget {
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            console.log(" je suis toucheeyyyy");
+            console.log(" terrain touché");
         }
     }
 

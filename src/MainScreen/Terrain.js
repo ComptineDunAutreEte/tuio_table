@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import FormationWidget from "../FormationScreen/FormationWidget";
 import Pions from "./Pions";
+import PionsWidget from "./PionsWidget";
 
 class Terrain{
     constructor(x, y, width, height, div){
@@ -22,6 +23,9 @@ class Terrain{
                 my = i * 40;
             }
             t[i] = new Pions(280 + i + my,200 + (i-mx) * 150,"none");
+        }
+        for (var j = 0; j < 35 ; j++){
+            console.log(PionsWidget.getPionsTouches()[j]);
         }
         return t;
     }

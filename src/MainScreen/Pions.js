@@ -30,7 +30,6 @@ class Pions{
     }
 
     updateActionsPossibles(){
-
     }
 }
 export default Pions;

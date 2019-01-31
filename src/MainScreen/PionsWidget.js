@@ -2,9 +2,11 @@
 
 import $ from 'jquery/dist/jquery.min';
 import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
+import Pions from "./Pions";
 
 
 class PionsWidget extends ElementWidget {
+
     /**
      * ImageWidget constructor.
      *
@@ -29,6 +31,27 @@ class PionsWidget extends ElementWidget {
         this._domElem.css('left', `${x}px`);
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
+        for (var i = 0; i < PionsWidget.nbPions; i++){
+            PionsWidget.setPionsTouches(i, 0);
+        }
+        PionsWidget.listPions.push(this);
+        this.idp = PionsWidget.nbPions;
+        PionsWidget.nbPions++;
+    }
+
+    static getListePions(){
+        return PionsWidget.listPions;
+    }
+    static getPionsTouches(){
+        return PionsWidget.pionsTouches;
+    }
+
+    static setPionsTouches(id, val){
+        PionsWidget.pionsTouches[id] = val;
+    }
+
+    getSrc(){
+        return this.src;
     }
 
     changeSrc(src){
@@ -38,7 +61,17 @@ class PionsWidget extends ElementWidget {
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            console.log(" je suis toucheeyyyy");
+            console.log(" pion toucheeyyyy");
+            for (var i = 0; i < PionsWidget.nbPions; i++){
+                if (PionsWidget.getPionsTouches()[i] == 1){
+                    PionsWidget.setPionsTouches(i, 0);
+                   // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
+                }
+            }
+            PionsWidget.setPionsTouches(this.idp, 1);
+            // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionB.png';
+            console.log(PionsWidget.pionsTouches);
+
         }
     }
 
@@ -48,5 +81,8 @@ class PionsWidget extends ElementWidget {
 
     get domElem() { return this._domElem; }
 }
+PionsWidget.nbPions = 0;
+PionsWidget.listPions = [];
+PionsWidget.pionsTouches = [];
 
 export default PionsWidget;
