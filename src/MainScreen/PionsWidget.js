@@ -110,8 +110,10 @@ class PionsWidget extends ElementWidget {
                   //  this.pawnTouched("red");
                 }
             }
+            /*
             console.log(this.src);
             console.log(PionsWidget.pionsTouches[this.idp]);
+            */
         }
     }
 
