@@ -82,7 +82,6 @@ class Lifecycle {
         } else if (str === "indiv") {
             this.loadWaitingScreen();
         }
-
     }
 
 
@@ -121,9 +120,6 @@ class Lifecycle {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         mainScreen.populate("app");
        // $('#app').addEventListener('click',that.loadMainScreen());
-       document.getElementById('app').onclick = () => {
-           this.loadMainScreen();
-       }
     }
 
     loadWaitingScreen() {
