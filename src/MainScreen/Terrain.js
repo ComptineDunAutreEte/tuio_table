@@ -22,8 +22,8 @@ class Terrain {
     }
     createPions(){
         let t = [];
-        let pionsB = [1,3,5,9,11/*,30,32, 36,38,40*/];
-        let pionsR = [/*15,17,19,23,25,*/ 44, 46, 50,52,54];
+        let pionsB = [2,4,8,10,12/*,30,32, 36,38,40*/];
+        let pionsR = [/*15,17,19,23,25,*/ 43, 45, 47,51,53];
         let inc = 2;
         let mx = 0;
         let my = 0;
