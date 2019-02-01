@@ -5,15 +5,7 @@ import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 
 
 class FormationWidget extends ElementWidget {
-    /**
-     * ImageWidget constructor.
-     *
-     * @constructor
-     * @param {number} x - ImageWidget's upperleft coin abscissa.
-     * @param {number} y - ImageWidget's upperleft coin ordinate.
-     * @param {number} width - ImageWidget's width.
-     * @param {number} height - ImageWidget's height.
-     */
+
     constructor(idf, x, y, width, height, imgSrc) {
         super(x, y, width, height, 0, 1);
         if (new.target === ElementWidget) {
@@ -30,6 +22,7 @@ class FormationWidget extends ElementWidget {
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
         this.idf = idf;
+        this.observer = null;
     }
 
     getId(){
@@ -40,7 +33,7 @@ class FormationWidget extends ElementWidget {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
             if (this.src == 'assets/Formation/okR.PNG') {
-                if (!FormationWidget.okR){
+                if (!FormationWidget.okR && FormationWidget.formationRChoisie !== null){
                     FormationWidget.okR = true;
                     console.log("okR");
                     document.getElementById("textEquipeR").innerHTML = "Vous avez choisi la " + FormationWidget.formationRChoisie.getId();
@@ -48,7 +41,7 @@ class FormationWidget extends ElementWidget {
                 }
             }
             else if (this.src == 'assets/Formation/okB.PNG'){
-                if (!FormationWidget.okB){
+                if (!FormationWidget.okB && FormationWidget.formationBChoisie !== null){
                     FormationWidget.okB = true;
                     console.log("okB");
                     document.getElementById("textEquipeB").innerHTML = "Vous avez choisi la " + FormationWidget.formationBChoisie.getId();
@@ -56,13 +49,9 @@ class FormationWidget extends ElementWidget {
                 }
             }
             if (FormationWidget.okR && FormationWidget.okB){
-                this.envoiServeur("formation choisie");
+                this.observer.formationChosen(FormationWidget.formationRChoisie.getId(),FormationWidget.formationBChoisie.getId());
             }
         }
-    }
-
-    envoiServeur(msg){
-
     }
 
     onTouchUpdate(tuioTouch) {

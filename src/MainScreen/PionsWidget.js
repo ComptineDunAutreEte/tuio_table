@@ -7,6 +7,7 @@ import Pions from "./Pions";
 
 class PionsWidget extends ElementWidget {
 
+
     /**
      * ImageWidget constructor.
      *
@@ -95,6 +96,8 @@ class PionsWidget extends ElementWidget {
                     /*PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
                     this.deleteWidget();
                     PionsWidget.nbPions--;*/
+                   // this.pawnTouched();
+                   // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
                 }
             }
             PionsWidget.setPionsTouches(this.idp, 1);
@@ -116,15 +119,18 @@ class PionsWidget extends ElementWidget {
             }
             else {}
             // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionB.png';
-
-
             console.log(PionsWidget.pionsTouches);
         }
     }
 
     onTouchUpdate(tuioTouch) {
-
     }
+
+    /* FOR DEMO SAKE */
+    pawnTouched(){
+        this.observer.pawnMoved();
+    }
+    /* END DEMO CODE */
 
     get domElem() { return this._domElem; }
 }
