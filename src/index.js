@@ -27,40 +27,7 @@ function loadFirstScreen() {
     firstScreen.populate("app");
 }
 
-let done = 0;
-
-function enableMessage() {
-    document.getElementById('messageT').style.visibility = 'visible';
-    document.getElementById('messageB').style.visibility = 'visible';
-    client.send('video-resume-question-collectif', '');
-}
-
-function myScript() {
-    const video = document.querySelector('#videoTop');
-    // console.log(video);
-    if (video.currentTime >= 5) {
-        video.pause();
-        done += 1;
-        // console.log(done);
-        if (done === 3) {
-            enableMessage();
-        }
-    }
-}
-
-function myScript2() {
-    const video = document.querySelector('#videoBot');
-    // console.log(video);
-    if (video.currentTime >= 5) {
-        video.pause();
-        done += 1;
-        // console.log(done);
-        if (done === 3) {
-            enableMessage();
-        }
-    }
-}
-
+/*
 function toQuestionnaireView() {
     $('#app').load('src/questionnaire/questionnaire.html');
     $('#videoTop').ready(() => {
@@ -73,18 +40,14 @@ function toQuestionnaireView() {
         video.addEventListener('timeupdate', myScript2);
         // .ontimeupdate = () => myScript(document.querySelector('#videoTop'));
     });
-}
+}*/
 
 const buildApp = () => {
     // $('#app').append('<div id="example-container"> </div>');
 
 
     // $('#app').load('src/questionnaire/connect.html');
-    // console.log(client);
-    client.send('login', '');
-    client.getSocket().on('start-question-collectif', (message) => {
-        toQuestionnaireView();
-    });
+    // console.log(client)
 
     // vidT.addEventListener('timeupdate', () => pause(vidT));
 
@@ -122,7 +85,7 @@ function comeAlive() {
 
 $('document').ready(() => {
     console.log("Document well loaded");
-    comeAlive()
-        //loadFirstScreen();
-        //buildFormation();
+    comeAlive();
+    //loadFirstScreen();
+    //buildFormation();
 });
