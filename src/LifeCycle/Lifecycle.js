@@ -82,6 +82,7 @@ class Lifecycle {
         } else if (str === "indiv") {
             this.loadWaitingScreen();
         }
+
     }
 
 
@@ -143,6 +144,7 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
+        const that = this;
         client.getSocket().on('table', (msg) => {
             console.log(msg);
         });
@@ -150,8 +152,12 @@ class Lifecycle {
             console.log(msg);
         });
         client.getSocket().on('start-question-collectif', (message) => {
-            toQuestionnaireView();
+            // toQuestionnaireView();
         });
+        client.getSocket().on('responseIndivQuestion', (msg) => {
+            console.log(msg)
+            that.loadMainScreen();
+        })
         client.send('login', '');
     }
 
