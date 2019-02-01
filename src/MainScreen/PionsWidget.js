@@ -7,16 +7,6 @@ import Pions from "./Pions";
 
 class PionsWidget extends ElementWidget {
 
-
-    /**
-     * ImageWidget constructor.
-     *
-     * @constructor
-     * @param {number} x - ImageWidget's upperleft coin abscissa.
-     * @param {number} y - ImageWidget's upperleft coin ordinate.
-     * @param {number} width - ImageWidget's width.
-     * @param {number} height - ImageWidget's height.
-     */
     constructor(idp, x, y, width, height, imgSrc) {
         super(x, y, width, height, 0, 1);
         if (new.target === ElementWidget) {
@@ -89,21 +79,35 @@ class PionsWidget extends ElementWidget {
         super.onTouchCreation(tuioTouch);
         // SI LE PION EST TOUCHE
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            this.deselectionnerAll(this);
-            if (PionsWidget.getPionsTouches()[this.idp] != 1) {
-                console.log("selectionné");
-                PionsWidget.setPionsTouches(this.idp, 1);
-                if (this.src === 'assets/MainScreen/pionB.png') {
-                    this.src = 'assets/MainScreen/pionBS.png';
-                    new PionsWidget(-1, this.x + 20, this.y + 20, this.width, this.height, this.src);
-                    //this.changeSrc("bleuS");
-                    console.log("2");
-                    this.pawnTouched("blue");
-                } else if (this.src === 'assets/MainScreen/pionR.png') {
-                    this.src = 'assets/MainScreen/pionRS.png';
-                    //this.changeSrc("rougeS");
-                    console.log("4");
-                    this.pawnTouched("blue");
+
+            console.log(PionsWidget.getListePions()[this.idp].src);
+
+            //DANS TOUS LES AUTRES PIONS
+            for (var i = 0; i < PionsWidget.nbPions; i++) {
+                //ON VERIFIE QUE DANS LA LISTE DES PIONS TOUCHES S'IL Y'EN A UN QUI EST TOUCHE
+                if (PionsWidget.getPionsTouches()[i] == 1) {
+                    //const tpion = PionsWidget.getListePions()[i];
+                    PionsWidget.setPionsTouches(i, 0);
+                    if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionBS.png') {
+                        PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionB';
+                        this.pawnTouched("blue");
+                        /*PionsWidget.nbPions--;
+                        tpion.deleteWidget();
+                        PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "bleu");*/
+                    } else if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionRS.png') {
+                        PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionR';
+                        this.pawnTouched("red");
+                        /* PionsWidget.nbPions--;
+                         tpion.deleteWidget();
+                         PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "rouge");*/
+                    } else {
+
+                    }
+                    /*PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
+                    this.deleteWidget();
+                    PionsWidget.nbPions--;*/
+                    // this.pawnTouched();
+                    // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
                 }
             } else {
                 console.log("désélectionné");
@@ -126,10 +130,14 @@ class PionsWidget extends ElementWidget {
     onTouchUpdate(tuioTouch){}
 
     /* FOR DEMO CODE */
-    pawnTouched(){
+    pawnTouched(type) {
             console.log("pawntouchedc; obs = ");
             console.log(this.observer);
-            this.observer.pawnMoved();
+            if (type === "blue"){
+                this.observer.pawnMoved("indiv");
+            } else if (type === "red"){
+                this.observer.pawnMoved("collectif");
+            }
         }
         /* END DEMO CODE */
 
