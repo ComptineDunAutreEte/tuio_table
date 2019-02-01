@@ -22,8 +22,28 @@ class Terrain {
     }
     createPions(){
         let t = [];
-        let pionsB = [2,4,8,10,12/*,30,32, 36,38,40*/];
-        let pionsR = [/*15,17,19,23,25,*/ 43, 45, 47,51,53];
+        let pionsB = [];
+        let pionsR = [];
+     //   pionsB = [2,4,8,10,12/*,30,32, 36,38,40*/];
+       // pionsR = [/*15,17,19,23,25,*/ 43, 45, 47,51,53];
+        if (FormationWidget.formationBChoisie.getId() === "1"){
+            pionsB = [2,4,8,10,12/*,30,32, 36,38,40*/];
+        }
+        else if (FormationWidget.formationBChoisie.getId()=== "2"){
+            pionsB = [2,3,4,5,10/*,30,32, 36,38,40*/];
+        }
+        else if (FormationWidget.formationBChoisie.getId() === "3"){
+            pionsB = [1,5,9,10,11/*,30,32, 36,38,40*/];
+       }
+        if (FormationWidget.formationRChoisie.getId() === "1"){
+            pionsR = [/*15,17,19,23,25,*/ 43, 45, 47,51,53];
+      }
+        else if (FormationWidget.formationRChoisie.getId() === "2"){
+            pionsR = [/*15,17,19,23,25,*/ 45, 50, 51,52,53];
+        }
+        else if (FormationWidget.formationRChoisie.getId() === "3"){
+            pionsR = [/*15,17,19,23,25,*/ 44, 45, 46,50,54];
+        }
         let inc = 2;
         let mx = 0;
         let my = 0;
@@ -57,9 +77,9 @@ class Terrain {
                    mt = 0;
                } */
         }
-        for (var j = 0; j < 36; j++) {
+       /* for (var j = 0; j < 36; j++) {
             console.log(PionsWidget.getPionsTouches()[j]);
-        }
+        }*/
         return t;
 
     }
