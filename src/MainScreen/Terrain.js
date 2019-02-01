@@ -20,7 +20,7 @@ class Terrain {
         /*   this.pionsEquipeR = this.createPionsR();
            this.pionsEquipeB = this.createPionsB();*/
     }
-    createPions(){
+    createPions() {
         let t = [];
         let pionsB = [];
         let pionsR = [];
@@ -48,28 +48,26 @@ class Terrain {
         let mx = 0;
         let my = 0;
         let mt = 0;
-        for (var i = 0; i < 56; i++){
-            if (i % 7 == 0){
+        for (var i = 0; i < 56; i++) {
+            if (i % 7 == 0) {
                 if (inc == 2) inc = 1;
                 else inc = 2;
                 mx = i;
                 my = i * 29;
             }
-         /*   if (inc == 2){
-                mt = 85;
+            /*   if (inc == 2){
+                   mt = 85;
+               }
+               else {
+                   mt = 0;
+               } */
+            if (pionsB.includes(i)) {
+                t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "bleu");
+            } else if (pionsR.includes(i)) {
+                t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "rouge");
+            } else {
+                t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "none");
             }
-            else {
-                mt = 0;
-            } */
-             if (pionsB.includes(i)){
-                 t[i] = new Pions(-1, 200 + i + my,100 + (i-mx) * 130 - mt,"bleu");
-             }
-             else if (pionsR.includes(i)){
-                 t[i] = new Pions(-1, 200 + i + my,100 + (i-mx) * 130 - mt,"rouge");
-             }
-             else {
-                 t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "none");
-             }
             /*   if (inc == 2){
                    mt = 85;
                }
@@ -101,8 +99,8 @@ class Terrain {
       }*/
 
     attachObserverToPawns(obs) {
-        for (let i = 0; i < this.pions.length; i++) {
-            const temp = this.pions[i].widget;
+        for (let i = 0; i < PionsWidget.listPions.length; i++) {
+            const temp = PionsWidget.listPions[i];
             temp["observer"] = obs;
         }
     }
