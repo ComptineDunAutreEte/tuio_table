@@ -18,7 +18,7 @@ class Lifecycle {
 
     start() {
         this.loadFirstScreen();
-        this.loadMainScreen();
+        // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
 
