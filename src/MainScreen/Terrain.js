@@ -15,17 +15,19 @@ class Terrain{
     }
 
     createPions(){
-        let t = {};
+        let t = [];
+        let pionsB = [1,3,5,9,11/*,30,32, 36,38,40*/];
+        let pionsR = [/*15,17,19,23,25,*/ 44, 46, 50,52,54];
         let inc = 2;
         let mx = 0;
         let my = 0;
         let mt = 0;
-        for (var i = 0; i < 40; i++){
-            if (i % 5 == 0){
+        for (var i = 0; i < 56; i++){
+            if (i % 7 == 0){
                 if (inc == 2) inc = 1;
                 else inc = 2;
                 mx = i;
-                my = i * 38;
+                my = i * 29;
             }
          /*   if (inc == 2){
                 mt = 85;
@@ -33,7 +35,15 @@ class Terrain{
             else {
                 mt = 0;
             } */
-            t[i] = new Pions(220 + i + my,200 + (i-mx) * 150 - mt,"none");
+             if (pionsB.includes(i)){
+                 t[i] = new Pions(-1, 200 + i + my,100 + (i-mx) * 130 - mt,"bleu");
+             }
+             else if (pionsR.includes(i)){
+                 t[i] = new Pions(-1, 200 + i + my,100 + (i-mx) * 130 - mt,"rouge");
+             }
+             else {
+                 t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "none");
+             }
         }
         for (var j = 0; j < 36 ; j++){
             console.log(PionsWidget.getPionsTouches()[j]);

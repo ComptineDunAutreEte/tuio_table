@@ -8,7 +8,7 @@ import MainScreen from './MainScreen/MainScreen';
 // Import TUIOManager
 import TUIOManager from 'tuiomanager/core/TUIOManager';
 import ButtonWidget from './Widgets/ButtonWidget';
-import Lifecycle from './LifeCycle/Lifecycle'
+import Lifecycle from './LifeCycle/Lifecycle';
 import FormationWidget from './FormationScreen/FormationWidget';
 import FormationBWidget from './FormationScreen/FormationBWidget';
 import FormationRWidget from './FormationScreen/FormationRWidget';
@@ -84,8 +84,8 @@ function comeAlive() {
 
 $('document').ready(() => {
     console.log("Document well loaded");
-    comeAlive()
+    //comeAlive()
     //loadFirstScreen();
     //buildFormation();
-   //loadMainScreen();
+   loadMainScreen();
 });

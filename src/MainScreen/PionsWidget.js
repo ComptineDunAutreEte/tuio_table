@@ -16,7 +16,7 @@ class PionsWidget extends ElementWidget {
      * @param {number} width - ImageWidget's width.
      * @param {number} height - ImageWidget's height.
      */
-    constructor(x, y, width, height, imgSrc) {
+    constructor(idp, x, y, width, height, imgSrc) {
         super(x, y, width, height, 0, 1);
         if (new.target === ElementWidget) {
             throw new TypeError('ElementWidget is an abstract class. It cannot be instanciated');
@@ -35,8 +35,12 @@ class PionsWidget extends ElementWidget {
             PionsWidget.setPionsTouches(i, 0);
         }
         PionsWidget.listPions.push(this);
-        this.idp = PionsWidget.nbPions;
+        if (idp == -1) this.idp = PionsWidget.nbPions;
+        else this.idp = idp;
         PionsWidget.nbPions++;
+        this.voisins = [this.idp - 1, this.idp + 1, this.idp - 6, this.idp - 7, this.idp - 8, this.idp + 6,this.idp + 7, this.idp + 8];
+        // voir : en fait si on appuye sur un bouton il faudrait le garde en mémoire si c'est un bouton qui n'était pas
+        //sléctionné, lequel on garde en mémoire ?
     }
 
     static getListePions(){
@@ -50,6 +54,7 @@ class PionsWidget extends ElementWidget {
         PionsWidget.pionsTouches[id] = val;
     }
 
+
     getSrc(){
         return this.src;
     }
@@ -58,20 +63,62 @@ class PionsWidget extends ElementWidget {
         this.src = src;
     }
 
+    deleteWidget() {
+        super.deleteWidget();
+    }
+
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            console.log(" pion toucheeyyyy");
+            console.log(PionsWidget.getListePions()[this.idp].src);
+            //remise à 0 des autres pions touchés
             for (var i = 0; i < PionsWidget.nbPions; i++){
                 if (PionsWidget.getPionsTouches()[i] == 1){
+                    //const tpion = PionsWidget.getListePions()[i];
                     PionsWidget.setPionsTouches(i, 0);
-                   // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
+                    if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionBS.png') {
+                        console.log("pion bleuS touche");
+                        PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionB';
+                        /*PionsWidget.nbPions--;
+                        tpion.deleteWidget();
+                        PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "bleu");*/
+                    }
+                    else if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionRS.png') {
+                        console.log("pion rougeS touche");
+                        PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionR';
+                       /* PionsWidget.nbPions--;
+                        tpion.deleteWidget();
+                        PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "rouge");*/
+
+                    }
+                    else {}
+                    /*PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
+                    this.deleteWidget();
+                    PionsWidget.nbPions--;*/
                 }
             }
             PionsWidget.setPionsTouches(this.idp, 1);
-            // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionB.png';
-            console.log(PionsWidget.pionsTouches);
+            if (this.src == 'assets/MainScreen/pionB.png') {
+                console.log("pion bleu touche");
+               this.src = 'assets/MainScreen/pionBS.png';
+               /*PionsWidget.nbPions--;
+               PionsWidget.getListePions()[this.idp] = new Pions(this.idp, this.x, this.y, "bleuS");
+               this.deleteWidget();*/
 
+            }
+            else if (this.src == 'assets/MainScreen/pionR.png') {
+                console.log("pion rouge touche");
+               this.src = 'assets/MainScreen/pionRS.png';
+               /* PionsWidget.nbPions--;
+                PionsWidget.getListePions()[this.idp] = new Pions(this.idp, this.x, this.y, "rougeS");
+                this.deleteWidget();*/
+
+            }
+            else {}
+            // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionB.png';
+
+
+            console.log(PionsWidget.pionsTouches);
         }
     }
 

@@ -3,7 +3,7 @@
 import PionsWidget from "./PionsWidget";
 
 class Pions{
-    constructor(x,y,couleur){
+    constructor(idp, x,y,couleur){
         this.couleur = couleur;
         this.ballon = false;
         this.x = x;
@@ -14,8 +14,10 @@ class Pions{
 
         if (couleur == "rouge"){this.src = 'assets/MainScreen/pionR.png';}
         else if (couleur == "bleu") {this.src = 'assets/MainScreen/pionB.png';}
-        else {this.src = 'assets/MainScreen/pionN.png';}
-        this.widget = new PionsWidget(x, y, 100,100, this.src);
+        else if (couleur == "bleuS") {this.src = 'assets/MainScreen/pionBS.png';}
+        else if (couleur == "rougeS") {this.src = 'assets/MainScreen/pionRS.png';}
+        else if (couleur == "none") {this.src = 'assets/MainScreen/pionN.png';}
+        this.widget = new PionsWidget(idp, x, y, 100,100, this.src);
         this.widget.addTo('#mainScreen');
     }
 
