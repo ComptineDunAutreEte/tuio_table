@@ -71,13 +71,18 @@ class Lifecycle {
         this.finishedFormationScreen();
     }
 
-    pawnMoved() {
+    pawnMoved(str) {
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
         this.sendMessage(message, channel);
         this.clearScreen();
         // this.loadWaitingScreen();
-        this.loadQuestionScreen();
+        if (str === "collectif"){
+            this.loadQuestionScreen();
+        } else if (str === "indiv") {
+            this.loadWaitingScreen();
+        }
+
     }
 
 
@@ -119,7 +124,12 @@ class Lifecycle {
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
         waitScreen.populate("app");
-        this.waitForResponse('table');
+        client.send("indivQuestion", "ready");
+        //this.waitForResponse('indivQestion');
+        client.getSocket().on("indivQuestion", (msg) => {
+            console.log (msg);
+            this.loadMainScreen();
+        })
     }
 
     loadQuestionScreen() {
@@ -139,6 +149,7 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
+        const that = this;
         client.getSocket().on('table', (msg) => {
             console.log(msg);
         });
@@ -146,8 +157,16 @@ class Lifecycle {
             console.log(msg);
         });
         client.getSocket().on('start-question-collectif', (message) => {
-            toQuestionnaireView();
+            // toQuestionnaireView();
         });
+        client.getSocket().on('indivQuestion', (msg) => {
+            console.log(msg)
+            that.loadMainScreen();
+        })
+        client.getSocket().on('indivQuestion', (msg) =>{
+            console.log(msg);
+            that.loadMainScreen();
+        })
         client.send('login', '');
     }
 
