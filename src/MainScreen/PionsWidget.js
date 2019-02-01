@@ -7,16 +7,6 @@ import Pions from "./Pions";
 
 class PionsWidget extends ElementWidget {
 
-
-    /**
-     * ImageWidget constructor.
-     *
-     * @constructor
-     * @param {number} x - ImageWidget's upperleft coin abscissa.
-     * @param {number} y - ImageWidget's upperleft coin ordinate.
-     * @param {number} width - ImageWidget's width.
-     * @param {number} height - ImageWidget's height.
-     */
     constructor(idp, x, y, width, height, imgSrc) {
         super(x, y, width, height, 0, 1);
         if (new.target === ElementWidget) {
@@ -72,7 +62,6 @@ class PionsWidget extends ElementWidget {
         super.onTouchCreation(tuioTouch);
         // SI LE PION EST TOUCHE
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            this.pawnTouched();
 
             console.log(PionsWidget.getListePions()[this.idp].src);
 
@@ -84,11 +73,13 @@ class PionsWidget extends ElementWidget {
                     PionsWidget.setPionsTouches(i, 0);
                     if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionBS.png') {
                         PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionB';
+                        this.pawnTouched("blue");
                         /*PionsWidget.nbPions--;
                         tpion.deleteWidget();
                         PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "bleu");*/
                     } else if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionRS.png') {
                         PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionR';
+                        this.pawnTouched("red");
                         /* PionsWidget.nbPions--;
                          tpion.deleteWidget();
                          PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "rouge");*/
@@ -127,10 +118,14 @@ class PionsWidget extends ElementWidget {
     onTouchUpdate(tuioTouch) {}
 
     /* FOR DEMO CODE */
-    pawnTouched() {
+    pawnTouched(type) {
             console.log("pawntouchedc; obs = ");
             console.log(this.observer);
-            this.observer.pawnMoved();
+            if (type === "blue"){
+                this.observer.pawnMoved("indiv");
+            } else if (type === "red"){
+                this.observer.pawnMoved("collectif");
+            }
         }
         /* END DEMO CODE */
 

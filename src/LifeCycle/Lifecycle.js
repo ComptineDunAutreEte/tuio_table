@@ -71,13 +71,17 @@ class Lifecycle {
         this.finishedFormationScreen();
     }
 
-    pawnMoved() {
+    pawnMoved(str) {
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
         this.sendMessage(message, channel);
         this.clearScreen();
         // this.loadWaitingScreen();
-        this.loadQuestionScreen();
+        if (str === "collectif"){
+            this.loadQuestionScreen();
+        } else if (str === "indiv") {
+            this.loadWaitingScreen();
+        }
     }
 
 
