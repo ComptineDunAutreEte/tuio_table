@@ -68,6 +68,35 @@ class PionsWidget extends ElementWidget {
         super.deleteWidget();
     }
 
+    deselectionner(){
+        for (var i = 0; i < PionsWidget.nbPions; i++){
+            //ON VERIFIE QUE DANS LA LISTE DES PIONS TOUCHES S'IL Y'EN A UN QUI EST TOUCHE
+            if (PionsWidget.getPionsTouches()[i] == 1){
+                //const tpion = PionsWidget.getListePions()[i];
+                PionsWidget.setPionsTouches(i, 0);
+                if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionBS.png') {
+                    PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionB';
+                    /*PionsWidget.nbPions--;
+                    tpion.deleteWidget();
+                    PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "bleu");*/
+                } else if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionRS.png') {
+                    PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionR';
+                    /* PionsWidget.nbPions--;
+                     tpion.deleteWidget();
+                     PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "rouge");*/
+                }
+                else {
+
+                }
+                /*PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
+                this.deleteWidget();
+                PionsWidget.nbPions--;*/
+                // this.pawnTouched();
+                // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
+            }
+        }
+    }
+
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         // SI LE PION EST TOUCHE
@@ -75,32 +104,7 @@ class PionsWidget extends ElementWidget {
             console.log(PionsWidget.getListePions()[this.idp].src);
 
             //DANS TOUS LES AUTRES PIONS
-            for (var i = 0; i < PionsWidget.nbPions; i++){
-                //ON VERIFIE QUE DANS LA LISTE DES PIONS TOUCHES S'IL Y'EN A UN QUI EST TOUCHE
-                if (PionsWidget.getPionsTouches()[i] == 1){
-                    //const tpion = PionsWidget.getListePions()[i];
-                    PionsWidget.setPionsTouches(i, 0);
-                    if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionBS.png') {
-                        PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionB';
-                        /*PionsWidget.nbPions--;
-                        tpion.deleteWidget();
-                        PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "bleu");*/
-                    } else if (PionsWidget.getListePions()[i].src == 'assets/MainScreen/pionRS.png') {
-                        PionsWidget.getListePions()[i].src = 'assets/MainScreen/PionR';
-                        /* PionsWidget.nbPions--;
-                         tpion.deleteWidget();
-                         PionsWidget.getListePions()[i] = new Pions(PionsWidget.getListePions()[i].idp, PionsWidget.getListePions()[i].x, PionsWidget.getListePions()[i].y, "rouge");*/
-                    }
-                    else {
-
-                    }
-                    /*PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
-                    this.deleteWidget();
-                    PionsWidget.nbPions--;*/
-                   // this.pawnTouched();
-                   // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionN.png';
-                }
-            }
+            this.deselectionner();
             PionsWidget.setPionsTouches(this.idp, 1);
             if (this.src == 'assets/MainScreen/pionB.png') {
                 console.log("pion bleu touche");
