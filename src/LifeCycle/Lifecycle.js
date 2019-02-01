@@ -115,10 +115,15 @@ class Lifecycle {
     }
 
     loadMainScreen() {
+        const that = this;
         this.clearScreen();
         $('#app').className =this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         mainScreen.populate("app");
+       // $('#app').addEventListener('click',that.loadMainScreen());
+       document.getElementById('app').onclick = () => {
+           this.loadMainScreen();
+       }
     }
 
     loadWaitingScreen() {
