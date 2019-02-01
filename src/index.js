@@ -35,8 +35,7 @@ function comeAlive() {
 
 $('document').ready(() => {
     console.log("Document well loaded");
-    //comeAlive()
+    comeAlive()
     //loadFirstScreen();
     //buildFormation();
-   loadMainScreen();
 });
