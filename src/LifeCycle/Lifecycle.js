@@ -124,7 +124,12 @@ class Lifecycle {
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
         waitScreen.populate("app");
-        this.waitForResponse('table');
+        client.send("indivQuestion", "ready");
+        //this.waitForResponse('indivQestion');
+        client.getSocket().on("indivQuestion", (msg) => {
+            console.log (msg);
+            this.loadMainScreen();
+        })
     }
 
     loadQuestionScreen() {
@@ -154,8 +159,12 @@ class Lifecycle {
         client.getSocket().on('start-question-collectif', (message) => {
             // toQuestionnaireView();
         });
-        client.getSocket().on('responseIndivQuestion', (msg) => {
+        client.getSocket().on('indivQuestion', (msg) => {
             console.log(msg)
+            that.loadMainScreen();
+        })
+        client.getSocket().on('indivQuestion', (msg) =>{
+            console.log(msg);
             that.loadMainScreen();
         })
         client.send('login', '');
