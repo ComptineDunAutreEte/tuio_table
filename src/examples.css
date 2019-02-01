@@ -19,6 +19,10 @@ h1 {
     text-align: center;
 }
 
+.FormationScreen{
+    background: bisque;
+}
+
 .menu-button {
     border: none;
     background-color: #E0F7FA;
