@@ -95,7 +95,7 @@ class PionsWidget extends ElementWidget {
                 PionsWidget.setPionsTouches(this.idp, 1);
                 if (this.src === 'assets/MainScreen/pionB.png') {
                     this.src = 'assets/MainScreen/pionBS.png';
-                    new PionsWidget(-1, this.x + 20, this.y + 20, this.width, this.height, this.src);
+                   // new PionsWidget(-1, this.x + 20, this.y + 20, this.width, this.height, this.src);
                     //this.changeSrc("bleuS");
                     console.log("2");
                     this.pawnTouched("blue");
@@ -103,19 +103,21 @@ class PionsWidget extends ElementWidget {
                     this.src = 'assets/MainScreen/pionRS.png';
                     //this.changeSrc("rougeS");
                     console.log("4");
-                    this.pawnTouched("blue");
+                    this.pawnTouched("red");
                 }
             } else {
                 console.log("désélectionné");
                 PionsWidget.setPionsTouches(this.idp, 0);
                 if (this.src === 'assets/MainScreen/pionBS.png') {
                     this.src = 'assets/MainScreen/pionB.png';
+                   // this.pawnTouched("blue");
                     //this.changeSrc("bleu");
                     console.log("5");
                 } else if (this.src === 'assets/MainScreen/pionRS.png') {
                     this.src = 'assets/MainScreen/pionR.png';
                     //this.changeSrc("rouge");
                     console.log("7");
+                  //  this.pawnTouched("red");
                 }
             }
             console.log(this.src);
@@ -126,12 +128,16 @@ class PionsWidget extends ElementWidget {
     onTouchUpdate(tuioTouch){}
 
     /* FOR DEMO CODE */
-    pawnTouched(){
-            console.log("pawntouchedc; obs = ");
-            console.log(this.observer);
-            this.observer.pawnMoved();
+    pawnTouched(type) {
+        console.log("pawntouchedc; obs = ");
+        console.log(this.observer);
+        if (type === "blue"){
+            this.observer.pawnMoved("indiv");
+        } else if (type === "red"){
+            this.observer.pawnMoved("collectif");
         }
-        /* END DEMO CODE */
+    }
+    /* END DEMO CODE */
 
     get domElem(){ return this._domElem; }
 }
