@@ -1,6 +1,5 @@
-/**
- * @author Christian Brel <ch.brel@gmail.com>
- */
+
+/* eslint-disable */
 
 // Import JQuery
 import $ from 'jquery/dist/jquery.min';

@@ -3,13 +3,24 @@
     src: url(../assets/fonts/Proxima.otf);
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    font-family: Proxima;
-    overflow: hidden;
+    height: 100%;
+}
+
+#app {
+    height: 100vh;
 }
 
 h1 {
     text-align: center;
+}
+
+.FormationScreen{
+    background: bisque;
 }
 
 .menu-button {
@@ -115,7 +126,7 @@ h1 {
 }
 
 .title-bottom {
-    //position: relative;
+    /* position: relative; */
     -ms-transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
@@ -126,5 +137,5 @@ h1 {
 }
 
 .stack-element {
-    //margin: auto;
+    /*margin: auto;*/
 }

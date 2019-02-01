@@ -1,11 +1,9 @@
-/**
- * @author Christian Brel <ch.brel@gmail.com>
- * @author Vincent Forquet
- * @author Nicolas Forget
- */
+/*eslint-disable*/
 
 // Import JQuery
 import $ from 'jquery/dist/jquery.min';
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
+import MainScreen from './MainScreen/MainScreen';
 
 
 // Import TUIOManager
@@ -13,11 +11,21 @@ import TUIOManager from 'tuiomanager/core/TUIOManager';
 import client from './client';
 // import ButtonWidget from './ButtonWidget';
 // import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
+/* import ButtonWidget from './Widgets/ButtonWidget';
+import Lifecycle from './LifeCycle/Lifecycle';
+import FormationWidget from './FormationScreen/FormationWidget';
+import FormationBWidget from './FormationScreen/FormationBWidget';
+import FormationRWidget from './FormationScreen/FormationRWidget'; */
+import Lifecycle from './LifeCycle/Lifecycle';
+import FirstScreen from './FirstScreen/FirstScreen';
 /* * TUIOManager starter * */
 const tuioManager = new TUIOManager();
 tuioManager.start();
 
-/* * App Code * */
+function loadFirstScreen() {
+    const firstScreen = new FirstScreen(manager);
+    firstScreen.populate("app");
+}
 
 let done = 0;
 
@@ -102,6 +110,19 @@ const buildApp = () => {
     // puz.addTo('#example-container');
 };
 
-$(window).ready(() => {
-    buildApp();
+function loadMainScreen() {
+    const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT);
+    mainScreen.populate("app");
+}
+
+function comeAlive() {
+    const manager = new Lifecycle();
+    manager.start();
+}
+
+$('document').ready(() => {
+    console.log("Document well loaded");
+    comeAlive()
+        //loadFirstScreen();
+        //buildFormation();
 });
