@@ -1,0 +1,54 @@
+<script>
+    let done = 0;
+    /*
+        function enableMessage() {
+            document.getElementById("messageT").style.visibility = "visible";
+            document.getElementById("messageB").style.visibility = "visible";
+        }
+
+        function myScript(vid) {
+            if (vid.currentTime >= 5) {
+                vid.pause();
+                done++;
+                console.log(done);
+                if (done === 3) {
+                    enableMessage();
+                }
+            }
+        }*/
+
+    function playT() {
+        const vidT = document.getElementById('videoTop');
+        vidT.play();
+    }
+
+    function playB() {
+        console.log('click');
+        const vidB = document.getElementById('videoBot');
+        vidB.play()
+    } //vidB.addEventListener('timeupdate', pause);}
+</script>
+
+<div class="flex-container" id="question">
+
+    <div class="item one">
+        <div id="messageT" class="message">
+            <p class="marginM rotate180">Regarder votre tablette</p>
+        </div>
+        <button onclick="playT()" class="one rotate180" id='#butTop'>Commencer</button>
+        <video muted id="videoTop" class="one video rotate180" src="assets/video/football.mp4"></video>
+        <div class="one">
+            <p class="rotate180">Il s'agit d'empêcher le ballon sur la largeur du terrain</p>
+        </div>
+    </div>
+    <div class="item one">
+        <div id="messageB" class="message">
+            <p>Regarder votre tablette</p>
+        </div>
+        <div class="one">
+            <p>Il s'agit d'empêcher le ballon sur la largeur du terrain</p>
+        </div>
+        <video id="videoBot" class="one video" src="assets/video/football.mp4" muted></video>
+        <button class="one" onclick="playB()" id='#butBot'>Commencer</button>
+    </div>
+</div>
