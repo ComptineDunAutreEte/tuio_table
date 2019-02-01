@@ -126,7 +126,6 @@ class PionsWidget extends ElementWidget {
             } else if (type === "red"){
                 this.observer.pawnMoved("collectif");
             }
-        }
     }
     /* END DEMO CODE */
 
