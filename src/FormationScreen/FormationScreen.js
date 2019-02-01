@@ -19,8 +19,8 @@ class FormationScreen {
     }
 
     inflate(){
-        $('#app').append('<h1 id="textEquipeB" style="width: 100%; height: 20%; position: relative; top:28%; left:100%;transform: rotate(180deg)" ></h1>\
-        <h1 id="textEquipeR" style="width: 100%;height: 20%; position: relative; top:30%; left:100%;" > </h1>');
+        $('#app').append('<h1 id="textEquipeB" style="width: 100%; height: 20%; position: relative; top:28%; left:50%;transform: rotate(180deg)" ></h1>\
+        <h1 id="textEquipeR" style="width: 100%;height: 20%; position: relative; top:50%; right:1%;" > </h1>');
         document.getElementById('app').className = "container-fluid d-flex h-100 FormationScreen"
     }
 

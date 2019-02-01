@@ -72,6 +72,8 @@ class PionsWidget extends ElementWidget {
         super.onTouchCreation(tuioTouch);
         // SI LE PION EST TOUCHE
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
+            this.pawnTouched();
+
             console.log(PionsWidget.getListePions()[this.idp].src);
 
             //DANS TOUS LES AUTRES PIONS
@@ -119,7 +121,6 @@ class PionsWidget extends ElementWidget {
             // PionsWidget.getListePions()[i].src = 'assets/MainScreen/pionB.png';
             console.log(PionsWidget.pionsTouches);
 
-            this.pawnTouched();
         }
     }
 

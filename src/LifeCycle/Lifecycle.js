@@ -52,12 +52,13 @@ class Lifecycle {
 
     contructor() {
         // constants to save from a screen to another ?
+        this.containerID = "app";
+        this.containerClass = "container-fluid d-flex h-100";
     }
 
     start() {
 
-        //this.loadFirstScreen();
-        this.loadMainScreen();
+        this.loadFirstScreen();
         this.initConnexion();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
@@ -83,7 +84,7 @@ class Lifecycle {
     // finishing functions
     finishedFirstscreen() {
         console.log("first screen DONE. Transition to next screen");
-        this.clearScreen(this);
+        this.clearScreen();
         this.loadFormationScreen();
     }
 
@@ -95,16 +96,22 @@ class Lifecycle {
 
     /* Screens inflaters */
     loadFormationScreen() {
+        this.clearScreen();
+        $('#app').className =this.containerClass;
         const formationScreen = new FormationScreen(this);
         formationScreen.buildFormation();
     }
 
     loadFirstScreen() {
+        this.clearScreen()
         const firstScreen = new FirstScreen(this);
+        $('#app').className =this.containerClass;
         firstScreen.populate("app");
     }
 
     loadMainScreen() {
+        this.clearScreen()
+        $('#app').className =this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         mainScreen.populate("app");
     }
@@ -176,7 +183,7 @@ format { }
     }
 
     /* MISC */
-    clearScreen(t) {
+    clearScreen() {
         const root = document.getElementById("app");
         while (root.firstChild) {
             root.className = "container-fluid d-flex h-100";
