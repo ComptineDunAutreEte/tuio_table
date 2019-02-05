@@ -149,7 +149,7 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
-        const that = this;
+        console.log("starting up")
         client.getSocket().on('table', (msg) => {
             console.log(msg);
         });

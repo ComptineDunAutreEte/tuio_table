@@ -1,5 +1,10 @@
 /* eslint-disable */
 
+// images pour nombre de joueurs comme sur la wii
+// ballon qui clignote lorsque action clé
+// difficulté : images , jauge ?
+// 
+
 class FirstScreen {
     constructor(obs) {
         this.playerCount = 2;
@@ -73,12 +78,11 @@ class FirstScreen {
         const pid = "#" + parentID;
         const btnID = "confirmFirstScreenBtn";
         const that = this;
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-check"></i></button>');
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
         document.getElementById(btnID).onclick = () => { 
             that.notifyServer(that);
             that.observer.finishedFirstscreen();
          };
-        const message = this.playerCount + "," + this.difficultyLevel;
         /*
         const message = this.playerCount + "," + this.difficultyLevel;
         console.log("should be : " + message)
