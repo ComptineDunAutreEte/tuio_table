@@ -2,7 +2,6 @@
 
 import $ from 'jquery/dist/jquery.min';
 import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
-import Pions from "./Pions";
 
 
 class PionsWidget extends ElementWidget {
@@ -12,9 +11,15 @@ class PionsWidget extends ElementWidget {
         if (new.target === ElementWidget) {
             throw new TypeError('ElementWidget is an abstract class. It cannot be instanciated');
         }
-        this.src = imgSrc;
+        this.mx = x;
+        this.my = y;
+        this.nbVoisins = 0;
+        this.voisins = [];
+        this.aEteTouche = false;
         this._domElem = $('<img>');
-        this._domElem.attr('src', imgSrc);
+        if (imgSrc !== ''){ this.src = imgSrc; this._domElem.attr('src', imgSrc);}
+
+
         this._domElem.css('width', `${this.width}px`);
         this._domElem.css('height', `${this.height}px`);
         this._domElem.css('position', 'absolute');
@@ -22,21 +27,98 @@ class PionsWidget extends ElementWidget {
         this._domElem.css('left', `${x}px`);
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
-        for (var i = 0; i < PionsWidget.nbPions; i++) {
-            PionsWidget.setPionsTouches(i, 0);
+        this.idp = idp;
+        if (this.src === 'assets/MainScreen/pionN.png'){this.initVoisins();console.log(idp + "  :   " + this.voisins); console.log("nbVoisinsINIT : " + this.nbVoisins);}
+        if (this.src === 'assets/MainScreen/pionN.png'){ PionsWidget.listePionsN.push(this); PionsWidget.nbPionsN++;}
+        if (PionsWidget.nbPionsN === 55) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
+        else {PionsWidget.listePionsBR.push(this);PionsWidget.nbPionsBR++;}
+        for (var j = 0; j < PionsWidget.nbPionsBR; j++) {
+            PionsWidget.setPionsTouches(j, 0);
         }
-        PionsWidget.listPions.push(this);
-        if (idp == -1){ this.idp = PionsWidget.nbPions;}
-        else {this.idp = idp;}
-        PionsWidget.nbPions++;
-        this.voisins = [this.idp - 1, this.idp + 1, this.idp - 6, this.idp - 7, this.idp - 8, this.idp + 6, this.idp + 7, this.idp + 8];
         // voir : en fait si on appuye sur un bouton il faudrait le garde en mémoire si c'est un bouton qui n'était pas
         //sléctionné, lequel on garde en mémoire ?
     }
 
-    static getListePions() {
-        return PionsWidget.listPions;
+
+    updateVoisins(){
+        var id = 0;
+        if (this.idp % 7 !== 0){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 1];
+            id++;
+            if (this.idp > 6){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 8];
+                id++;
+            }
+            if (this.idp < 48){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 6];
+                id++;
+            }
+        }
+        if ((this.idp % 6 !== 0) || (this.idp === 0)){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 1];
+            id++;
+            if (this.idp > 6){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 6];
+                id++;
+            }
+            if (this.idp < 48){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 8];
+                id++;
+            }
+        }
+        if (this.idp > 6){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 7];
+            id++;
+        }
+        if (this.idp < 48){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
+            id++;
+        }
     }
+
+    initVoisins(){
+        if (this.idp % 7 !== 0){
+            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 1];
+            this.nbVoisins++;
+            if (this.idp > 6){
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 8];
+                this.nbVoisins++;
+            }
+            if (this.idp < 48){
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 6];
+                this.nbVoisins++;
+            }
+        }
+        if ((this.idp % 6 !== 0) || (this.idp === 0)){
+            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 1];
+            this.nbVoisins++;
+            if (this.idp > 6){
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 6];
+                this.nbVoisins++;
+            }
+            if (this.idp < 48){
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
+                this.nbVoisins++;
+            }
+        }
+        if (this.idp > 6){
+            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 7];
+            this.nbVoisins++;
+        }
+        if (this.idp < 48){
+            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 7];
+            this.nbVoisins++;
+        }
+    }
+
+    static getListePionsN() {
+        return PionsWidget.listePionsN;
+    }
+
+    static getListePionsBR() {
+        return PionsWidget.listePionsBR;
+    }
+
     static getPionsTouches() {
         return PionsWidget.pionsTouches;
     }
@@ -45,21 +127,21 @@ class PionsWidget extends ElementWidget {
         PionsWidget.pionsTouches[id] = val;
     }
 
-    changeSrc(couleur) {
+  /*  changeSrc(couleur) {
         PionsWidget.nbPions--;
         const idp = this.idp;
         const x = this.x;
         const y = this.y;
         this.deleteWidget();
         PionsWidget.getListePions()[idp] = new Pions(idp, x, y, couleur);
-    }
+    }*/
 
 
     getSrc(){
         return this.src;
     }
 
-    deleteWidget(){
+  /*  deleteWidget(){
         super.deleteWidget();
     }
 
@@ -72,50 +154,121 @@ class PionsWidget extends ElementWidget {
                 }
             }
         }
-    }
-
+    }*/
 
     onTouchCreation(tuioTouch) {
-        super.onTouchCreation(tuioTouch);
+        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
+            super.onTouchCreation(tuioTouch);
+           // console.log("LES VOISINS : " + this.voisins);
+        }
+
+
         // SI LE PION EST TOUCHE
-        if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            this.deselectionnerAll(this);
-            if (PionsWidget.getPionsTouches()[this.idp] != 1) {
-                console.log("selectionné");
-                PionsWidget.setPionsTouches(this.idp, 1);
-                if (this.src === 'assets/MainScreen/pionB.png') {
-                    this.src = 'assets/MainScreen/pionBS.png';
-                   // new PionsWidget(-1, this.x + 20, this.y + 20, this.width, this.height, this.src);
-                    //this.changeSrc("bleuS");
-                    console.log("2");
-                    this.pawnTouched("blue");
-                } else if (this.src === 'assets/MainScreen/pionR.png') {
-                    this.src = 'assets/MainScreen/pionRS.png';
-                    //this.changeSrc("rougeS");
-                    console.log("4");
-                    this.pawnTouched("red");
-                }
-            } else {
-                console.log("désélectionné");
-                PionsWidget.setPionsTouches(this.idp, 0);
-                if (this.src === 'assets/MainScreen/pionBS.png') {
-                    this.src = 'assets/MainScreen/pionB.png';
-                   // this.pawnTouched("blue");
-                    //this.changeSrc("bleu");
-                    console.log("5");
-                } else if (this.src === 'assets/MainScreen/pionRS.png') {
-                    this.src = 'assets/MainScreen/pionR.png';
-                    //this.changeSrc("rouge");
-                    console.log("7");
-                  //  this.pawnTouched("red");
+     /*   if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
+            if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
+                // this.deselectionnerAll(PionsWidget.getListePions()[this.idp]);
+                if (PionsWidget.getPionsTouches()[this.idp] !== 1) {
+                    console.log("selectionné");
+                    PionsWidget.setPionsTouches(this.idp, 1);
+                    //Si le pion est bleu non sélectionné
+                    if (PionsWidget.getListePionsBR()[this.idp].src === 'assets/MainScreen/pionB.png') {
+                        // PionsWidget.getListePions()[this.idp].src = 'assets/MainScreen/pionBS.png';
+                        this._domElem.css('width', `${this.width + 50}px`);
+                        this._domElem.css('height', `${this.height + 50}px`);
+                      /*  for (var i = 0; i < this.nbVoisins; i++){
+                            console.log(this.voisins[i]);
+                        }*/
+
+                        // new PionsWidget(-1, this.x + 20, this.y + 20, this.width, this.height, this.src);
+                        //this.changeSrc("bleuS");
+                        // new PionsWidget.getListePions()[i];
+           /*             console.log("2");
+                        // this.pawnTouched("blue");
+                    }
+                    //Si le pion est rouge non sélectionné
+                    else if (PionsWidget.getListePionsBR()[this.idp].src === 'assets/MainScreen/pionR.png') {
+                        this._domElem.css('width', `${this.width + 50}px`);
+                        this._domElem.css('height', `${this.height + 50}px`);
+                    /*    for (var j = 0; j < this.nbVoisins; j++){
+                            console.log(this.voisins[j]);
+                        }*/
+                        //  PionsWidget.getListePions()[this.idp].src = 'assets/MainScreen/pionRS.png';
+                        //this.changeSrc("rougeS");
+            /*            console.log("4");
+                        //  PionsWidget.getListePions()[this.idp] = new Pions(this.idp, this.x, this.y, "rougeS");
+                        //  this.pawnTouched("red");
+                    }
+
+                    this.aEteTouche = true;
+                    //} else {
+
+                    //  PionsWidget.setPionsTouches(this.idp, 0);
+                    //Si le pion est bleu sélectionné
+                    /*  if (PionsWidget.getListePions()[this.idp].src === 'assets/MainScreen/pionBS.png') {
+                         // PionsWidget.getListePions()[this.idp].src = 'assets/MainScreen/pionB.png';
+                          console.log("5");
+                      }
+                      //Si le pion est rouge sélectionné
+                      else if (PionsWidget.getListePions()[this.idp].src === 'assets/MainScreen/pionRS.png') {
+                        //  PionsWidget.getListePions()[this.idp].src = 'assets/MainScreen/pionR.png';
+                         // PionsWidget.getListePions()[this.idp] = new Pions(this.idp, this.x, this.y, "rouge");
+                          //this.changeSrc("rouge");
+                          //new Pions(this.idp, this.x, this.y, "rouge");
+                          console.log("7");
+                      }*/
+         /*       }
+                console.log("On touch : " + this.width + "    " + this.height);
+                console.log("onTouch :" + this.aEteTouche);
+                console.log(this.src);
+                console.log(PionsWidget.pionsTouches[this.idp]);
+            }
+        }*/
+    }
+
+    onTouchDeletion(tuioTouchId) {
+      /*  if(this.aEteTouche){
+            PionsWidget.setPionsTouches(this.idp, 0);
+            console.log("désélectionné");
+            this._domElem.css('width', `${this.width}px`);
+            this._domElem.css('height', `${this.height}px`);
+            this.aEteTouche = false;
+            console.log("After touch : " + this.width + "    " + this.height);
+            console.log("After touch :" + this.aEteTouche);
+        }
+       // return super.onTouchDeletion(tuioTouchId);*/
+        var deplace = false;
+        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png'){
+            super.onTouchDeletion(tuioTouchId);
+            for (var i = 0; i < this.nbVoisins;i++){
+                if ((this.internX <= this.voisins[i].internX + 20)&&
+                    (this.internX >= this.voisins[i].internX - 20) &&
+                    (this.internY <= this.voisins[i].internY + 20) &&
+                    (this.internY >= this.voisins[i].internY - 20)){
+                    deplace = true;
+                    this._domElem.css('left', `${this.voisins[i].internX}px`);
+                    this._domElem.css('top', `${this.voisins[i].internY}px`);
+                    this.voisins = this.voisins[i].voisins;
                 }
             }
-            console.log(this.src);
-            console.log(PionsWidget.pionsTouches[this.idp]);
+            if (!deplace){
+                this._domElem.css('left', `${this.mx}px`);
+                this._domElem.css('top', `${this.my}px`);
+                deplace = false;
+            }
         }
     }
 
-    onTouchUpdate(tuioTouch){}
+    onTouchUpdate(tuioTouch){
+        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
+            super.onTouchUpdate(tuioTouch);
+        }
+    }
+
+    moveTo(x, y, angle = null) {
+        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
+            super.moveTo(x, y, angle);
+        }
+    }
 
     /* FOR DEMO CODE */
     pawnTouched(type) {
@@ -131,8 +284,10 @@ class PionsWidget extends ElementWidget {
 
     get domElem(){ return this._domElem; }
 }
-PionsWidget.nbPions = 0;
-PionsWidget.listPions = [];
+PionsWidget.nbPionsN = 0;
+PionsWidget.nbPionsBR = 0;
+PionsWidget.listePionsN = [];
 PionsWidget.pionsTouches = [];
+PionsWidget.listePionsBR = [];
 
 export default PionsWidget;

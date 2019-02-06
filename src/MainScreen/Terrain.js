@@ -13,9 +13,8 @@ class Terrain {
         /* before */
 
         /* modified */
-        this.pions = [];
+        this.pionsN = this.createPions();
         this.observer = observer;
-        this.createPions();
         this.attachObserverToPawns(observer);
         /*   this.pionsEquipeR = this.createPionsR();
            this.pionsEquipeB = this.createPionsB();*/
@@ -61,19 +60,30 @@ class Terrain {
                else {
                    mt = 0;
                } */
-            if (pionsB.includes(i)) {
-                t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "bleu");
-            } else if (pionsR.includes(i)) {
-                t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "rouge");
-            } else {
-                t[i] = new Pions(-1, 200 + i + my, 100 + (i - mx) * 130 - mt, "none");
-            }
+            new Pions(0, i, 200 + i + my, 100 + (i - mx) * 130 - mt, "none");
+
             /*   if (inc == 2){
                    mt = 85;
                }
                else {
                    mt = 0;
                } */
+        }
+        var id = 0;
+        for (var j = 0; j < 56; j++){
+            if (j % 7 == 0) {
+                if (inc == 2) inc = 1;
+                else inc = 2;
+                mx = j;
+                my = j * 29;
+            }
+            if (pionsB.includes(j)) {
+                new Pions(j, id, 200 + j + my, 100 + (j - mx) * 130 - mt, "bleu");
+                id++;
+            } else if (pionsR.includes(j)) {
+                new Pions(j, id, 200 + j + my, 100 + (j - mx) * 130 - mt, "rouge");
+                id++;
+            }
         }
        /* for (var j = 0; j < 36; j++) {
             console.log(PionsWidget.getPionsTouches()[j]);
