@@ -82,7 +82,6 @@ class Lifecycle {
         } else if (str === "indiv") {
             this.loadWaitingScreen();
         }
-
     }
 
 
@@ -115,21 +114,22 @@ class Lifecycle {
     }
 
     loadMainScreen() {
+        const that = this;
         this.clearScreen();
         $('#app').className =this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         mainScreen.populate("app");
+       // $('#app').addEventListener('click',that.loadMainScreen());
     }
 
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
-        //this.waitForResponse('indivQestion');
         client.getSocket().on("indivQuestion", (msg) => {
-            console.log (msg);
-            this.loadMainScreen();
+            console.log(msg);
         })
+        //this.waitForResponse('indivQestion');
     }
 
     loadQuestionScreen() {
@@ -157,15 +157,12 @@ class Lifecycle {
             console.log(msg);
         });
         client.getSocket().on('start-question-collectif', (message) => {
+            console.log(message)
             // toQuestionnaireView();
         });
-        client.getSocket().on('indivQuestion', (msg) => {
-            console.log(msg)
-            that.loadMainScreen();
-        })
         client.getSocket().on('indivQuestion', (msg) =>{
             console.log(msg);
-            that.loadMainScreen();
+           // that.loadMainScreen();
         })
         client.send('login', '');
     }

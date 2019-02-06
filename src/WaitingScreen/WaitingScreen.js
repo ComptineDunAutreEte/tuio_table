@@ -15,6 +15,5 @@ class WaitingScreen {
         $('#topText').append('<h1 class="text-center">' + texte + ' </h1>')
         $('#wtext').append('<div class="row h-50 w-100 align-items-center d-flex justify-content-center" id="botText" > </div>')
         $('#botText').append('<h1 class="text-center">' + texte + ' </h1>')
-
     }
 } export default WaitingScreen;
