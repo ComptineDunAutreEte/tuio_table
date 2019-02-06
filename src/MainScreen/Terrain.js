@@ -78,10 +78,10 @@ class Terrain {
                 my = j * 29;
             }
             if (pionsB.includes(j)) {
-                new Pions(j, id, 200 + j + my, 100 + (j - mx) * 130 - mt, "bleu");
+                new Pions(j, id, 200 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu");
                 id++;
             } else if (pionsR.includes(j)) {
-                new Pions(j, id, 200 + j + my, 100 + (j - mx) * 130 - mt, "rouge");
+                new Pions(j, id, 200 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge");
                 id++;
             }
         }

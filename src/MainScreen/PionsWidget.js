@@ -7,13 +7,20 @@ import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 class PionsWidget extends ElementWidget {
 
     constructor(idp, x, y, width, height, imgSrc) {
-        super(x, y, width, height, 0, 1);
+        if (imgSrc === 'assets/MainScreen/pionN.png'){
+            super(x, y, width, height, 0, 1);
+        }
+        else {
+            super(x, y, width, height, 0, 1.3);
+        }
+
         if (new.target === ElementWidget) {
             throw new TypeError('ElementWidget is an abstract class. It cannot be instanciated');
         }
         this.mx = x;
         this.my = y;
         this.nbVoisins = 0;
+        let deplace = false;
         this.voisins = [];
         this.aEteTouche = false;
         this._domElem = $('<img>');
@@ -72,7 +79,6 @@ class PionsWidget extends ElementWidget {
         }
         if (this.idp < 48){
             this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
-            id++;
         }
     }
 
@@ -159,6 +165,11 @@ class PionsWidget extends ElementWidget {
     onTouchCreation(tuioTouch) {
         if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
             super.onTouchCreation(tuioTouch);
+            //console.log(this.voisins);
+            for (var i = 0; i < this.nbVoisins; i++){
+                this.voisins[i]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
+                this.voisins[i].src = 'assets/MainScreen/bscircle.png';
+            }
            // console.log("LES VOISINS : " + this.voisins);
         }
 
@@ -236,24 +247,31 @@ class PionsWidget extends ElementWidget {
             console.log("After touch :" + this.aEteTouche);
         }
        // return super.onTouchDeletion(tuioTouchId);*/
-        var deplace = false;
         if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png'){
             super.onTouchDeletion(tuioTouchId);
-            for (var i = 0; i < this.nbVoisins;i++){
-                if ((this.internX <= this.voisins[i].internX + 20)&&
-                    (this.internX >= this.voisins[i].internX - 20) &&
-                    (this.internY <= this.voisins[i].internY + 20) &&
-                    (this.internY >= this.voisins[i].internY - 20)){
-                    deplace = true;
-                    this._domElem.css('left', `${this.voisins[i].internX}px`);
-                    this._domElem.css('top', `${this.voisins[i].internY}px`);
+            const nbV = this.nbVoisins;
+            for (var i = 0; i < nbV;i++){
+                if ((this.internX <= this.voisins[i].internX + 20 - 14.5)&&
+                    (this.internX >= this.voisins[i].internX - 20 - 14.5) &&
+                    (this.internY <= this.voisins[i].internY + 20 - 14.5) &&
+                    (this.internY >= this.voisins[i].internY - 20 - 14.5)){
+                    this._domElem.css('left', `${this.voisins[i].internX - 14.5}px`);
+                    this._domElem.css('top', `${this.voisins[i].internY - 14.5}px`);
+                    this.internX = this.voisins[i].internX - 14.5;
+                    this.internY = this.voisins[i].internY - 14.5;
+                    this.mx = this.internX;
+                    this.my = this.internY;
                     this.voisins = this.voisins[i].voisins;
+                    this.nbVoisins = this.voisins[i].nbVoisins;
+                    this.deplace = true;
                 }
             }
-            if (!deplace){
+            if (!this.deplace){
+                this.deplace = false;
                 this._domElem.css('left', `${this.mx}px`);
                 this._domElem.css('top', `${this.my}px`);
-                deplace = false;
+                this.internX = this.mx;
+                this.internY = this.my;
             }
         }
     }
