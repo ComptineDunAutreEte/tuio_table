@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import PionsWidget from "./PionsWidget";
+import BallonWidget from "./BallonWidget";
 
 
 class PionsBRWidget extends PionsWidget {
@@ -8,10 +9,20 @@ class PionsBRWidget extends PionsWidget {
     constructor(place, idp, x, y, width, height, imgSrc) {
         super(idp, x, y, width, height, imgSrc);
         this.place = place;
+        if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
+            PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomInt();
+            PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
+        }
+        if (PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut === this.idp) {this.aLeBallon = true; this.ballon = new BallonWidget(this.x - 20, this.y, 100,100, 'assets/MainScreen/ballon.png');  /*this.ballon.addTo('#mainScreen');*/}
+        else {this.aLeBallon = false;}
         this.voisins = PionsWidget.getListePionsN()[this.place].voisins;
         this.nbVoisins = PionsWidget.getListePionsN()[this.place].nbVoisins;
         PionsWidget.listePionsBR.push(this);
         PionsWidget.nbPionsBR++;
+    }
+
+    static getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
     }
 
     onTouchCreation(tuioTouch) {
@@ -84,5 +95,7 @@ class PionsBRWidget extends PionsWidget {
 
 
 }
+PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = false;
+PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = 0;
 
 export default PionsBRWidget;

@@ -69,7 +69,7 @@ class PionsWidget extends ElementWidget {
                     this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 8];
                     id++;
                 }
-                if (this.idp < 48){
+                if (this.idp < 49){
                     this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 6];
                     id++;
                 }
@@ -81,7 +81,7 @@ class PionsWidget extends ElementWidget {
                     this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 6];
                     id++;
                 }
-                if (this.idp < 48){
+                if (this.idp < 49){
                     this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 8];
                     id++;
                 }
@@ -90,7 +90,7 @@ class PionsWidget extends ElementWidget {
                 this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 7];
                 id++;
             }
-            if (this.idp < 48){
+            if (this.idp < 49){
                 this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
             }
         }
@@ -115,7 +115,7 @@ class PionsWidget extends ElementWidget {
                     this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 8];
                     this.nbVoisins++;
                 }
-                if (this.idp < 48) {
+                if (this.idp < 49) {
                     this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 6];
                     this.nbVoisins++;
                 }
@@ -127,7 +127,7 @@ class PionsWidget extends ElementWidget {
                     this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 6];
                     this.nbVoisins++;
                 }
-                if (this.idp < 48) {
+                if (this.idp < 49) {
                     this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
                     this.nbVoisins++;
                 }
@@ -136,7 +136,7 @@ class PionsWidget extends ElementWidget {
                 this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 7];
                 this.nbVoisins++;
             }
-            if (this.idp < 48) {
+            if (this.idp < 49) {
                 this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 7];
                 this.nbVoisins++;
             }
