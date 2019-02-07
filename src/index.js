@@ -4,11 +4,10 @@
 import $ from 'jquery/dist/jquery.min';
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 import MainScreen from './MainScreen/MainScreen';
-
+import client from './client';
 
 // Import TUIOManager
 import TUIOManager from 'tuiomanager/core/TUIOManager';
-import client from './client';
 // import ButtonWidget from './ButtonWidget';
 // import ImageElementWidget from 'tuiomanager/widgets/ElementWidget/ImageElementWidget/ImageElementWidget';
 /* import ButtonWidget from './Widgets/ButtonWidget';
@@ -84,6 +83,7 @@ function comeAlive() {
 }
 
 $('document').ready(() => {
+    client.send('login', '');
     console.log("Document well loaded");
     comeAlive();
     //loadFirstScreen();
