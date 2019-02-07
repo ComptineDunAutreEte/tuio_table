@@ -75,8 +75,9 @@ class Lifecycle {
     start() {
 
 
-        this.loadFirstScreen();
+        //this.loadFirstScreen();
         this.initConnexion();
+        this.loadMainScreen();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
@@ -176,7 +177,7 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
-        client.send(channel, data);
+        //client.send(channel, data);
         /*console.log("je notifiiieee le serveeeer : " + msg);
         const socketIOUrl = 'http://localhost:4000';
         const socketServer = io.connect(socketIOUrl);
