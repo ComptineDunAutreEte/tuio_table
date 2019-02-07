@@ -18,8 +18,10 @@ function send(chanel, _data) {
         uuid: '',
         data: _data
     };
-    console.log(chanel, _data);
+    console.log('send ', chanel, _data);
     socketServer.emit(chanel, message);
 }
+
+send('login', '');
 
 export default { getSocket, send };
