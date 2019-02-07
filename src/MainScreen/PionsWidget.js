@@ -36,16 +36,22 @@ class PionsWidget extends ElementWidget {
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
         this.idp = idp;
-        if (this.src === 'assets/MainScreen/pionN.png'){this.initVoisins();console.log(idp + "  :   " + this.voisins); console.log("nbVoisinsINIT : " + this.nbVoisins);}
+      //  if (this.src === 'assets/MainScreen/pionN.png'){this.initVoisins();console.log(idp + "  :   " + this.voisins); console.log("nbVoisinsINIT : " + this.nbVoisins);}
         if (this.src === 'assets/MainScreen/pionN.png'){ PionsWidget.listePionsN.push(this); PionsWidget.nbPionsN++;}
         if (PionsWidget.nbPionsN === 55) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(PionsWidget.listePionsN[i].idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
-
+      /*  if (PionsWidget.nbPionsN === 55){
+            for (var j = 0; j < PionsWidget.nbPionsN; j++){PionsWidget.listePionsN[j].updatePasses();}
+        }*/
 
         for (var j = 0; j < PionsWidget.nbPionsBR; j++) {
             PionsWidget.setPionsTouches(j, 0);
         }
         // voir : en fait si on appuye sur un bouton il faudrait le garde en mémoire si c'est un bouton qui n'était pas
         //sléctionné, lequel on garde en mémoire ?
+    }
+
+    updatePasses(){
+
     }
 
 
@@ -95,52 +101,6 @@ class PionsWidget extends ElementWidget {
         this.nbVoisins = this.voisins.length;
     }
 
-    initVoisins(){
-        let idPionsBas = [6, 13, 20, 27,34,41,48,55];
-        if (this.idp === 0){
-            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 1];
-            this.nbVoisins++;
-            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 7];
-            this.nbVoisins++;
-            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
-            this.nbVoisins++;
-        }
-        else {
-            if (this.idp % 7 !== 0) {
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 1];
-                this.nbVoisins++;
-                if (this.idp > 6) {
-                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 8];
-                    this.nbVoisins++;
-                }
-                if (this.idp < 49) {
-                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 6];
-                    this.nbVoisins++;
-                }
-            }
-            if (!idPionsBas.includes(this.idp)) {
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 1];
-                this.nbVoisins++;
-                if (this.idp > 6) {
-                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 6];
-                    this.nbVoisins++;
-                }
-                if (this.idp < 49) {
-                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
-                    this.nbVoisins++;
-                }
-            }
-            if (this.idp > 6) {
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 7];
-                this.nbVoisins++;
-            }
-            if (this.idp < 49) {
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 7];
-                this.nbVoisins++;
-            }
-        }
-    }
-
     static getListePionsN() {
         return PionsWidget.listePionsN;
     }
@@ -187,7 +147,9 @@ class PionsWidget extends ElementWidget {
     }*/
 
     onTouchCreation(tuioTouch) {
-        super.onTouchCreation(tuioTouch);
+        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
+            super.onTouchCreation(tuioTouch);
+        }
 
 
         // SI LE PION EST TOUCHE
@@ -253,16 +215,14 @@ class PionsWidget extends ElementWidget {
     }
 
     onTouchDeletion(tuioTouchId) {
-        super.onTouchDeletion(tuioTouchId);
-
-    }
-
-
-    moveTo(x, y, angle = null) {
         if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
-            super.moveTo(x, y, angle);
+            super.onTouchDeletion(tuioTouchId);
         }
+
     }
+
+
+
 
     /* FOR DEMO CODE */
     pawnTouched(type) {

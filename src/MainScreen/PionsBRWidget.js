@@ -2,6 +2,7 @@
 
 import PionsWidget from "./PionsWidget";
 import BallonWidget from "./BallonWidget";
+import Pions from "./Pions";
 
 
 class PionsBRWidget extends PionsWidget {
@@ -28,6 +29,13 @@ class PionsBRWidget extends PionsWidget {
         this.nbVoisins = PionsWidget.getListePionsN()[this.place].nbVoisins;
         PionsWidget.listePionsBR.push(this);
         PionsWidget.nbPionsBR++;
+
+        //savoir si un pion a été touché 1 ou 2 fois
+        this.aEteBouge = false;
+        this.nbTouched = 0;
+        this.touched2times = false;
+        this.passDisplayed = false;
+
         this.mx = x;
         this.my = y;
     }
@@ -36,32 +44,32 @@ class PionsBRWidget extends PionsWidget {
         return Math.floor(Math.random() * Math.floor(max));
     }
 
-    onTouchCreation(tuioTouch) {
-        super.onTouchCreation(tuioTouch);
-        if (this.aLeBallon) {
-            this.ballon.bougeParPion = true;
-            this.ballon.onTouchCreation(tuioTouch);
+    displayPass(){
+        console.log("display pass");
+        this.nbTouched = 0;
+        this.passDisplayed = true;
+        if (PionsBRWidget.pionDisplayed !== this){
+            for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
+                PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
+                PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
+            }
         }
+        PionsBRWidget.pionDisplayed = this;
+    }
+
+    onTouchCreation(tuioTouch) {
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            for (var i = 0; i < this.nbVoisins; i++){
+            PionsBRWidget.firstButtonClicked = this;
+           // else if (this.nbTouched == 0) {
+            super.onTouchCreation(tuioTouch);
+            if (this.aLeBallon) {
+                this.ballon.bougeParPion = true;
+                this.ballon.onTouchCreation(tuioTouch);
+            }
+            //    }
+            for (var i = 0; i < this.nbVoisins; i++) {
                 this.voisins[i]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
                 this.voisins[i].src = 'assets/MainScreen/bscircle.png';
-            }
-            if (this.aLeBallon){
-                if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
-                    /*   this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
-                       this.ballon.internX = this.internX + this.width + 5;
-                       this.ballon.mx = this.ballon.internX;*/
-                 /*   tuioTouch.x = tuioTouch.x + this.width + 5;*/
-                    tuioTouch.update(tuioTouch.x + this.width + 5, tuioTouch.y + 20);
-                }
-                else {
-                    /* this.ballon._domElem.css('left', `${this.internX - 40}px`);
-                     this.ballon.internX = this.internX - 40; */
-                 //   tuioTouch.x = tuioTouch.x - 40;
-                    tuioTouch.update(tuioTouch.x - 40, tuioTouch.y + 20);
-                }
-             /*   tuioTouch.y = tuioTouch.y + 20;*/
             }
         }
     }
@@ -71,23 +79,23 @@ class PionsBRWidget extends PionsWidget {
         super.onTouchUpdate(tuioTouch);
         if (this.aLeBallon){
             this.ballon.onTouchUpdate(tuioTouch);
-           /* if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
+        }
+      /*  if (this.aLeBallon){
+            if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
                 /*   this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
                    this.ballon.internX = this.internX + this.width + 5;
                    this.ballon.mx = this.ballon.internX;*/
                 /*   tuioTouch.x = tuioTouch.x + this.width + 5;*/
-
-            /*    tuioTouch.update(tuioTouch.x + this.width + 5, tuioTouch.y + 20);
+        /*        tuioTouch.update(tuioTouch.x + this.width + 5, tuioTouch.y + 20);
             }
             else {
                 /* this.ballon._domElem.css('left', `${this.internX - 40}px`);
                  this.ballon.internX = this.internX - 40; */
                 //   tuioTouch.x = tuioTouch.x - 40;
-         /*       tuioTouch.update(tuioTouch.x - 40, tuioTouch.y + 20);
+        /*        tuioTouch.update(tuioTouch.x - 40, tuioTouch.y + 20);
             }
             /*   tuioTouch.y = tuioTouch.y + 20;*/
-        //    this.ballon.onTouchUpdate(tuioTouch);
-        }
+      //  }
     }
 
     onTouchDeletion(tuioTouchId) {
@@ -105,7 +113,6 @@ class PionsBRWidget extends PionsWidget {
         super.onTouchDeletion(tuioTouchId);
         if (this.aLeBallon) this.ballon.onTouchDeletion(tuioTouchId);
         if (typeof (this._lastTouchesValues[tuioTouchId]) !== 'undefined') {
-            console.log("COUCOUCOU");
             let nbV = this.nbVoisins;
             const intX = this.internX;
             const intY = this.internY;
@@ -115,7 +122,6 @@ class PionsBRWidget extends PionsWidget {
                     (intX >= vois[i].internX - 20 - 14.5) &&
                     (intY <= vois[i].internY + 20 - 14.5) &&
                     (intY >= vois[i].internY - 20 - 14.5)) {
-                    console.log("TAILLE VOISIN : " + this.voisins[i].nbVoisins);
                     for (var j = 0; j < this.nbVoisins; j++){
                         this.voisins[j]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
                         this.voisins[j].src = 'assets/MainScreen/bcircle.png';
@@ -147,8 +153,6 @@ class PionsBRWidget extends PionsWidget {
                         this.ballon.my = this.ballon.internY;
 
                     }
-                    console.log(this.voisins);
-                    console.log(this.nbVoisins);
                     nbV = i;
                     deplace = true;
                 }
@@ -162,15 +166,20 @@ class PionsBRWidget extends PionsWidget {
 
 
                 /*Changement coordonnées du ballon*/
+                if (this.aLeBallon) {
                     this.ballon._domElem.css('left', `${this.ballon.mx}px`);
                     this.ballon.internX = this.ballon.mx;
                     this.ballon._domElem.css('top', `${this.ballon.my}px`);
                     this.ballon.internY = this.ballon.my;
+                }
             }
-            for (var k = 0; k < this.nbVoisins; k++){
-                this.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
-                this.voisins[k].src = 'assets/MainScreen/bcircle.png';
+            if (!this.passDisplayed) {
+                for (var k = 0; k < this.nbVoisins; k++) {
+                    this.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
+                    this.voisins[k].src = 'assets/MainScreen/bcircle.png';
+                }
             }
+            console.log("nombre de fois touche : " + this.nbTouched);
           /*  if (this.src === 'assets/MainScreen/pionB.png') {
                 this.pawnTouched("blue");
             }
@@ -182,8 +191,35 @@ class PionsBRWidget extends PionsWidget {
     }
 
 
+    moveTo(x, y, angle = null) {
+      console.log("x : " + x +", y : " + y + " / internX : " + this.internX + ", internY : " + this.internY);
+       if ((x === this.internX)&&(y === this.internY)){
+           if (!this.passDisplayed){
+               this.nbTouched++;
+               console.log(this.nbTouched);
+           }
+           else {
+               this.passDisplayed = false;
+               this.nbTouched = 0;
+           }
+
+           /*this.aEteBouge = true;*/ console.log("presque pas bouge");
+       }
+       else {this.nbTouched = 0;}
+       if (this.nbTouched === 2){
+           console.log("2 fois touche");
+           this.nbTouched = 0;
+           this.displayPass();
+       }
+        super.moveTo(x, y, angle);
+    }
+
+
+
 }
+PionsBRWidget.pionDisplayed = PionsWidget.listePionsN[0];
 PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = false;
 PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = 0;
+PionsBRWidget.firstButtonClicked = PionsWidget.listePionsN[0];
 
 export default PionsBRWidget;
