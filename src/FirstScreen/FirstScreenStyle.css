@@ -1,7 +1,8 @@
 .firstScreenBackground {
-    background: linear-gradient(to bottom, #4687e7 0%, #4687e7 50%, #e26b6b 50%, #e26b6b 100%);
-}
+    /*background: linear-gradient(to bottom, #4687e7 0%, #4687e7 50%, #e26b6b 50%, #e26b6b 100%);*/
+    background-image: url("./../../assets/terrain.png");
 
+}
 
 .nopadding {
     padding: 0 !important;
@@ -26,6 +27,15 @@
     line-height: 1.33;
 }
 
+.blueTeam {
+    background-color: #4687e7;
+    transform: rotate(180deg);
+}
+
+.redTeam {
+    background-color: #e26b6b;
+}
+
 .btn-circle.btn-xl {
     width: 70px;
     height: 70px;
@@ -45,7 +55,6 @@
     line-height: 1.42857;
 }
 
-
 .pulse-button {
     position: relative;
     width: 100px;
@@ -54,22 +63,43 @@
     box-shadow: 0 0 0 0 rgb(30, 4, 177);
     border-radius: 50%;
     background-color: rgb(30, 4, 177);
-    background-size:cover;
-    padding:10px;
+    background-size: cover;
+    padding: 10px;
     background-repeat: no-repeat;
     cursor: pointer;
     -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
     -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
     -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
     animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-  }
-  /*
+}
+
+/*
   .pulse-button:hover 
   {
     -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
   }
   */
-  @-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);}}
-  @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);}}
-  @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);}}
-  @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);}}
+
+@-webkit-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);
+    }
+}
+
+@-moz-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);
+    }
+}
+
+@-ms-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);
+    }
+}
+
+@keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);
+    }
+}

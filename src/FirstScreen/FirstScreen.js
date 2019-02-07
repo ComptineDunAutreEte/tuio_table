@@ -39,8 +39,7 @@ class FirstScreen {
 
         // middle row
         $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
-        $("#" + middleRowID).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
-        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-plus"></i></button>');
+        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-plus"></i></button>');
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5"> </div>');
         //$("#" + botRowID ).append();
@@ -57,11 +56,11 @@ class FirstScreen {
 
         //$("#" + botRowID ).append();
         const addCard = () => {
-            $("#" + botRowID).append('<div class="card h-100 slideUp"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body"><h4 class="card-title">Please Enter your alias</h4>\
+            $("#" + botRowID).append('<div class="card h-100 slideUp"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body redTeam"><h4 class="card-title">Please Enter your alias</h4>\
             <p class="card-text">expand</p>\
         </div>\
     </div>');
-            $("#topDeck").append('<div class="card h-100 slideDown"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body"><h4 class="card-title">Please Enter your alias</h4>\
+            $("#topDeck").append('<div class="card h-100 slideDown"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body blueTeam"><h4 class="card-title">Please Enter your alias</h4>\
             <p class="card-text">expand</p>\
         </div>\
     </div>');
