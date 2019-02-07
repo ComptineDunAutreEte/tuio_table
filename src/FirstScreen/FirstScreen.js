@@ -1,10 +1,5 @@
 /* eslint-disable */
 
-// images pour nombre de joueurs comme sur la wii
-// ballon qui clignote lorsque action clé
-// difficulté : images , jauge ?
-// 
-
 class FirstScreen {
     constructor(obs) {
         this.playerCount = 2;
@@ -39,15 +34,30 @@ class FirstScreen {
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 nopadding"> </div>');
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center"> </div>');
-        $("#" + topRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+        //$("#" + topRowID ).append();
 
         // middle row
         $("#" +mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center"> </div>');
         $("#" + middleRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
-
+        $("#" + middleRowID ).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-plus"></i></button>');
         // Bottom row
         $("#" +mainColID).append('<div id="' + botRowID + '" class="row justify-content-center"> </div>');
-        $("#" + botRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+        //$("#" + botRowID ).append();
+        this.initMockAddButton();
+
+    }
+
+    initMockAddButton(){
+        console.log("init mock")
+        const botRowID = "botRow";
+        //$("#" + botRowID ).append();
+        const addCard = () => {
+            $("#" + botRowID ).append('<div class="card h-100 slideUp"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body"><h4 class="card-title">Please Enter your alias</h4>\
+            <p class="card-text">expand</p>\
+        </div>\
+    </div>');
+        }
+        document.getElementById("add_mock").onclick = addCard;
 
     }
 
