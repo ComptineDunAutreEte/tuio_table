@@ -2,6 +2,21 @@
     background: linear-gradient(to bottom, #4687e7 0%, #4687e7 50%, #e26b6b 50%, #e26b6b 100%);
 }
 
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.invisible {
+    display: none;
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
 .btn-circle.btn-xxl {
     width: 200px;
     height: 200px;

@@ -19,17 +19,42 @@ class FirstScreen {
         const pid = "#" + id;
         const str = '<div id="' + this.id + '" class="row align-self-center align-items-center w-100"> </div>';
         $(pid).append(str);
+        /*
         this.createPlayerCountCOL(this.id);
         this.createConfirmBtn(this.id);
         this.createDifficultyLevelCOL(this.id);
+        */
+       this.createDivs(this.id);
         document.getElementById(this.containerID).className = this.containerClass + " " + "firstScreenBackground";
     }
 
     /** populate function **/
-    createPlayerCountCOL(parentID) {
+    createDivs(parentID) {
         const pid = "#" + parentID;
+        const topRowID = "topRow";
+        const middleRowID = "midRow"
+        const botRowID = "botRow";
+        const mainColID = "mainCol";
+        // main COL
+        $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 nopadding"> </div>');
+        // Top row
+        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center"> </div>');
+        $("#" + topRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+
+        // middle row
+        $("#" +mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center"> </div>');
+        $("#" + middleRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+
+        // Bottom row
+        $("#" +mainColID).append('<div id="' + botRowID + '" class="row justify-content-center"> </div>');
+        $("#" + botRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+
+    }
+
+    createPlayerCountCOL(parentID) {
+        const pid =  parentID;
         // contenu
-        $(pid).append('<div id="nPlayersHalf" class="col"> </div>');
+        $("#" + pid).append('<div id="nPlayersHalf" class="col"> </div>');
         $('#nPlayersHalf').append('<div class="row justify-content-center" id="playerCountHalfRow"> </div>');
 
         const btnsIDs = ['2playersBtn', '4playersBtn', '6playersBtn'];
@@ -37,9 +62,9 @@ class FirstScreen {
         const colors = ["secondary", "secondary", "secondary"];
         this.createRadioBtnGroup(btnsIDs, btnsTexts, colors, 'playerCountHalfRow');
 
-        for(let i = 0; i < btnsIDs.length; i++){
+        for (let i = 0; i < btnsIDs.length; i++) {
             document.getElementById(btnsIDs[i]).onclick = () => {
-                this.setPlayerCount((i+1) *2);
+                this.setPlayerCount((i + 1) * 2);
             }
         }
     }
@@ -55,7 +80,7 @@ class FirstScreen {
         const colors = ["success", "warning", "danger"];
         this.createRadioBtnGroup(btnsIDs, btnsTexts, colors, 'diffHalfRow');
 
-        for(let i = 0; i < btnsIDs.length; i++){
+        for (let i = 0; i < btnsIDs.length; i++) {
             document.getElementById(btnsIDs[i]).onclick = () => {
                 this.setDifficultyLevel(i + 1);
             }
@@ -79,10 +104,10 @@ class FirstScreen {
         const btnID = "confirmFirstScreenBtn";
         const that = this;
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
-        document.getElementById(btnID).onclick = () => { 
+        document.getElementById(btnID).onclick = () => {
             that.notifyServer(that);
             that.observer.finishedFirstscreen();
-         };
+        };
         /*
         const message = this.playerCount + "," + this.difficultyLevel;
         console.log("should be : " + message)
@@ -91,7 +116,7 @@ class FirstScreen {
 
     notifyServer(that) {
         const message = that.playerCount + "," + that.difficultyLevel;
-        that.observer.sendMessage(message,'loginTable'); 
+        that.observer.sendMessage(message, 'loginTable');
     }
 
     // getters and setters
