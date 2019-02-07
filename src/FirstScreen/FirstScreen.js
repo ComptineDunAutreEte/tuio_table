@@ -49,57 +49,28 @@ class FirstScreen {
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
 
         this.initMockAddButton();
-
     }
 
-    setPulsating(id, bool) {
-        const btn = document.getElementById(id);
-        if (bool) {
-            btn.className = "btn btn-info btn-circle btn-xxl pulse-button middleScreen";
-        } else {
-            btn.className = "btn btn-info btn-circle btn-xxl middleScreen";
-        }
-    }
+    createConfirmBtn(parentID) {
+        const pid = "#" + parentID;
+        const btnID = "confirmFirstScreenBtn";
+        const that = this;
 
-    createDifficultyLevelStepper() { }
-
-    initMockAddButton() {
-        console.log("init mock")
-        const botRowID = "botDeck";
-
-        //$("#" + botRowID ).append();
-        const addCard = () => {
-            if (this.playerCount < 6) {
-
-                if (this.playerCount % 2 == 0) {
-                    this.setPulsating("confirmFirstScreenBtn", false);
-                    this.addPlayerCard("topDeck", "down", "toto");
-                    this.playerCount++;
-                } else {
-                    this.setPulsating("confirmFirstScreenBtn", true);
-                    this.addPlayerCard(botRowID, "up", "zeuby");
-                    this.playerCount++;
-                }
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
+        document.getElementById(btnID).onclick = () => {
+            if (that.playerCount %2 === 0){
+                that.notifyServer(that);
+                that.observer.finishedFirstscreen();
             }
-
-        }
-        document.getElementById("add_mock").onclick = addCard;
-
+        };
+        /*
+        const message = this.playerCount + "," + this.difficultyLevel;
+        console.log("should be : " + message)
+        */
     }
 
-    addPlayerCard(whereID, towards, nem) {
-        const pid = "#" + whereID;
-        let animationClass, team;
-        if (towards === "up") {
-            animationClass = "slideUp";
-            team = "redTeam";
-        } else {
-            animationClass = "slideDown";
-            team = "blueTeam";
-        }
-        $(pid).append('<div class="card h-100 w-30 ' + animationClass + '"><div class="card-body ' + team + '"><h4 class="card-title">Player</h4>\
-        <p class="card-text">' + nem + '</p></div></div>');
-    }
+   
+    createDifficultyLevelStepper() { }
 
     createPlayerCountCOL(parentID) {
         const pid = parentID;
@@ -148,26 +119,26 @@ class FirstScreen {
             <input type="radio" name="options" autocomplete="off" checked>' + texts[i] + '</label>');
         }
     }
+    /* MISC */
+    initMockAddButton() {
+        //$("#" + botRowID ).append();
+        const addCard = () => {
+            if (this.playerCount < 6) {
 
-    createConfirmBtn(parentID) {
-        const pid = "#" + parentID;
-        const btnID = "confirmFirstScreenBtn";
-        const that = this;
-
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
-        document.getElementById(btnID).onclick = () => {
-            if (that.playerCount %2 === 0){
-                that.notifyServer(that);
-                that.observer.finishedFirstscreen();
-            }else {
-                that.addCard;
+                if (this.playerCount % 2 == 0) {
+                    this.setPulsating("confirmFirstScreenBtn", false);
+                    this.addPlayerCard("blue", "toto");
+                    this.playerCount++;
+                } else {
+                    this.setPulsating("confirmFirstScreenBtn", true);
+                    this.addPlayerCard("red", "zeuby");
+                    this.playerCount++;
+                }
             }
 
-        };
-        /*
-        const message = this.playerCount + "," + this.difficultyLevel;
-        console.log("should be : " + message)
-        */
+        }
+        document.getElementById("add_mock").onclick = addCard;
+
     }
 
     notifyServer(that) {
@@ -175,7 +146,33 @@ class FirstScreen {
         that.observer.sendMessage(message, 'loginTable');
     }
 
+    addPlayerCard(team, nem) {
+        let animationClass, teamClass, whereID;
+        if (team === "red") {
+            animationClass = "slideUp";
+            teamClass = "redTeam";
+            whereID = "#botDeck";
+        } else {
+            animationClass = "slideDown";
+            teamClass = "blueTeam";
+            whereID = "#topDeck";
+        }
+
+        $(whereID).append('<div class="card h-100 w-30 ' + animationClass + '"><div class="card-body ' + teamClass + '"><h4 class="card-title">Player</h4>\
+        <p class="card-text">' + nem + '</p></div></div>');
+    }
+
+
     // getters and setters
+    setPulsating(id, bool) {
+        const btn = document.getElementById(id);
+        if (bool) {
+            btn.className = "btn btn-info btn-circle btn-xxl pulse-button middleScreen";
+        } else {
+            btn.className = "btn btn-info btn-circle btn-xxl middleScreen";
+        }
+    }
+
     setPlayerCount(i) {
         this.playerCount = i;
     }

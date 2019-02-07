@@ -54,6 +54,7 @@ class Lifecycle {
         // constants to save from a screen to another ?
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
+        this.actualScreen = "";
     }
 
     start() {
@@ -103,27 +104,30 @@ class Lifecycle {
         this.clearScreen();
         $('#app').className =this.containerClass;
         const formationScreen = new FormationScreen(this);
+        this.formationScreen = firstScreen;
         formationScreen.buildFormation();
     }
 
     loadFirstScreen() {
         this.clearScreen();
         const firstScreen = new FirstScreen(this);
+        this.actualScreen = firstScreen;
         $('#app').className =this.containerClass;
         firstScreen.populate("app");
     }
 
     loadMainScreen() {
-        const that = this;
         this.clearScreen();
         $('#app').className =this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
+        this.actualScreen = mainScreen;
         mainScreen.populate("app");
        // $('#app').addEventListener('click',that.loadMainScreen());
     }
 
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
+        this.actualScreen = waitScreen;
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
         client.getSocket().on("indivQuestion", (msg) => {
@@ -133,6 +137,7 @@ class Lifecycle {
     }
 
     loadQuestionScreen() {
+        this.actualScreen = "";
         console.log("loading question sceen");
         $('#app').load('src/questionnaire/questionnaire.html');
         $('#videoTop').ready(() => {
@@ -149,11 +154,10 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
-        console.log("starting up")
         client.getSocket().on('table', (msg) => {
             console.log(msg);
         });
-        client.getSocket()('response', (msg) => {
+        client.getSocket().on('response', (msg) => {
             console.log(msg);
         });
         client.getSocket().on('start-question-collectif', (message) => {
@@ -173,6 +177,7 @@ class Lifecycle {
 
     printTest(){
         console.log("test printing");
+        this.actualScreen.addPlayerCard();
     }
 
     sendMessage(data, channel) {

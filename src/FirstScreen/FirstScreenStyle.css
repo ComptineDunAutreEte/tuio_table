@@ -25,13 +25,20 @@
 
 .topRow {
     position: sticky;
-    top:10%;
+    top: 10%;
 }
 
-.testButton{
+.testButton {
     top: 50%;
     margin-left: -100px;
     position: fixed;
+}
+
+.topSlider {
+    top: 28%;
+    width: 10px;
+    position: fixed;
+    display: block;
 }
 
 .btn-circle.btn-xxl {
@@ -43,7 +50,7 @@
     line-height: 1.33;
 }
 
-.middleScreen{
+.middleScreen {
     left: 50%;
     top: 50%;
     margin-left: -100px;
@@ -58,6 +65,18 @@
 
 .redTeam {
     background-color: #e26b6b;
+}
+
+.borderBlue
+{
+        box-shadow: inset 0 0 0 25px #4687e7;
+        transition: ease-in 0.5s
+}
+
+.borderRed
+{
+        box-shadow: inset 0 0 0 25px #e26b6b;
+        transition: ease-in 0.5s
 }
 
 .btn-circle.btn-xl {
@@ -125,4 +144,26 @@
     to {
         box-shadow: 0 0 0 45px rgba(38, 0, 255, 0);
     }
+}
+
+/* silder */
+.range-slider .input-range {
+    -webkit-appearance: none;
+    height: 200px;
+    border-radius: 5px;
+    background: #ccc;
+    outline: none;
+    writing-mode: bt-lr;
+    /* IE */
+    -webkit-appearance: slider-vertical;
+    /* WebKit */
+}
+
+::-moz-range-track {
+    background: #ccc;
+    border: 0;
+}
+
+input::-moz-focus-inner {
+    border: 0;
 }
