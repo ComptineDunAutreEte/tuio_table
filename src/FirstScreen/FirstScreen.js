@@ -2,7 +2,7 @@
 
 class FirstScreen {
     constructor(obs) {
-        this.playerCount = 2;
+        this.playerCount = 0;
         this.difficultyLevel = 1; // 1-3 => facile difficile
         this.id = "firstScreen"
         this.containerID = "app";
@@ -39,7 +39,7 @@ class FirstScreen {
 
         // middle row
         $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
-        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-plus"></i></button>');
+        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-plus"></i></button>');
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5"> </div>');
         //$("#" + botRowID ).append();
@@ -50,23 +50,50 @@ class FirstScreen {
 
     }
 
+    setPulsating(id, bool){
+        const btn = document.getElementById(id);
+        if (bool){
+            btn.className += " pulse-button";
+        }else {
+            btn.className = "btn btn-info btn-circle btn-xxl";
+        }
+    }
+
+    createDifficultyLevelStepper() { }
+
     initMockAddButton() {
         console.log("init mock")
         const botRowID = "botDeck";
 
         //$("#" + botRowID ).append();
         const addCard = () => {
-            $("#" + botRowID).append('<div class="card h-100 slideUp"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body redTeam"><h4 class="card-title">Please Enter your alias</h4>\
-            <p class="card-text">expand</p>\
-        </div>\
-    </div>');
-            $("#topDeck").append('<div class="card h-100 slideDown"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body blueTeam"><h4 class="card-title">Please Enter your alias</h4>\
-            <p class="card-text">expand</p>\
-        </div>\
-    </div>');
+            if (this.playerCount < 5) {
+                this.addPlayerCard(botRowID, "up", "zeuby");
+                this.playerCount ++;
+                this.addPlayerCard("topDeck", "down", "toto");
+                this.playerCount++;
+                if (this.playerCount % 3 == 0){
+                    this.setPulsating("add_mock", true);
+                }
+            }
+
         }
         document.getElementById("add_mock").onclick = addCard;
 
+    }
+
+    addPlayerCard(whereID, towards, nem) {
+        const pid = "#" + whereID;
+        let animationClass, team;
+        if (towards === "up") {
+            animationClass = "slideUp";
+            team = "redTeam";
+        } else {
+            animationClass = "slideDown";
+            team = "blueTeam";
+        }
+        $(pid).append('<div class="card h-100 w-30 ' + animationClass + '"><div class="card-body ' + team + '"><h4 class="card-title">Player</h4>\
+        <p class="card-text">' + nem + '</p></div></div>');
     }
 
     createPlayerCountCOL(parentID) {

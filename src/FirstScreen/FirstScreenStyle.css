@@ -1,7 +1,6 @@
 .firstScreenBackground {
     /*background: linear-gradient(to bottom, #4687e7 0%, #4687e7 50%, #e26b6b 50%, #e26b6b 100%);*/
     background-image: url("./../../assets/terrain.png");
-
 }
 
 .nopadding {
