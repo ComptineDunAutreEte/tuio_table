@@ -257,11 +257,6 @@ class PionsWidget extends ElementWidget {
 
     }
 
-    onTouchUpdate(tuioTouch){
-        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
-            super.onTouchUpdate(tuioTouch);
-        }
-    }
 
     moveTo(x, y, angle = null) {
         if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {

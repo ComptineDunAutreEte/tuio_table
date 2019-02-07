@@ -38,14 +38,58 @@ class PionsBRWidget extends PionsWidget {
 
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
+        if (this.aLeBallon) {
+            this.ballon.bougeParPion = true;
+            this.ballon.onTouchCreation(tuioTouch);
+        }
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
             for (var i = 0; i < this.nbVoisins; i++){
                 this.voisins[i]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
                 this.voisins[i].src = 'assets/MainScreen/bscircle.png';
             }
-
+            if (this.aLeBallon){
+                if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
+                    /*   this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
+                       this.ballon.internX = this.internX + this.width + 5;
+                       this.ballon.mx = this.ballon.internX;*/
+                 /*   tuioTouch.x = tuioTouch.x + this.width + 5;*/
+                    tuioTouch.update(tuioTouch.x + this.width + 5, tuioTouch.y + 20);
+                }
+                else {
+                    /* this.ballon._domElem.css('left', `${this.internX - 40}px`);
+                     this.ballon.internX = this.internX - 40; */
+                 //   tuioTouch.x = tuioTouch.x - 40;
+                    tuioTouch.update(tuioTouch.x - 40, tuioTouch.y + 20);
+                }
+             /*   tuioTouch.y = tuioTouch.y + 20;*/
+            }
         }
     }
+
+
+    onTouchUpdate(tuioTouch){
+        super.onTouchUpdate(tuioTouch);
+        if (this.aLeBallon){
+            this.ballon.onTouchUpdate(tuioTouch);
+           /* if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
+                /*   this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
+                   this.ballon.internX = this.internX + this.width + 5;
+                   this.ballon.mx = this.ballon.internX;*/
+                /*   tuioTouch.x = tuioTouch.x + this.width + 5;*/
+
+            /*    tuioTouch.update(tuioTouch.x + this.width + 5, tuioTouch.y + 20);
+            }
+            else {
+                /* this.ballon._domElem.css('left', `${this.internX - 40}px`);
+                 this.ballon.internX = this.internX - 40; */
+                //   tuioTouch.x = tuioTouch.x - 40;
+         /*       tuioTouch.update(tuioTouch.x - 40, tuioTouch.y + 20);
+            }
+            /*   tuioTouch.y = tuioTouch.y + 20;*/
+        //    this.ballon.onTouchUpdate(tuioTouch);
+        }
+    }
+
     onTouchDeletion(tuioTouchId) {
         let deplace = false;
         /*  if(this.aEteTouche){
@@ -59,6 +103,7 @@ class PionsBRWidget extends PionsWidget {
           }
          // return super.onTouchDeletion(tuioTouchId);*/
         super.onTouchDeletion(tuioTouchId);
+        if (this.aLeBallon) this.ballon.onTouchDeletion(tuioTouchId);
         if (typeof (this._lastTouchesValues[tuioTouchId]) !== 'undefined') {
             console.log("COUCOUCOU");
             let nbV = this.nbVoisins;
@@ -86,19 +131,22 @@ class PionsBRWidget extends PionsWidget {
                     this.voisins = this.voisins[i].voisins;
 
                     /*Changement coordonnées du ballon*/
-                    if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
-                        this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
-                        this.ballon.internX = this.internX + this.width + 5;
-                        this.ballon.mx = this.ballon.internX;
-                    }
-                    else {
-                        this.ballon._domElem.css('left', `${this.internX - 40}px`);
-                        this.ballon.internX = this.internX - 40;
-                    }
-                    this.ballon._domElem.css('top', `${this.internY + 20}px`);
-                    this.ballon.internY = this.internY + 20;
-                    this.ballon.my = this.ballon.my;
+                    if (this.aLeBallon){
+                        if (this.src === 'assets/MainScreen/pionB.png') {
+                            this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
+                            this.ballon.internX = this.internX + this.width + 5;
+                            this.ballon.mx = this.ballon.internX;
+                        }
+                        else {
+                            this.ballon._domElem.css('left', `${this.internX - 40}px`);
+                            this.ballon.internX = this.internX - 40;
+                            this.ballon.mx = this.ballon.internX;
+                        }
+                        this.ballon._domElem.css('top', `${this.internY + 20}px`);
+                        this.ballon.internY = this.internY + 20;
+                        this.ballon.my = this.ballon.internY;
 
+                    }
                     console.log(this.voisins);
                     console.log(this.nbVoisins);
                     nbV = i;

@@ -11,6 +11,7 @@ class BallonWidget extends ElementWidget {
         if (new.target === ElementWidget) {
             throw new TypeError('ElementWidget is an abstract class. It cannot be instanciated');
         }
+        this.bougeParPion = false;
         this.src = imgSrc;
         this._domElem = $('<img>');
         this._domElem.attr('src', imgSrc);
@@ -31,15 +32,24 @@ class BallonWidget extends ElementWidget {
     }
 
     onTouchCreation(tuioTouch) {
-
+        if (this.bougeParPion) {
+            super.onTouchCreation(tuioTouch);
+            this.bougeParPion = false;
+        }
     }
 
     onTouchUpdate(tuioTouch) {
-
+        if (this.bougeParPion){
+            super.onTouchUpdate(tuioTouch);
+            this.bougeParPion = false;
+        }
     }
 
     onTouchDeletion(tuioTouchId) {
-
+        if (this.bougeParPion) {
+            super.onTouchDeletion(tuioTouchId);
+            this.bougeParPion = false;
+        }
     }
 
     get domElem() { return this._domElem; }
