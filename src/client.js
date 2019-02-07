@@ -1,6 +1,8 @@
 import io from 'socket.io-client';
 
-const socketIOUrl = 'http://localhost:4000/';
+// const socketIOUrl = 'http://localhost:4000/';
+const socketIOUrl = 'http://eeriel.fr:4000/';
+
 const socketServer = io.connect(socketIOUrl);
 
 function getSocket() {

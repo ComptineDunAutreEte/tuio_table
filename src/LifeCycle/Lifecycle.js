@@ -68,13 +68,14 @@ class Lifecycle {
 
     contructor() {
         // constants to save from a screen to another ?
+        this.containerID = "app";
+        this.containerClass = "container-fluid d-flex h-100";
     }
 
     start() {
 
-        //this.loadFirstScreen();
-        //this.mainScreen();
-        this.loadMainScreen();
+
+        this.loadFirstScreen();
         this.initConnexion();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
@@ -87,49 +88,65 @@ class Lifecycle {
         this.finishedFormationScreen();
     }
 
-    pawnMoved() {
+    pawnMoved(str) {
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
         //this.sendMessage(message, channel);
         //this.clearScreen();
         // this.loadWaitingScreen();
-        this.loadQuestionScreen();
+        if (str === "collectif") {
+            this.loadQuestionScreen();
+        } else if (str === "indiv") {
+            this.loadWaitingScreen();
+        }
     }
 
 
     // finishing functions
     finishedFirstscreen() {
         console.log("first screen DONE. Transition to next screen");
-        this.clearScreen(this);
+        this.clearScreen();
         this.loadFormationScreen();
     }
 
     finishedFormationScreen() {
-        console.log("FormationScreen DONE. transition to next screen")
+        console.log("FormationScreen DONE. transition to next screen");
         this.clearScreen();
         this.loadMainScreen();
     }
 
     /* Screens inflaters */
     loadFormationScreen() {
+        this.clearScreen();
+        $('#app').className = this.containerClass;
         const formationScreen = new FormationScreen(this);
         formationScreen.buildFormation();
     }
 
     loadFirstScreen() {
+        this.clearScreen();
         const firstScreen = new FirstScreen(this);
+        $('#app').className = this.containerClass;
         firstScreen.populate("app");
     }
 
     loadMainScreen() {
+        const that = this;
+        this.clearScreen();
+        $('#app').className = this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         mainScreen.populate("app");
+        // $('#app').addEventListener('click',that.loadMainScreen());
     }
 
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
         waitScreen.populate("app");
-        this.waitForResponse('table');
+        client.send("indivQuestion", "ready");
+        client.getSocket().on("indivQuestion", (msg) => {
+                console.log(msg);
+            })
+            //this.waitForResponse('indivQestion');
     }
 
     loadQuestionScreen() {
@@ -159,10 +176,6 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
-        //console.log('jesuisla');
-    }
-
-    sendMessage(data, channel) {
         client.send(channel, data);
         /*console.log("je notifiiieee le serveeeer : " + msg);
         const socketIOUrl = 'http://localhost:4000';
@@ -189,7 +202,7 @@ class Lifecycle {
     }
 
     /* MISC */
-    clearScreen(t) {
+    clearScreen() {
         const root = document.getElementById("app");
         while (root.firstChild) {
             root.className = "container-fluid d-flex h-100";
@@ -198,8 +211,7 @@ class Lifecycle {
     }
 
     test(a) {
-        console.log("life cycle reached !\n first arg : " + a)
+        console.log("life cycle reached !\n first arg : " + a);
     }
-
 }
 export default Lifecycle;
