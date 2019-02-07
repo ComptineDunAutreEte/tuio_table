@@ -33,7 +33,7 @@ class FirstScreen {
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
         // Top row
-        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5"> </div>');
+        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
         //$("#" + topRowID ).append();
         $("#" + topRowID).append('<div id="topDeck" class="card-deck"> </div>');
 
@@ -41,7 +41,7 @@ class FirstScreen {
         $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
         $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-plus"></i></button>');
         // Bottom row
-        $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5"> </div>');
+        $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 botRow"> </div>');
         //$("#" + botRowID ).append();
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
         // making it a card deck

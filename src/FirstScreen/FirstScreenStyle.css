@@ -18,6 +18,16 @@
     visibility: visible;
 }
 
+.botRow {
+    position: sticky;
+    top: 70%;
+}
+
+.topRow {
+    position: sticky;
+    top:10%;
+}
+
 .btn-circle.btn-xxl {
     width: 200px;
     height: 200px;
