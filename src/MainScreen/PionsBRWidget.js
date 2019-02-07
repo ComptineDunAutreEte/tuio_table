@@ -44,16 +44,32 @@ class PionsBRWidget extends PionsWidget {
         return Math.floor(Math.random() * Math.floor(max));
     }
 
+    contains(liste, n, obj){
+        for (var l = 0; l < n; l++){
+            if (liste[l] === obj){
+                return true;
+            }
+        }
+        return false;
+    }
+
     displayPass(){
         console.log("display pass");
         this.nbTouched = 0;
         this.passDisplayed = true;
-        if (PionsBRWidget.pionDisplayed !== this){
-            for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
-                PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
-                PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
+        if (PionsBRWidget.pionDisplayed != null){
+            if (PionsBRWidget.pionDisplayed !== this){
+                for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
+                    if (!this.contains(this.voisins, this.nbVoisins, PionsBRWidget.pionDisplayed.voisins[k])){
+                        PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
+                        PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
+                    }
+
+                   // }
+                }
             }
         }
+        PionsBRWidget.firstButtonClicked = this;
         PionsBRWidget.pionDisplayed = this;
     }
 
@@ -201,6 +217,7 @@ class PionsBRWidget extends PionsWidget {
            else {
                this.passDisplayed = false;
                this.nbTouched = 0;
+               PionsBRWidget.firstButtonClicked = null;
            }
 
            /*this.aEteBouge = true;*/ console.log("presque pas bouge");
@@ -209,7 +226,7 @@ class PionsBRWidget extends PionsWidget {
        if (this.nbTouched === 2){
            console.log("2 fois touche");
            this.nbTouched = 0;
-           this.displayPass();
+           if (this.aLeBallon) this.displayPass();
        }
         super.moveTo(x, y, angle);
     }
@@ -217,9 +234,9 @@ class PionsBRWidget extends PionsWidget {
 
 
 }
-PionsBRWidget.pionDisplayed = PionsWidget.listePionsN[0];
+PionsBRWidget.pionDisplayed = null;
 PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = false;
 PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = 0;
-PionsBRWidget.firstButtonClicked = PionsWidget.listePionsN[0];
+PionsBRWidget.firstButtonClicked = null;
 
 export default PionsBRWidget;
