@@ -75,8 +75,9 @@ class Lifecycle {
     start() {
 
 
-        this.loadFirstScreen();
-        this.initConnexion();
+       // this.loadFirstScreen();
+       // this.initConnexion();
+        this.loadFormationScreen();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
@@ -84,7 +85,7 @@ class Lifecycle {
     formationChosen(RED_TEAM, BLUE_TEAM) {
         const message = "" + RED_TEAM + separator + BLUE_TEAM;
         const channel = "table"; // TOBE REDIFINED
-        this.sendMessage(message, channel);
+      //  this.sendMessage(message, channel);
         this.finishedFormationScreen();
     }
 
@@ -145,7 +146,7 @@ class Lifecycle {
         client.send("indivQuestion", "ready");
         client.getSocket().on("indivQuestion", (msg) => {
                 console.log(msg);
-            })
+            });
             //this.waitForResponse('indivQestion');
     }
 
@@ -160,9 +161,9 @@ class Lifecycle {
             videoBot.on('timeupdate', myScript2);
         });
         /*$('#videoTop').ready(() => {
-            
+
             if (video !== null) {
-                
+
             }
         });*/
         /* $('videoBot').ready(() => {
