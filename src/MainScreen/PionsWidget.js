@@ -19,9 +19,12 @@ class PionsWidget extends ElementWidget {
         }
         this.mx = x;
         this.my = y;
-        this.nbVoisins = 0;
+
+        if (imgSrc === 'assets/MainScreen/pionN.png'){
+            this.nbVoisins = 0;
+            this.voisins = [];
+        }
         let deplace = false;
-        this.voisins = [];
         this.aEteTouche = false;
         this._domElem = $('<img>');
         if (imgSrc !== ''){ this.src = imgSrc; this._domElem.attr('src', imgSrc);}
@@ -37,8 +40,9 @@ class PionsWidget extends ElementWidget {
         this.idp = idp;
         if (this.src === 'assets/MainScreen/pionN.png'){this.initVoisins();console.log(idp + "  :   " + this.voisins); console.log("nbVoisinsINIT : " + this.nbVoisins);}
         if (this.src === 'assets/MainScreen/pionN.png'){ PionsWidget.listePionsN.push(this); PionsWidget.nbPionsN++;}
-        if (PionsWidget.nbPionsN === 55) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
-        else {PionsWidget.listePionsBR.push(this);PionsWidget.nbPionsBR++;}
+        if (PionsWidget.nbPionsN === 55) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(PionsWidget.listePionsN[i].idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
+
+
         for (var j = 0; j < PionsWidget.nbPionsBR; j++) {
             PionsWidget.setPionsTouches(j, 0);
         }
@@ -48,72 +52,94 @@ class PionsWidget extends ElementWidget {
 
 
     updateVoisins(){
-        var id = 0;
-        if (this.idp % 7 !== 0){
-            this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 1];
-            id++;
-            if (this.idp > 6){
-                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 8];
-                id++;
-            }
-            if (this.idp < 48){
-                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 6];
-                id++;
-            }
-        }
-        if ((this.idp % 6 !== 0) || (this.idp === 0)){
+        let id = 0;
+        let idPionsBas = [6, 13, 20, 27,34,41,48,55];
+        if (this.idp === 0){
             this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 1];
             id++;
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
+            id++;
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 8];
+        }
+        else {
+            if (this.idp % 7 !== 0){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 1];
+                id++;
+                if (this.idp > 6){
+                    this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 8];
+                    id++;
+                }
+                if (this.idp < 48){
+                    this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 6];
+                    id++;
+                }
+            }
+            if (!idPionsBas.includes(this.idp)){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 1];
+                id++;
+                if (this.idp > 6){
+                    this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 6];
+                    id++;
+                }
+                if (this.idp < 48){
+                    this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 8];
+                    id++;
+                }
+            }
             if (this.idp > 6){
-                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 6];
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 7];
                 id++;
             }
             if (this.idp < 48){
-                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 8];
-                id++;
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
             }
         }
-        if (this.idp > 6){
-            this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 7];
-            id++;
-        }
-        if (this.idp < 48){
-            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
-        }
+        this.nbVoisins = this.voisins.length;
     }
 
     initVoisins(){
-        if (this.idp % 7 !== 0){
-            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 1];
-            this.nbVoisins++;
-            if (this.idp > 6){
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 8];
-                this.nbVoisins++;
-            }
-            if (this.idp < 48){
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 6];
-                this.nbVoisins++;
-            }
-        }
-        if ((this.idp % 6 !== 0) || (this.idp === 0)){
+        let idPionsBas = [6, 13, 20, 27,34,41,48,55];
+        if (this.idp === 0){
             this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 1];
             this.nbVoisins++;
-            if (this.idp > 6){
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 6];
-                this.nbVoisins++;
-            }
-            if (this.idp < 48){
-                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
-                this.nbVoisins++;
-            }
-        }
-        if (this.idp > 6){
-            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 7];
-            this.nbVoisins++;
-        }
-        if (this.idp < 48){
             this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 7];
             this.nbVoisins++;
+            this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
+            this.nbVoisins++;
+        }
+        else {
+            if (this.idp % 7 !== 0) {
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 1];
+                this.nbVoisins++;
+                if (this.idp > 6) {
+                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 8];
+                    this.nbVoisins++;
+                }
+                if (this.idp < 48) {
+                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 6];
+                    this.nbVoisins++;
+                }
+            }
+            if (!idPionsBas.includes(this.idp)) {
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 1];
+                this.nbVoisins++;
+                if (this.idp > 6) {
+                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 6];
+                    this.nbVoisins++;
+                }
+                if (this.idp < 48) {
+                    this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 8];
+                    this.nbVoisins++;
+                }
+            }
+            if (this.idp > 6) {
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp - 7];
+                this.nbVoisins++;
+            }
+            if (this.idp < 48) {
+                this.voisins[this.nbVoisins] = PionsWidget.getListePionsN()[this.idp + 7];
+                this.nbVoisins++;
+            }
         }
     }
 
@@ -163,15 +189,7 @@ class PionsWidget extends ElementWidget {
     }*/
 
     onTouchCreation(tuioTouch) {
-        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
-            super.onTouchCreation(tuioTouch);
-            //console.log(this.voisins);
-            for (var i = 0; i < this.nbVoisins; i++){
-                this.voisins[i]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
-                this.voisins[i].src = 'assets/MainScreen/bscircle.png';
-            }
-           // console.log("LES VOISINS : " + this.voisins);
-        }
+        super.onTouchCreation(tuioTouch);
 
 
         // SI LE PION EST TOUCHE
@@ -237,43 +255,8 @@ class PionsWidget extends ElementWidget {
     }
 
     onTouchDeletion(tuioTouchId) {
-      /*  if(this.aEteTouche){
-            PionsWidget.setPionsTouches(this.idp, 0);
-            console.log("désélectionné");
-            this._domElem.css('width', `${this.width}px`);
-            this._domElem.css('height', `${this.height}px`);
-            this.aEteTouche = false;
-            console.log("After touch : " + this.width + "    " + this.height);
-            console.log("After touch :" + this.aEteTouche);
-        }
-       // return super.onTouchDeletion(tuioTouchId);*/
-        if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png'){
-            super.onTouchDeletion(tuioTouchId);
-            const nbV = this.nbVoisins;
-            for (var i = 0; i < nbV;i++){
-                if ((this.internX <= this.voisins[i].internX + 20 - 14.5)&&
-                    (this.internX >= this.voisins[i].internX - 20 - 14.5) &&
-                    (this.internY <= this.voisins[i].internY + 20 - 14.5) &&
-                    (this.internY >= this.voisins[i].internY - 20 - 14.5)){
-                    this._domElem.css('left', `${this.voisins[i].internX - 14.5}px`);
-                    this._domElem.css('top', `${this.voisins[i].internY - 14.5}px`);
-                    this.internX = this.voisins[i].internX - 14.5;
-                    this.internY = this.voisins[i].internY - 14.5;
-                    this.mx = this.internX;
-                    this.my = this.internY;
-                    this.voisins = this.voisins[i].voisins;
-                    this.nbVoisins = this.voisins[i].nbVoisins;
-                    this.deplace = true;
-                }
-            }
-            if (!this.deplace){
-                this.deplace = false;
-                this._domElem.css('left', `${this.mx}px`);
-                this._domElem.css('top', `${this.my}px`);
-                this.internX = this.mx;
-                this.internY = this.my;
-            }
-        }
+        super.onTouchDeletion(tuioTouchId);
+
     }
 
     onTouchUpdate(tuioTouch){
