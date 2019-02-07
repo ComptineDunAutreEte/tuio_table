@@ -53,9 +53,9 @@ class FirstScreen {
     setPulsating(id, bool) {
         const btn = document.getElementById(id);
         if (bool) {
-            btn.className += " pulse-button";
+            btn.className = "btn btn-info btn-circle btn-xxl middleScreen pulse-button";
         } else {
-            btn.className = "btn btn-info btn-circle btn-xxl";
+            btn.className = "btn btn-info btn-circle btn-xxl middleScreen";
         }
     }
 
@@ -70,10 +70,11 @@ class FirstScreen {
             if (this.playerCount < 6) {
 
                 if (this.playerCount % 2 == 0) {
-                    // this.setPulsating("add_mock", true);
+                    this.setPulsating("add_mock", true);
                     this.addPlayerCard("topDeck", "down", "toto");
                     this.playerCount++;
                 } else {
+                    this.setPulsating("add_mock", false);
                     this.addPlayerCard(botRowID, "up", "zeuby");
                     this.playerCount++;
                 }
