@@ -19,7 +19,7 @@ class FirstScreen {
         this.createConfirmBtn(this.id);
         this.createDifficultyLevelCOL(this.id);
         */
-       this.createDivs(this.id);
+        this.createDivs(this.id);
         document.getElementById(this.containerID).className = this.containerClass + " " + "firstScreenBackground";
     }
 
@@ -33,26 +33,35 @@ class FirstScreen {
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 nopadding"> </div>');
         // Top row
-        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center"> </div>');
+        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5"> </div>');
         //$("#" + topRowID ).append();
+        $("#" + topRowID).append('<div id="topDeck" class="card-deck"> </div>');
 
         // middle row
-        $("#" +mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center"> </div>');
-        $("#" + middleRowID ).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
-        $("#" + middleRowID ).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-plus"></i></button>');
+        $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
+        $("#" + middleRowID).append('<button id="" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xl"><i class="fa fa-plus"></i></button>');
         // Bottom row
-        $("#" +mainColID).append('<div id="' + botRowID + '" class="row justify-content-center"> </div>');
+        $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5"> </div>');
         //$("#" + botRowID ).append();
+        $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
+        // making it a card deck
+
         this.initMockAddButton();
 
     }
 
-    initMockAddButton(){
+    initMockAddButton() {
         console.log("init mock")
-        const botRowID = "botRow";
+        const botRowID = "botDeck";
+
         //$("#" + botRowID ).append();
         const addCard = () => {
-            $("#" + botRowID ).append('<div class="card h-100 slideUp"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body"><h4 class="card-title">Please Enter your alias</h4>\
+            $("#" + botRowID).append('<div class="card h-100 slideUp"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body"><h4 class="card-title">Please Enter your alias</h4>\
+            <p class="card-text">expand</p>\
+        </div>\
+    </div>');
+            $("#topDeck").append('<div class="card h-100 slideDown"><img class="card-img-top" src="holder.js/100x180/" alt=""><div class="card-body"><h4 class="card-title">Please Enter your alias</h4>\
             <p class="card-text">expand</p>\
         </div>\
     </div>');
@@ -62,7 +71,7 @@ class FirstScreen {
     }
 
     createPlayerCountCOL(parentID) {
-        const pid =  parentID;
+        const pid = parentID;
         // contenu
         $("#" + pid).append('<div id="nPlayersHalf" class="col"> </div>');
         $('#nPlayersHalf').append('<div class="row justify-content-center" id="playerCountHalfRow"> </div>');
