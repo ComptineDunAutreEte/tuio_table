@@ -17,8 +17,6 @@ class PionsWidget extends ElementWidget {
         if (new.target === ElementWidget) {
             throw new TypeError('ElementWidget is an abstract class. It cannot be instanciated');
         }
-        this.mx = x;
-        this.my = y;
 
         if (imgSrc === 'assets/MainScreen/pionN.png'){
             this.nbVoisins = 0;

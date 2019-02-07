@@ -10,15 +10,26 @@ class PionsBRWidget extends PionsWidget {
         super(idp, x, y, width, height, imgSrc);
         this.place = place;
         if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
-            PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomInt();
+            PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomInt(10);
             PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
         }
-        if (PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut === this.idp) {this.aLeBallon = true; this.ballon = new BallonWidget(this.x - 20, this.y, 100,100, 'assets/MainScreen/ballon.png');  /*this.ballon.addTo('#mainScreen');*/}
+        if (PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut === this.idp) {
+            this.aLeBallon = true;
+            if (imgSrc ===  'assets/MainScreen/pionB.png'){
+                this.ballon = new BallonWidget(this.x + this.width + 5, this.y + 20, 50,50, 'assets/MainScreen/ballon.png');
+            }
+            else {
+                this.ballon = new BallonWidget(this.x - 40, this.y + 20, 50,50, 'assets/MainScreen/ballon.png');
+            }
+
+            this.ballon.addTo('#mainScreen');}
         else {this.aLeBallon = false;}
         this.voisins = PionsWidget.getListePionsN()[this.place].voisins;
         this.nbVoisins = PionsWidget.getListePionsN()[this.place].nbVoisins;
         PionsWidget.listePionsBR.push(this);
         PionsWidget.nbPionsBR++;
+        this.mx = x;
+        this.my = y;
     }
 
     static getRandomInt(max) {
@@ -64,6 +75,7 @@ class PionsBRWidget extends PionsWidget {
                         this.voisins[j]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
                         this.voisins[j].src = 'assets/MainScreen/bcircle.png';
                     }
+                    /*Changement coordonnées du pion*/
                     this._domElem.css('left', `${this.voisins[i].internX - 14.5}px`);
                     this._domElem.css('top', `${this.voisins[i].internY - 14.5}px`);
                     this.internX = this.voisins[i].internX - 14.5;
@@ -72,6 +84,21 @@ class PionsBRWidget extends PionsWidget {
                     this.my = this.internY;
                     this.nbVoisins = this.voisins[i].nbVoisins;
                     this.voisins = this.voisins[i].voisins;
+
+                    /*Changement coordonnées du ballon*/
+                    if (this.ballon.src ===  'assets/MainScreen/pionB.png') {
+                        this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
+                        this.ballon.internX = this.internX + this.width + 5;
+                        this.ballon.mx = this.ballon.internX;
+                    }
+                    else {
+                        this.ballon._domElem.css('left', `${this.internX - 40}px`);
+                        this.ballon.internX = this.internX - 40;
+                    }
+                    this.ballon._domElem.css('top', `${this.internY + 20}px`);
+                    this.ballon.internY = this.internY + 20;
+                    this.ballon.my = this.ballon.my;
+
                     console.log(this.voisins);
                     console.log(this.nbVoisins);
                     nbV = i;
@@ -84,11 +111,24 @@ class PionsBRWidget extends PionsWidget {
                 this._domElem.css('top', `${this.my}px`);
                 this.internX = this.mx;
                 this.internY = this.my;
+
+
+                /*Changement coordonnées du ballon*/
+                    this.ballon._domElem.css('left', `${this.ballon.mx}px`);
+                    this.ballon.internX = this.ballon.mx;
+                    this.ballon._domElem.css('top', `${this.ballon.my}px`);
+                    this.ballon.internY = this.ballon.my;
             }
             for (var k = 0; k < this.nbVoisins; k++){
                 this.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
                 this.voisins[k].src = 'assets/MainScreen/bcircle.png';
             }
+          /*  if (this.src === 'assets/MainScreen/pionB.png') {
+                this.pawnTouched("blue");
+            }
+            else {
+                this.pawnTouched("red");
+            }*/
         }
         else {console.log("eruicvjdilj");}
     }

@@ -20,6 +20,10 @@ class BallonWidget extends ElementWidget {
         this._domElem.css('z-index', `${this.zIndex}`);
         this._domElem.css('left', `${x}px`);
         this._domElem.css('top', `${y}px`);
+
+
+        this.mx = x;
+        this.my = y;
     }
 
     getId(){
