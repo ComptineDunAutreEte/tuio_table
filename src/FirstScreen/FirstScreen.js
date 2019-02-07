@@ -12,7 +12,7 @@ class FirstScreen {
 
     populate(id) {
         const pid = "#" + id;
-        const str = '<div id="' + this.id + '" class="row align-self-center align-items-center w-100"> </div>';
+        const str = '<div id="' + this.id + '" class="container align-self-center align-items-center w-100 h-100"> </div>';
         $(pid).append(str);
         /*
         this.createPlayerCountCOL(this.id);
@@ -31,7 +31,7 @@ class FirstScreen {
         const botRowID = "botRow";
         const mainColID = "mainCol";
         // main COL
-        $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 nopadding"> </div>');
+        $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5"> </div>');
         //$("#" + topRowID ).append();
@@ -39,7 +39,7 @@ class FirstScreen {
 
         // middle row
         $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
-        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl"><i class="fa fa-plus"></i></button>');
+        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-plus"></i></button>');
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5"> </div>');
         //$("#" + botRowID ).append();
@@ -50,11 +50,11 @@ class FirstScreen {
 
     }
 
-    setPulsating(id, bool){
+    setPulsating(id, bool) {
         const btn = document.getElementById(id);
-        if (bool){
+        if (bool) {
             btn.className += " pulse-button";
-        }else {
+        } else {
             btn.className = "btn btn-info btn-circle btn-xxl";
         }
     }
@@ -67,13 +67,15 @@ class FirstScreen {
 
         //$("#" + botRowID ).append();
         const addCard = () => {
-            if (this.playerCount < 5) {
-                this.addPlayerCard(botRowID, "up", "zeuby");
-                this.playerCount ++;
-                this.addPlayerCard("topDeck", "down", "toto");
-                this.playerCount++;
-                if (this.playerCount % 3 == 0){
-                    this.setPulsating("add_mock", true);
+            if (this.playerCount < 6) {
+
+                if (this.playerCount % 2 == 0) {
+                    // this.setPulsating("add_mock", true);
+                    this.addPlayerCard("topDeck", "down", "toto");
+                    this.playerCount++;
+                } else {
+                    this.addPlayerCard(botRowID, "up", "zeuby");
+                    this.playerCount++;
                 }
             }
 
