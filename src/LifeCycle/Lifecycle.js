@@ -157,14 +157,22 @@ class Lifecycle {
             console.log(msg);
         });
         client.getSocket().on('start-question-collectif', (message) => {
-            console.log(message)
+            console.log(message);
             // toQuestionnaireView();
         });
         client.getSocket().on('indivQuestion', (msg) =>{
             console.log(msg);
            // that.loadMainScreen();
-        })
+        });
+        client.getSocket().on('playerRegistered', (msg) => {
+            this.printTest();
+            console.log("player registered : " + msg);
+        });
         client.send('login', '');
+    }
+
+    printTest(){
+        console.log("test printing");
     }
 
     sendMessage(data, channel) {

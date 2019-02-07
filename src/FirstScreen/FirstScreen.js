@@ -32,19 +32,21 @@ class FirstScreen {
         const mainColID = "mainCol";
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
+        $(pid).append('<button id="add_mock" class="testButton">Add mocked player<button>');
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
+
         //$("#" + topRowID ).append();
         $("#" + topRowID).append('<div id="topDeck" class="card-deck"> </div>');
 
         // middle row
         $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
-        $("#" + middleRowID).append('<button id="add_mock" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-plus"></i></button>');
+        this.createConfirmBtn(middleRowID);
+
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 botRow"> </div>');
         //$("#" + botRowID ).append();
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
-        // making it a card deck
 
         this.initMockAddButton();
 
@@ -53,7 +55,7 @@ class FirstScreen {
     setPulsating(id, bool) {
         const btn = document.getElementById(id);
         if (bool) {
-            btn.className = "btn btn-info btn-circle btn-xxl middleScreen pulse-button";
+            btn.className = "btn btn-info btn-circle btn-xxl pulse-button middleScreen";
         } else {
             btn.className = "btn btn-info btn-circle btn-xxl middleScreen";
         }
@@ -70,11 +72,11 @@ class FirstScreen {
             if (this.playerCount < 6) {
 
                 if (this.playerCount % 2 == 0) {
-                    this.setPulsating("add_mock", true);
+                    this.setPulsating("confirmFirstScreenBtn", false);
                     this.addPlayerCard("topDeck", "down", "toto");
                     this.playerCount++;
                 } else {
-                    this.setPulsating("add_mock", false);
+                    this.setPulsating("confirmFirstScreenBtn", true);
                     this.addPlayerCard(botRowID, "up", "zeuby");
                     this.playerCount++;
                 }
@@ -151,10 +153,16 @@ class FirstScreen {
         const pid = "#" + parentID;
         const btnID = "confirmFirstScreenBtn";
         const that = this;
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl pulse-button"><i class="fa fa-check"></i></button>');
+
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
         document.getElementById(btnID).onclick = () => {
-            that.notifyServer(that);
-            that.observer.finishedFirstscreen();
+            if (that.playerCount %2 === 0){
+                that.notifyServer(that);
+                that.observer.finishedFirstscreen();
+            }else {
+                that.addCard;
+            }
+
         };
         /*
         const message = this.playerCount + "," + this.difficultyLevel;

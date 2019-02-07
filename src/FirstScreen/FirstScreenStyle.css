@@ -28,6 +28,12 @@
     top:10%;
 }
 
+.testButton{
+    top: 50%;
+    margin-left: -100px;
+    position: fixed;
+}
+
 .btn-circle.btn-xxl {
     width: 200px;
     height: 200px;
