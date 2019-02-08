@@ -85,8 +85,8 @@ class PionsBRWidget extends PionsWidget {
             if (PionsBRWidget.pionDisplayed !== this){
                 for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
                     if (!this.contains(this.voisins, this.nbVoisins, PionsBRWidget.pionDisplayed.voisins[k])){
-                        PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
-                        PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
+                        PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/pionN.png');
+                        PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/pionN.png';
                     }
                 }
             }
@@ -165,14 +165,13 @@ class PionsBRWidget extends PionsWidget {
             const intY = this.internY;
             const vois = this.voisins;
             for (var i = 0; i < nbV; i++) {
-                if (((intX <= vois[i].internX + 20 - 14.5) &&
+                if ((intX <= vois[i].internX + 20 - 14.5) &&
                     (intX >= vois[i].internX - 20 - 14.5) &&
                     (intY <= vois[i].internY + 20 - 14.5) &&
-                    (intY >= vois[i].internY - 20 - 14.5)) &&
-                    (this.voisIsNotPanw(vois[i]))){
+                    (intY >= vois[i].internY - 20 - 14.5)){
                     for (var j = 0; j < this.nbVoisins; j++){
-                        this.voisins[j]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
-                        this.voisins[j].src = 'assets/MainScreen/bcircle.png';
+                        this.voisins[j]._domElem.attr('src', 'assets/MainScreen/pionN.png');
+                        this.voisins[j].src = 'assets/MainScreen/pionN.png';
                     }
                     /*Changement coordonnées du pion*/
                     this._domElem.css('left', `${this.voisins[i].internX - 14.5}px`);
@@ -224,8 +223,8 @@ class PionsBRWidget extends PionsWidget {
             }
             if (!this.passDisplayed) {
                 for (var k = 0; k < this.nbVoisins; k++) {
-                    this.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
-                    this.voisins[k].src = 'assets/MainScreen/bcircle.png';
+                    this.voisins[k]._domElem.attr('src', 'assets/MainScreen/pionN.png');
+                    this.voisins[k].src = 'assets/MainScreen/pionN.png';
                 }
             }
             console.log("nombre de fois touche : " + this.nbTouched);
@@ -275,16 +274,19 @@ class PionsBRWidget extends PionsWidget {
                this.passDisplayed = false;
                this.nbTouched = 0;
                PionsBRWidget.firstButtonClicked = null;
+               PionsBRWidget.pionDisplayed = null;
            }
 
            /*this.aEteBouge = true;*/ console.log("presque pas bouge");
        }
        else {
            this.nbTouched = 0;
-           for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
-               if (!this.contains(this.voisins, this.nbVoisins, PionsBRWidget.pionDisplayed.voisins[k])){
-                   PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
-                   PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
+           if (PionsBRWidget.pionDisplayed != null){
+               for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
+                   if (!this.contains(this.voisins, this.nbVoisins, PionsBRWidget.pionDisplayed.voisins[k])){
+                       PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/pionN.png');
+                       PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/pionN.png';
+                   }
                }
            }
            PionsBRWidget.firstButtonClicked = null;
