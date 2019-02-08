@@ -164,7 +164,7 @@ class FirstScreen {
 
     addPlayerCard(team, nem) {
         let animationClass, teamClass, whereID;
-        if (team === "red") {
+        if (team === "A") {
             animationClass = "slideUp";
             teamClass = "redTeam";
             whereID = "#botDeck";
