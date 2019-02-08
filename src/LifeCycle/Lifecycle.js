@@ -150,8 +150,9 @@ class Lifecycle {
         this.actualScreen = waitScreen;
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
-        client.getSocket().on("indivQuestion", (msg) => {
+        client.getSocket().on("waitingScreen", (msg) => {
             console.log(msg);
+            this.loadMainScreen();
         });
     }
 
