@@ -13,8 +13,9 @@ class Terrain {
         /* before */
 
         /* modified */
-        this.pionsN = this.createPions();
+        this.createPions();
         this.observer = observer;
+        console.log(this.observer);
         this.attachObserverToPawns(observer);
         /*   this.pionsEquipeR = this.createPionsR();
            this.pionsEquipeB = this.createPionsB();*/
@@ -109,8 +110,8 @@ class Terrain {
       }*/
 
     attachObserverToPawns(obs) {
-        for (let i = 0; i < PionsWidget.listPions.length; i++) {
-            const temp = PionsWidget.listPions[i];
+        for (let i = 0; i < PionsWidget.listePionsBR.length; i++) {
+            const temp = PionsWidget.listePionsBR[i];
             temp["observer"] = obs;
         }
     }
