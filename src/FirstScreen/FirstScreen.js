@@ -33,8 +33,7 @@ class FirstScreen {
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
         $(pid).append('<button id="add_mock" class="testButton">Request Player from server<button>');
-        $(pid).append('<button id="scores_mock" class="testButton2">Request Scores from server<button>');
-
+        $(pid).append('<button id="scores_mock" class="testButton2" >Request Scores from server<button>');
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
 
@@ -146,7 +145,7 @@ class FirstScreen {
         document.getElementById("add_mock").onclick = () => {
             if (this.playerCount < 6) {
                 this.observer.sendMessage("requesting player...", "addPlayerPlease");
-                this.playerCount ++;
+                this.playerCount++;
             }
         }
     }
@@ -154,6 +153,7 @@ class FirstScreen {
     initMockScoresButton() {
         document.getElementById("scores_mock").onclick = () => {
             this.observer.sendMessage("requesting scores...", "sendScores");
+           // this.spawnHighScoresModal();
         }
     }
 
@@ -184,7 +184,7 @@ class FirstScreen {
 
 
     // getters and setters
-    setPulsating(id, bool) {
+    setPulsating(id,bool) {
         const btn = document.getElementById(id);
         if (bool) {
             btn.className = "btn btn-info btn-circle btn-xxl pulse-button middleScreen";
