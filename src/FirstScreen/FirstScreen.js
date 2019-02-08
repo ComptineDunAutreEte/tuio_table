@@ -4,7 +4,7 @@ class FirstScreen {
     constructor(obs) {
         this.playerCount = 0;
         this.difficultyLevel = 1; // 1-3 => facile difficile
-        this.id = "firstScreen"
+        this.id = "firstScreen";
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
         this.observer = obs;
@@ -27,7 +27,7 @@ class FirstScreen {
     createDivs(parentID) {
         const pid = "#" + parentID;
         const topRowID = "topRow";
-        const middleRowID = "midRow"
+        const middleRowID = "midRow";
         const botRowID = "botRow";
         const mainColID = "mainCol";
         // main COL
@@ -72,7 +72,7 @@ class FirstScreen {
     }
 
 
-    createDifficultyLevelStepper() { }
+    createDifficultyLevelStepper() {}
 
     createPlayerCountCOL(parentID) {
         const pid = parentID;
@@ -106,22 +106,22 @@ class FirstScreen {
         for (let i = 0; i < btnsIDs.length; i++) {
             document.getElementById(btnsIDs[i]).onclick = () => {
                 this.setDifficultyLevel(i + 1);
-            }
+            };
         }
     }
 
     createRadioBtnGroup(ids, texts, colors, parentID) {
-        const pid = "#" + parentID;
-        const selfIDstr = parentID + "radioGroup";
-        const selfID = "#" + selfIDstr;
-        const selfstring = '<div id="' + selfIDstr + '" class="btn-group-lg btn-group-toggle" data-toggle="buttons"></div>'
-        $(pid).append(selfstring);
-        for (let i = 0; i < ids.length; i++) {
-            $(selfID).append('<label id="' + ids[i] + '" class="btn btn-' + colors[i] + '"> \
+            const pid = "#" + parentID;
+            const selfIDstr = parentID + "radioGroup";
+            const selfID = "#" + selfIDstr;
+            const selfstring = '<div id="' + selfIDstr + '" class="btn-group-lg btn-group-toggle" data-toggle="buttons"></div>';
+            $(pid).append(selfstring);
+            for (let i = 0; i < ids.length; i++) {
+                $(selfID).append('<label id="' + ids[i] + '" class="btn btn-' + colors[i] + '"> \
             <input type="radio" name="options" autocomplete="off" checked>' + texts[i] + '</label>');
+            }
         }
-    }
-    /* MISC */
+        /* MISC */
     initMockAddButton() {
         //$("#" + botRowID ).append();
         /*
@@ -147,14 +147,14 @@ class FirstScreen {
                 this.observer.sendMessage("requesting player...", "addPlayerPlease");
                 this.playerCount++;
             }
-        }
+        };
     }
 
     initMockScoresButton() {
         document.getElementById("scores_mock").onclick = () => {
             this.observer.sendMessage("requesting scores...", "sendScores");
-           // this.spawnHighScoresModal();
-        }
+            // this.spawnHighScoresModal();
+        };
     }
 
     notifyServer(that) {
@@ -176,7 +176,7 @@ class FirstScreen {
 
         $(whereID).append('<div class="card h-100 ' + animationClass + '">\
                             <div class="card-body ' + teamClass + '">\
-                                <h5 class="card-title">Equipe '+ team + '</h5>\
+                                <h5 class="card-title">Equipe ' + team + '</h5>\
                                 <p class="card-text">' + nem + '</p>\
                             </div>\
                         </div>');
@@ -184,7 +184,7 @@ class FirstScreen {
 
 
     // getters and setters
-    setPulsating(id,bool) {
+    setPulsating(id, bool) {
         const btn = document.getElementById(id);
         if (bool) {
             btn.className = "btn btn-info btn-circle btn-xxl pulse-button middleScreen";
@@ -209,4 +209,5 @@ class FirstScreen {
         return this.difficultyLevel;
     }
 
-} export default FirstScreen;
+}
+export default FirstScreen;

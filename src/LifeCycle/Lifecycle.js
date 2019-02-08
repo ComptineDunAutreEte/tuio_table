@@ -74,16 +74,9 @@ class Lifecycle {
     }
 
     start() {
-<<<<<<< HEAD
-        // this.loadFirstScreen();
+        this.loadFirstScreen();
         // this.initConnexion();
-        //this.loadFormationScreen();
-        this.loadQuestionScreen();
-=======
-       this.loadFirstScreen();
-       // this.initConnexion();
         // this.loadFormationScreen();
->>>>>>> 8e234d9abb73fa101552e0972b7afe47caec95a3
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
@@ -135,7 +128,7 @@ class Lifecycle {
         this.clearScreen();
         const firstScreen = new FirstScreen(this);
         this.actualScreen = firstScreen;
-        $('#app').className =this.containerClass;
+        $('#app').className = this.containerClass;
         firstScreen.populate("app");
     }
 
@@ -196,15 +189,15 @@ class Lifecycle {
             console.log(message);
             // toQuestionnaireView();
         });
-        client.getSocket().on('indivQuestion', (msg) =>{
+        client.getSocket().on('indivQuestion', (msg) => {
             console.log(msg);
-           // that.loadMainScreen();
+            // that.loadMainScreen();
         });
         client.getSocket().on('returningPlayer', (msg) => {
-            this.actualScreen.addPlayerCard(msg.data.team,msg.data.pseudo);
-            if (this.actualScreen.playerCount %2 === 0){
+            this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
+            if (this.actualScreen.playerCount % 2 === 0) {
                 this.actualScreen.setPulsating("confirmFirstScreenBtn", true);
-            }else {
+            } else {
                 this.actualScreen.setPulsating("confirmFirstScreenBtn", false);
             }
         });
