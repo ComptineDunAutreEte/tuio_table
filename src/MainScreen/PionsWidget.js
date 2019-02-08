@@ -50,10 +50,6 @@ class PionsWidget extends ElementWidget {
         //sléctionné, lequel on garde en mémoire ?
     }
 
-    updatePasses(){
-
-    }
-
 
     updateVoisins(){
         let id = 0;
@@ -218,7 +214,6 @@ class PionsWidget extends ElementWidget {
         if (this.src === 'assets/MainScreen/pionB.png' || this.src === 'assets/MainScreen/pionR.png') {
             super.onTouchDeletion(tuioTouchId);
         }
-
     }
 
 
@@ -237,6 +232,43 @@ class PionsWidget extends ElementWidget {
     /* END DEMO CODE */
 
     get domElem(){ return this._domElem; }
+
+    /*
+    *
+    *
+    *  if (PionsBRWidget.firstButtonClicked != null){
+                   PionsBRWidget.secondButtonClicked = this;
+                   const tabDiag = PionsBRWidget.buildTabDiagonale(PionsBRWidget.firstButtonClicked.internX, PionsBRWidget.firstButtonClicked.y,PionsBRWidget.secondButtonClicked.internX, PionsBRWidget.secondButtonClicked.y);
+                   for (var i = 0; i < tabDiag.length; i++){
+                       this.ballon.internX = tabDiag[i];
+                   }
+               }
+
+
+               static buildTabDiagonale(x1, y1, x2, y2){
+        let t = [];
+        const OA =  Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+        const OD = (x1 - x2);
+        //const AD = (y1 - y2);
+        let OC = 0;
+        let OB = 0;
+        let BC = 0;
+        const xB = x1 - (OD / 10);
+        const xC = xB;
+        const yC = y1;
+        let yB = 0;
+        for (var i = 0; i < 10; i++){
+            OC = (OD / (10*i));
+            OB = OC * OA;
+            BC = Math.sqrt(Math.pow(OB, 2) - Math.pow(OC, 2));
+            yB = yC - Math.sqrt(Math.pow(BC, 2) - Math.pow(xC - xB, 2));
+            t.push(xB);
+            t.push(yB);
+        }
+        return t;
+    }
+
+    * */
 }
 PionsWidget.nbPionsN = 0;
 PionsWidget.nbPionsBR = 0;
