@@ -70,13 +70,20 @@ class Lifecycle {
         // constants to save from a screen to another ?
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
+        this.actualScreen = "";
     }
 
     start() {
+<<<<<<< HEAD
         // this.loadFirstScreen();
         // this.initConnexion();
         //this.loadFormationScreen();
         this.loadQuestionScreen();
+=======
+       this.loadFirstScreen();
+       // this.initConnexion();
+        // this.loadFormationScreen();
+>>>>>>> 8e234d9abb73fa101552e0972b7afe47caec95a3
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
@@ -120,27 +127,30 @@ class Lifecycle {
         this.clearScreen();
         $('#app').className = this.containerClass;
         const formationScreen = new FormationScreen(this);
+        this.formationScreen = formationScreen;
         formationScreen.buildFormation();
     }
 
     loadFirstScreen() {
         this.clearScreen();
         const firstScreen = new FirstScreen(this);
-        $('#app').className = this.containerClass;
+        this.actualScreen = firstScreen;
+        $('#app').className =this.containerClass;
         firstScreen.populate("app");
     }
 
     loadMainScreen() {
-        const that = this;
         this.clearScreen();
         $('#app').className = this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
+        this.actualScreen = mainScreen;
         mainScreen.populate("app");
         // $('#app').addEventListener('click',that.loadMainScreen());
     }
 
     loadWaitingScreen() {
         const waitScreen = new WaitingScreen();
+        this.actualScreen = waitScreen;
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
         client.getSocket().on("indivQuestion", (msg) => {
@@ -176,7 +186,37 @@ class Lifecycle {
 
     /* server communication functions */
     initConnexion() {
-        //client.send(channel, data);
+        client.getSocket().on('table', (msg) => {
+            console.log(msg);
+        });
+        client.getSocket().on('response', (msg) => {
+            console.log(msg);
+        });
+        client.getSocket().on('start-question-collectif', (message) => {
+            console.log(message);
+            // toQuestionnaireView();
+        });
+        client.getSocket().on('indivQuestion', (msg) =>{
+            console.log(msg);
+           // that.loadMainScreen();
+        });
+        client.getSocket().on('returningPlayer', (msg) => {
+            this.actualScreen.addPlayerCard(msg.data.team,msg.data.pseudo);
+            if (this.actualScreen.playerCount %2 === 0){
+                this.actualScreen.setPulsating("confirmFirstScreenBtn", true);
+            }else {
+                this.actualScreen.setPulsating("confirmFirstScreenBtn", false);
+            }
+        });
+        client.getSocket().on('returningScores', (msg) => {
+            console.log(msg.data);
+        });
+
+        client.send('login', 'login');
+    }
+
+    sendMessage(data, channel) {
+        client.send(channel, data);
         /*console.log("je notifiiieee le serveeeer : " + msg);
         const socketIOUrl = 'http://localhost:4000';
         const socketServer = io.connect(socketIOUrl);

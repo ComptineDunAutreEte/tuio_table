@@ -36,7 +36,7 @@ class FormationWidget extends ElementWidget {
                 if (!FormationWidget.okR && FormationWidget.formationRChoisie !== null){
                     FormationWidget.okR = true;
                     console.log("okR");
-                    document.getElementById("textEquipeR").innerHTML = "Vous avez choisi la " + FormationWidget.formationRChoisie.getId();
+                    document.getElementById("textEquipeR").innerHTML = "Equipe Rouge : Vous avez choisi la formation" + FormationWidget.formationRChoisie.getId() + "!";
                     // console.log("L'équipe rouge a choisi la formation" + FormationWidget.formationRChoisie.getId());
                 }
             }
@@ -44,7 +44,7 @@ class FormationWidget extends ElementWidget {
                 if (!FormationWidget.okB && FormationWidget.formationBChoisie !== null){
                     FormationWidget.okB = true;
                     console.log("okB");
-                    document.getElementById("textEquipeB").innerHTML = "Vous avez choisi la " + FormationWidget.formationBChoisie.getId();
+                    document.getElementById("textEquipeB").innerHTML = "Equipe Bleue : Vous avez choisi la formation " + FormationWidget.formationBChoisie.getId() + "!";
                     // console.log("L'équipe bleue a choisi la formation" + FormationWidget.formationBChoisie.getId());
                 }
             }

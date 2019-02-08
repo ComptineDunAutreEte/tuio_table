@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
-import FormationWidget from './FormationWidget'
+import FormationWidget from './FormationWidget';
 import FormationBWidget from './FormationBWidget';
 import FormationRWidget from './FormationRWidget';
 
@@ -19,14 +19,13 @@ class FormationScreen {
     }
 
     inflate(){
-        $('#app').append('<h1 id="textEquipeB" style="width: 100%; height: 20%; position: relative; top:28%; left:50%;transform: rotate(180deg)" ></h1>\
-        <h1 id="textEquipeR" style="width: 100%;height: 20%; position: relative; top:50%; right:1%;" > </h1>');
-        document.getElementById('app').className = "container-fluid d-flex h-100 FormationScreen"
+        $('#app').append('<h1 id="textEquipeB" style="font-family:\'Courier New\',serif; font-size:50px;width: 100%; height: 20%; position: absolute; top:300px; left:130px;transform: rotate(180deg)" ></h1><h1 id="textEquipeR" style="font-family:\'Courier New\',serif; font-size:50px;width: 100%;height: 20%; position: absolute; top:550px; left:130px;" > </h1>');
+        document.getElementById('app').className = "container-fluid d-flex h-100 FormationScreen";
     }
 
     buildFormation() {
         this.RemoveWidgets();
-        this.inflate()
+        this.inflate();
         console.log(WINDOW_HEIGHT);
         console.log(WINDOW_WIDTH);
         const theader = 0.1 * WINDOW_HEIGHT;
@@ -74,19 +73,19 @@ class FormationScreen {
         this.widgets.push(okR);
         this.widgets.push(okB);
         for (let i =0; i < this.widgets.length ; i++){
-           const temp = this.widgets[i];
+           let temp = this.widgets[i];
            temp["observer"] = this.observer;
         }
 
         /*  if (okR.isTouched()){
               console.log("il a etet t");
           }
-    
+
             tuioManager.handleUpdate(okR); */
     }
 
     getObserver(){
-        console.log("getting observer from formationscreen")
+        console.log("getting observer from formationscreen");
         return this.observer;
     }
 

@@ -10,6 +10,7 @@ class PionsBRWidget extends PionsWidget {
     constructor(place, idp, x, y, width, height, imgSrc) {
         super(idp, x, y, width, height, imgSrc);
         this.place = place;
+        this.ballon = null;
         if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
             PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomInt(10);
             PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
@@ -53,6 +54,29 @@ class PionsBRWidget extends PionsWidget {
         return false;
     }
 
+    static buildTabDiagonale(x1, y1, x2, y2){
+        let t = [];
+        const OA =  Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+        const OD = (x1 - x2);
+        //const AD = (y1 - y2);
+        let OC = 0;
+        let OB = 0;
+        let BC = 0;
+        const xB = x1 - (OD / 10);
+        const xC = xB;
+        const yC = y1;
+        let yB = 0;
+        for (var i = 0; i < 10; i++){
+            OC = (OD / (10*i));
+            OB = OC * OA;
+            BC = Math.sqrt(Math.pow(OB, 2) - Math.pow(OC, 2));
+            yB = yC - Math.sqrt(Math.pow(BC, 2) - Math.pow(xC - xB, 2));
+            t.push(xB);
+            t.push(yB);
+        }
+        return t;
+    }
+
     displayPass(){
         console.log("display pass");
         this.nbTouched = 0;
@@ -64,8 +88,6 @@ class PionsBRWidget extends PionsWidget {
                         PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
                         PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
                     }
-
-                   // }
                 }
             }
         }
@@ -75,7 +97,6 @@ class PionsBRWidget extends PionsWidget {
 
     onTouchCreation(tuioTouch) {
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            PionsBRWidget.firstButtonClicked = this;
            // else if (this.nbTouched == 0) {
             super.onTouchCreation(tuioTouch);
             if (this.aLeBallon) {
@@ -114,6 +135,16 @@ class PionsBRWidget extends PionsWidget {
       //  }
     }
 
+    voisIsNotPanw(vois){
+        for (var i = 0; i < PionsWidget.nbPionsBR; i++){
+            if (vois.idp === PionsWidget.listePionsBR[i].place) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     onTouchDeletion(tuioTouchId) {
         let deplace = false;
         /*  if(this.aEteTouche){
@@ -134,10 +165,11 @@ class PionsBRWidget extends PionsWidget {
             const intY = this.internY;
             const vois = this.voisins;
             for (var i = 0; i < nbV; i++) {
-                if ((intX <= vois[i].internX + 20 - 14.5) &&
+                if (((intX <= vois[i].internX + 20 - 14.5) &&
                     (intX >= vois[i].internX - 20 - 14.5) &&
                     (intY <= vois[i].internY + 20 - 14.5) &&
-                    (intY >= vois[i].internY - 20 - 14.5)) {
+                    (intY >= vois[i].internY - 20 - 14.5)) &&
+                    (this.voisIsNotPanw(vois[i]))){
                     for (var j = 0; j < this.nbVoisins; j++){
                         this.voisins[j]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
                         this.voisins[j].src = 'assets/MainScreen/bcircle.png';
@@ -147,6 +179,7 @@ class PionsBRWidget extends PionsWidget {
                     this._domElem.css('top', `${this.voisins[i].internY - 14.5}px`);
                     this.internX = this.voisins[i].internX - 14.5;
                     this.internY = this.voisins[i].internY - 14.5;
+                    this.place = this.voisins[i].idp;
                     this.mx = this.internX;
                     this.my = this.internY;
                     this.nbVoisins = this.voisins[i].nbVoisins;
@@ -210,6 +243,30 @@ class PionsBRWidget extends PionsWidget {
     moveTo(x, y, angle = null) {
       console.log("x : " + x +", y : " + y + " / internX : " + this.internX + ", internY : " + this.internY);
        if ((x === this.internX)&&(y === this.internY)){
+         /*  if (PionsBRWidget.firstButtonClicked != null){
+              console.log("ici !!!");
+              PionsBRWidget.secondButtonClicked = this;
+              console.log("this : " + this);
+              /*const tabDiag = PionsBRWidget.buildTabDiagonale(PionsBRWidget.firstButtonClicked.internX, PionsBRWidget.firstButtonClicked.y,PionsBRWidget.secondButtonClicked.internX, PionsBRWidget.secondButtonClicked.y);
+              for (var i = 0; i < tabDiag.length; i++){
+                  PionsBRWidget.firstButtonClicked.ballon.internX = tabDiag[i];
+                  i++;
+                  PionsBRWidget.firstButtonClicked.ballon.internY = tabDiag[i];
+              }*/
+         /*     PionsBRWidget.secondButtonClicked.aLeBallon = true;
+              PionsBRWidget.firstButtonClicked.aLeBallon = false;
+              PionsBRWidget.secondButtonClicked.ballon = PionsBRWidget.firstButtonClicked.ballon;
+              if (PionsBRWidget.secondButtonClicked.ballon.src === 'assets/MainScreen/pionB.png') {
+                  PionsBRWidget.secondButtonClicked.ballon.internX = PionsBRWidget.secondButtonClicked.internX + PionsBRWidget.secondButtonClicked.width + 5;
+              }
+              else {
+                  PionsBRWidget.secondButtonClicked.ballon.internX = PionsBRWidget.secondButtonClicked.internX - 40;
+              }
+              PionsBRWidget.secondButtonClicked.ballon.internY = PionsBRWidget.secondButtonClicked.internY + 20;
+
+              PionsBRWidget.firstButtonClicked = null;
+              PionsBRWidget.secondButtonClicked = null;
+           }*/
            if (!this.passDisplayed){
                this.nbTouched++;
                console.log(this.nbTouched);
@@ -222,11 +279,20 @@ class PionsBRWidget extends PionsWidget {
 
            /*this.aEteBouge = true;*/ console.log("presque pas bouge");
        }
-       else {this.nbTouched = 0;}
+       else {
+           this.nbTouched = 0;
+           for (var k = 0; k < PionsBRWidget.pionDisplayed.nbVoisins; k++) {
+               if (!this.contains(this.voisins, this.nbVoisins, PionsBRWidget.pionDisplayed.voisins[k])){
+                   PionsBRWidget.pionDisplayed.voisins[k]._domElem.attr('src', 'assets/MainScreen/bcircle.png');
+                   PionsBRWidget.pionDisplayed.voisins[k].src = 'assets/MainScreen/bcircle.png';
+               }
+           }
+           PionsBRWidget.firstButtonClicked = null;
+       }
        if (this.nbTouched === 2){
            console.log("2 fois touche");
            this.nbTouched = 0;
-           if (this.aLeBallon) this.displayPass();
+           this.displayPass();
        }
         super.moveTo(x, y, angle);
     }
@@ -238,5 +304,6 @@ PionsBRWidget.pionDisplayed = null;
 PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = false;
 PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = 0;
 PionsBRWidget.firstButtonClicked = null;
+PionsBRWidget.secondButtonClicked = null;
 
 export default PionsBRWidget;

@@ -12,10 +12,10 @@ class FormationBWidget extends FormationWidget{
             if (!FormationWidget.okB) {
                 console.log("L'équipe B a choisi la formation " + this.getId());
                 FormationWidget.formationBChoisie = this;
-                document.getElementById("textEquipeB").innerHTML = "L'équipe bleu a choisi la " + this.getId();
+                document.getElementById("textEquipeB").innerHTML = "Equipe Bleue : Formation " + this.getId() + "";
             }
             else {
-                console.log("vous avez déjà choisi la " + FormationWidget.formationBChoisie.getId());
+               console.log("Vous avez déjà choisi la " + FormationWidget.formationBChoisie.getId());
             }
         }
     }
