@@ -32,7 +32,7 @@ class FirstScreen {
         const mainColID = "mainCol";
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
-        $(pid).append('<button id="add_mock" class="testButton">Add mocked player<button>');
+        $(pid).append('<button id="add_mock" class="testButton">Request Player from server<button>');
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
 
@@ -58,7 +58,7 @@ class FirstScreen {
 
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
         document.getElementById(btnID).onclick = () => {
-            if (that.playerCount %2 === 0){
+            if (that.playerCount % 2 === 0) {
                 that.notifyServer(that);
                 that.observer.finishedFirstscreen();
             }
@@ -69,7 +69,7 @@ class FirstScreen {
         */
     }
 
-   
+
     createDifficultyLevelStepper() { }
 
     createPlayerCountCOL(parentID) {
@@ -122,6 +122,7 @@ class FirstScreen {
     /* MISC */
     initMockAddButton() {
         //$("#" + botRowID ).append();
+        /*
         const addCard = () => {
             if (this.playerCount < 6) {
 
@@ -138,7 +139,13 @@ class FirstScreen {
 
         }
         document.getElementById("add_mock").onclick = addCard;
-
+        */
+        document.getElementById("add_mock").onclick = () => {
+            if (this.playerCount < 6) {
+                this.observer.sendMessage("requesting player...", "addPlayerPlease");
+                this.playerCount ++;
+            }
+        }
     }
 
     notifyServer(that) {
@@ -158,8 +165,12 @@ class FirstScreen {
             whereID = "#topDeck";
         }
 
-        $(whereID).append('<div class="card h-100 w-30 ' + animationClass + '"><div class="card-body ' + teamClass + '"><h4 class="card-title">Player</h4>\
-        <p class="card-text">' + nem + '</p></div></div>');
+        $(whereID).append('<div class="card h-100 ' + animationClass + '">\
+                            <div class="card-body ' + teamClass + '">\
+                                <h4 class="card-title">Player</h4>\
+                                <p class="card-text">' + nem + '</p>\
+                            </div>\
+                        </div>');
     }
 
 

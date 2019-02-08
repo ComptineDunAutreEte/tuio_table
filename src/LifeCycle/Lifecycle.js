@@ -104,7 +104,7 @@ class Lifecycle {
         this.clearScreen();
         $('#app').className =this.containerClass;
         const formationScreen = new FormationScreen(this);
-        this.formationScreen = firstScreen;
+        this.formationScreen = formationScreen;
         formationScreen.buildFormation();
     }
 
@@ -168,16 +168,16 @@ class Lifecycle {
             console.log(msg);
            // that.loadMainScreen();
         });
-        client.getSocket().on('playerRegistered', (msg) => {
-            this.printTest();
-            console.log("player registered : " + msg);
+        client.getSocket().on('returningPlayer', (msg) => {
+            console.log(msg.data);
+            this.actualScreen.addPlayerCard(msg.data.team,msg.data.pseudo);
         });
-        client.send('login', '');
+        client.send('login', 'login');
     }
 
     printTest(){
         console.log("test printing");
-        this.actualScreen.addPlayerCard();
+        
     }
 
     sendMessage(data, channel) {
