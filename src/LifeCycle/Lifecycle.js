@@ -18,6 +18,11 @@ let done = [false, false];
 function enableMessage() {
     document.getElementById('messageT').style.visibility = 'visible';
     document.getElementById('messageB').style.visibility = 'visible';
+    const videoTop = $("#videoTop");
+    const videoBot = $("#videoBot");
+    //console.log(video);
+    videoTop.off('timeupdate', myScript);
+    videoBot.off('timeupdate', myScript2);
     client.send('ready-screen-par', '');
 }
 
@@ -74,10 +79,11 @@ class Lifecycle {
     }
 
     start() {
-        this.loadFirstScreen();
-        // this.initConnexion();
+        // this.loadFirstScreen();
+        this.initConnexion();
         // this.loadFormationScreen();
-        // this.loadMainScreen();
+        //this.loadMainScreen();
+        this.loadQuestionScreen();
         // this.loadWaitingScreen();
     }
 
@@ -181,6 +187,12 @@ class Lifecycle {
     initConnexion() {
         client.getSocket().on('table', (msg) => {
             console.log(msg);
+        });
+
+        client.getSocket().on('back-to-video', (msg) => {
+            console.log('back-to-video');
+            document.getElementById('messageT').style.visibility = 'hidden';
+            document.getElementById('messageB').style.visibility = 'hidden';
         });
         client.getSocket().on('response', (msg) => {
             console.log(msg);
