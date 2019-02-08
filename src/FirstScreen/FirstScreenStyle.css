@@ -30,7 +30,13 @@
 
 .testButton {
     top: 50%;
-    margin-left: -100px;
+    left: 100px;
+    position: fixed;
+}
+
+.testButton2 {
+    top:55%;
+    left: 100px;
     position: fixed;
 }
 

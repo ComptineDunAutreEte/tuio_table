@@ -171,6 +171,10 @@ class Lifecycle {
         client.getSocket().on('returningPlayer', (msg) => {
             this.actualScreen.addPlayerCard(msg.data.team,msg.data.pseudo);
         });
+        client.getSocket().on('returningScores', (msg) => {
+            console.log(msg.data);
+        });
+
         client.send('login', 'login');
     }
 
