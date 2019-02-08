@@ -215,7 +215,7 @@ class Lifecycle {
             console.log(msg.data);
         });
 
-        client.send('login', 'login');
+        //client.send('login', 'login');
     }
 
     sendMessage(data, channel) {
