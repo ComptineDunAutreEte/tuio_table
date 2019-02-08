@@ -79,11 +79,9 @@ class Lifecycle {
     }
 
     start() {
-        // this.loadFirstScreen();
         this.initConnexion();
-        // this.loadFormationScreen();
-        //this.loadMainScreen();
-        this.loadQuestionScreen();
+        this.loadFirstScreen();
+        // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
 
