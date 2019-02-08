@@ -83,7 +83,6 @@ function comeAlive() {
 }
 
 $('document').ready(() => {
-    client.send('login', '');
     console.log("Document well loaded");
     comeAlive();
     //loadFirstScreen();

@@ -26,6 +26,6 @@ function send(chanel, _data) {
     socketServer.emit(chanel, message);
 }
 
-send('login', '');
+send('login', 'login');
 
 export default { getSocket, send };
