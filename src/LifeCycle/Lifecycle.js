@@ -169,23 +169,12 @@ class Lifecycle {
            // that.loadMainScreen();
         });
         client.getSocket().on('returningPlayer', (msg) => {
-            console.log(msg.data);
             this.actualScreen.addPlayerCard(msg.data.team,msg.data.pseudo);
         });
         client.send('login', 'login');
     }
 
-    printTest(){
-        console.log("test printing");
-        
-    }
-
     sendMessage(data, channel) {
-        /*
-format { }
-
-
-*/
         client.send(channel, data);
         /*console.log("je notifiiieee le serveeeer : " + msg);
         const socketIOUrl = 'http://localhost:4000';

@@ -167,7 +167,7 @@ class FirstScreen {
 
         $(whereID).append('<div class="card h-100 ' + animationClass + '">\
                             <div class="card-body ' + teamClass + '">\
-                                <h4 class="card-title">Player</h4>\
+                                <h5 class="card-title">Equipe '+ team + '</h5>\
                                 <p class="card-text">' + nem + '</p>\
                             </div>\
                         </div>');
