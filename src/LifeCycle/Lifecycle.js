@@ -58,9 +58,8 @@ class Lifecycle {
     }
 
     start() {
-
-        this.loadFirstScreen();
         this.initConnexion();
+        this.loadFirstScreen();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
