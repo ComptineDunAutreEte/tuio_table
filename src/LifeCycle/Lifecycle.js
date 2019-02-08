@@ -145,6 +145,7 @@ class Lifecycle {
     }
 
     loadWaitingScreen() {
+        this.clearScreen();
         const waitScreen = new WaitingScreen();
         this.actualScreen = waitScreen;
         waitScreen.populate("app");
