@@ -1,23 +1,6 @@
 <script>
-    let done = 0;
-    /*
-        function enableMessage() {
-            document.getElementById("messageT").style.visibility = "visible";
-            document.getElementById("messageB").style.visibility = "visible";
-        }
-
-        function myScript(vid) {
-            if (vid.currentTime >= 5) {
-                vid.pause();
-                done++;
-                console.log(done);
-                if (done === 3) {
-                    enableMessage();
-                }
-            }
-        }*/
-
     function playT() {
+        console.log('click');
         const vidT = document.getElementById('videoTop');
         vidT.play();
     }

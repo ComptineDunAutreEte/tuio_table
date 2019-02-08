@@ -13,7 +13,7 @@ import client from '../client';
 
 //const io = require('socket.io-client'); // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 const separator = ",";
-let done = 0;
+let done = [false, false];
 
 function enableMessage() {
     document.getElementById('messageT').style.visibility = 'visible';
@@ -23,14 +23,14 @@ function enableMessage() {
 
 function myScript() {
     const video = document.querySelector('#videoTop');
-    console.log(video);
+    //console.log(video);
     //console.log('myScript');
     if (video.currentTime >= 5) {
-        console.log('Je suis Dedans');
+        // console.log('Je suis Dedans');
         video.pause();
-        done += 1;
+        done[0] = true;
         // console.log(done);
-        if (done === 3) {
+        if (done[0] && done[1]) {
             enableMessage();
         }
     }
@@ -38,12 +38,12 @@ function myScript() {
 
 function myScript2() {
     const video = document.querySelector('#videoBot');
-    console.log(video);
+    // console.log(video);
     if (video.currentTime >= 5) {
         video.pause();
-        done += 1;
+        done[1] = true;
         // console.log(done);
-        if (done === 3) {
+        if (done[0] && done[1]) {
             enableMessage();
         }
     }
@@ -73,9 +73,10 @@ class Lifecycle {
     }
 
     start() {
-       // this.loadFirstScreen();
-       // this.initConnexion();
-        this.loadFormationScreen();
+        // this.loadFirstScreen();
+        // this.initConnexion();
+        //this.loadFormationScreen();
+        this.loadQuestionScreen();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
@@ -83,7 +84,7 @@ class Lifecycle {
     formationChosen(RED_TEAM, BLUE_TEAM) {
         const message = "" + RED_TEAM + separator + BLUE_TEAM;
         const channel = "table"; // TOBE REDIFINED
-      //  this.sendMessage(message, channel);
+        //  this.sendMessage(message, channel);
         this.finishedFormationScreen();
     }
 
@@ -143,9 +144,9 @@ class Lifecycle {
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
         client.getSocket().on("indivQuestion", (msg) => {
-                console.log(msg);
-            });
-            //this.waitForResponse('indivQestion');
+            console.log(msg);
+        });
+        //this.waitForResponse('indivQestion');
     }
 
     loadQuestionScreen() {
