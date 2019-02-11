@@ -18,6 +18,11 @@ let done = [false, false];
 function enableMessage() {
     document.getElementById('messageT').style.visibility = 'visible';
     document.getElementById('messageB').style.visibility = 'visible';
+    const videoTop = $("#videoTop");
+    const videoBot = $("#videoBot");
+    //console.log(video);
+    videoTop.off('timeupdate', myScript);
+    videoBot.off('timeupdate', myScript2);
     client.send('ready-screen-par', '');
 }
 
@@ -74,9 +79,8 @@ class Lifecycle {
     }
 
     start() {
+        this.initConnexion();
         this.loadFirstScreen();
-        // this.initConnexion();
-        // this.loadFormationScreen();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
     }
@@ -138,7 +142,6 @@ class Lifecycle {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
-        // $('#app').addEventListener('click',that.loadMainScreen());
     }
 
     loadWaitingScreen() {
@@ -149,7 +152,6 @@ class Lifecycle {
         client.getSocket().on("indivQuestion", (msg) => {
             console.log(msg);
         });
-        //this.waitForResponse('indivQestion');
     }
 
     loadQuestionScreen() {
@@ -182,8 +184,11 @@ class Lifecycle {
         client.getSocket().on('table', (msg) => {
             console.log(msg);
         });
-        client.getSocket().on('response', (msg) => {
-            console.log(msg);
+
+        client.getSocket().on('back-to-video', (msg) => {
+            console.log('back-to-video');
+            document.getElementById('messageT').style.visibility = 'hidden';
+            document.getElementById('messageB').style.visibility = 'hidden';
         });
         client.getSocket().on('start-question-collectif', (message) => {
             console.log(message);
@@ -201,37 +206,14 @@ class Lifecycle {
                 this.actualScreen.setPulsating("confirmFirstScreenBtn", false);
             }
         });
-        client.getSocket().on('returningScores', (msg) => {
+        client.getSocket().on('listen-user-login', (msg) => {
             console.log(msg.data);
+            this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
         });
-
-        client.send('login', 'login');
     }
 
     sendMessage(data, channel) {
         client.send(channel, data);
-        /*console.log("je notifiiieee le serveeeer : " + msg);
-        const socketIOUrl = 'http://localhost:4000';
-        const socketServer = io.connect(socketIOUrl);
-
-        socketServer.emit(channel, msg);
-
-        socketServer.on('table', (msg) => {
-            console.log(msg);
-        });
-
-        socketServer.on('response', (msg) => {
-            console.log(msg);
-        });*/
-    }
-
-    waitForResponse(channel) {
-        /*const socketIOUrl = 'http://localhost:4000';
-        const socketServer = io.connect(socketIOUrl);
-        socketServer.on(channel, (msg) => {
-            console.log(msg);
-            this.loadMainScreen();
-        });*/
     }
 
     /* MISC */
