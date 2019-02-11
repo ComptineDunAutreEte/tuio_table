@@ -54,6 +54,26 @@ class PionsBRWidget extends PionsWidget {
         return false;
     }
 
+    coequipierLePlusLoin(pion){
+        let pionLePlusLoin = this;
+        for (var i = 0; i < PionsWidget.listePionsBR; i++){
+            if (this.src === PionsWidget.listePionsBR[i]){
+                if (this.src === 'assets/MainScreen/pionB.png') {
+                    if (PionsWidget.listePionsBR[i].internX > pionLePlusLoin.internX){
+                        pionLePlusLoin = PionsWidget.listePionsBR[i];
+                    }
+                }
+                else {
+                    if (PionsWidget.listePionsBR[i].internX < pionLePlusLoin.internX){
+                        pionLePlusLoin = PionsWidget.listePionsBR[i];
+                    }
+                }
+
+            }
+        }
+        return pionLePlusLoin;
+    }
+
     static buildTabDiagonale(x1, y1, x2, y2){
         let t = [];
         const OA =  Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
@@ -135,7 +155,7 @@ class PionsBRWidget extends PionsWidget {
       //  }
     }
 
-    voisIsNotPawn(vois){
+    static voisIsNotPawn(vois){
         for (var i = 0; i < PionsWidget.nbPionsBR; i++){
             if (vois.idp === PionsWidget.listePionsBR[i].place) {
                 return false;
@@ -169,7 +189,7 @@ class PionsBRWidget extends PionsWidget {
                 if (((intX <= vois[i].internX + 20 - 14.5) &&
                     (intX >= vois[i].internX - 20 - 14.5) &&
                     (intY <= vois[i].internY + 20 - 14.5) &&
-                    (intY >= vois[i].internY - 20 - 14.5))&&(this.voisIsNotPawn(vois[i]))){
+                    (intY >= vois[i].internY - 20 - 14.5))&&(PionsBRWidget.voisIsNotPawn(vois[i]))){
                     //On remet les voisins nomraux
                     for (var j = 0; j < this.nbVoisins; j++){
                         this.voisins[j]._domElem.attr('src', 'assets/MainScreen/pionN.png');
@@ -205,8 +225,8 @@ class PionsBRWidget extends PionsWidget {
                     }
                     nbV = i;
                     deplace = true;
-                    if (this.src === 'assets/MainScreen/pionB.png'){this.pawnTouched("blue");}
-                    else {this.pawnTouched("red");}
+                  /*  if (this.src === 'assets/MainScreen/pionB.png'){this.pawnTouched("blue");}
+                    else {this.pawnTouched("red");}*/
                 }
             }
             //Si le pion n'a pas été placé sur un voisin, ou si la case est il revient à sa place
@@ -300,6 +320,17 @@ class PionsBRWidget extends PionsWidget {
            console.log("2 fois touche");
            this.nbTouched = 0;
            this.displayPass();
+         /*  if (this.aLeBallon){
+               console.log("envoie ballon");
+               const cLePlusLoin = this.coequipierLePlusLoin(this);
+               this.aLeBallon = false;
+               cLePlusLoin.aLeBallon = true;
+               cLePlusLoin.ballon = this.ballon;
+               if (this.src === 'assets/MainScreen/pionB.png') {cLePlusLoin.ballon.internX = cLePlusLoin.internX + this.width + 5;}
+               else {cLePlusLoin.ballon.internX = cLePlusLoin.internX - 40;}
+               cLePlusLoin.ballon.internY = cLePlusLoin.internY + 20;
+           }*/
+
        }
         super.moveTo(x, y, angle);
     }
