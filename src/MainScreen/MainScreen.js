@@ -15,25 +15,28 @@ class MainScreen {
 
     populate(id) {
         const pid = "#" + id;
-        const str = '<div id="mainScreen" class="row align-self-center align-items-center w-100 highlighted highlight"> </div>';
+        const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
         this.terrain = new Terrain(this.offset, this.offset, this.width-(2*this.offset), this.height-(2*this.offset), '#mainScreen', this.observer);
     }
 
     highlight(color) {
-        const originalClass = "row align-self-center align-items-center w-100";
-        const red = "row align-self-center align-items-center w-100";
-        const blue = "row align-self-center align-items-center w-100";
+        console.log("attempting highlight");
+        const originalClass = "row align-self-center align-items-center w-100 h-100";
+        const red = "row align-self-center align-items-center w-100 h-100 highlight_W2Red";
+        const blue = "row align-self-center align-items-center w-100 h-100 highlight_W2Blue";
 
         if (color === "blue") {
-            $('#app').className = blue;
+            document.getElementById("mainScreen").className = blue;
+           
         }
         else if (color === "red") {
-            $('#app').className = red;
+            document.getElementById("mainScreen").className = red;
         }
         else {
-            $('#app').className = originalClass;
+            document.getElementById("mainScreen").className = originalClass;
         }
+        console.log(document.getElementById("mainScreen").className);
     }
 }
 
