@@ -21,14 +21,13 @@ class MainScreen {
     }
 
     highlight(color) {
-        console.log("attempting highlight");
         const originalClass = "row align-self-center align-items-center w-100 h-100";
         const red = "row align-self-center align-items-center w-100 h-100 highlight_W2Red";
         const blue = "row align-self-center align-items-center w-100 h-100 highlight_W2Blue";
 
         if (color === "blue") {
+            console.log("blue detected")
             document.getElementById("mainScreen").className = blue;
-
         }
         else if (color === "red") {
             document.getElementById("mainScreen").className = red;
@@ -36,23 +35,25 @@ class MainScreen {
         else {
             document.getElementById("mainScreen").className = originalClass;
         }
-        this.startOfTurn("")
-        console.log(document.getElementById("mainScreen").className);
     }
 
     startOfTurn(team) {
         let classe = "infoBlue";
         if (!team) {
-            console.log("team undefined")
-            team = ""
-        }
+            console.log("team undefined : setting default to BLUE")
+            team = "blue";
+            classe = "infoBlue";
+        } 
+        this.highlight(team);
+       
         if (team === "red") {
             classe = "infoRed";
         }
+
         $('#mainScreen').append('<span id="turnInfoText" style="display:block; z-index: 111; margin: auto;">\
                                     <h1 class="' + classe + '">A vous de jouer Equipe ' + team + ' !!</h1\
                                 </span>');
-                                }
+    }
 }
 
 export default MainScreen;
