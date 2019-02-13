@@ -142,7 +142,7 @@ class Lifecycle {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
-        mainScreen.startOfTurn();
+        mainScreen.startOfTurn(teamToplay);
     }
 
     loadWaitingScreen() {
@@ -153,7 +153,7 @@ class Lifecycle {
         client.send("indivQuestion", "ready");
         client.getSocket().on("waitingScreen", (msg) => {
             console.log(msg);
-            this.loadMainScreen();
+            this.loadMainScreen("red");
         });
     }
 
