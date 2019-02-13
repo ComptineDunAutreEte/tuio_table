@@ -136,10 +136,10 @@ Highlight
 
 @keyframes highlightRED {
     from {
-        border-color: white;
+		border-color: white;
     }
     to {
-        border-color: red;
+		border-color: red;
     }
 }
 
@@ -153,60 +153,82 @@ Highlight
 }
 
 .highlight_W2Red {
-	border-top: 10px solid;
-	border-bottom: 10px solid;
-	border-left: 10px solid;
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    border-left: 10px solid;
     border-right: 10px solid;
     animation-name: highlightRED;
-	animation-duration: 1.5s;
-	animation-direction: alternate;
-	animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
 }
 
 .highlight_W2Blue {
-	border-top: 10px solid;
-	border-bottom: 10px solid;
-	border-left: 10px solid;
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    border-left: 10px solid;
     border-right: 10px solid;
     animation-name: highlightBlUE;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+@keyframes flash {
+    from,
+    50%,
+    to {
+        opacity: 1;
+    }
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+.flash {
+    animation-name: flash;
+}
+
+.infoRed {
+    animation-name: highlightTextRED;
 	animation-duration: 1.5s;
 	animation-direction: alternate;
-	animation-iteration-count: infinite;
+	animation-iteration-count: 4;
+	transform: rotate(180deg);
+	opacity: 0;
 }
 
-
-
-/*
-.highlight::before,
-.highlight::after {
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    -webkit-transform-origin: highlight;
-    transform-origin: highlight;
+.infoBlue {
+    animation-name: highlightTextBLUE;
+	animation-duration: 1.5s;
+	animation-direction: alternate;
+	animation-iteration-count: 4;
+	opacity: 0;
 }
 
-.highlight::before {
-    border-top: 10px solid #6477b9;
-    border-bottom: 10px solid #6477b9;
-    -webkit-transform: scale3d(0, 1, 1);
-    transform: scale3d(0, 1, 1);
+@keyframes highlightTextRED {
+    from {
+		color: white;
+		opacity: 0;
+
+    }
+    to {
+		color: red;
+		opacity: 100;
+
+    }
 }
 
-.highlight::after {
-    border-left: 10px solid #6477b9;
-    border-right: 10px solid #6477b9;
-    -webkit-transform: scale3d(1, 0, 1);
-    transform: scale3d(1, 0, 1);
-}
+@keyframes highlightTextBLUE {
+    from {
+		color: white;
+		opacity: 0;
 
-.highlight::before,
-.highlight::after {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-    transition: -webkit-transform 0.5s;
-    transition: transform 0.5s;
-    transition: transform 0.5s, -webkit-transform 0.5s;
+    }
+    to {
+		color: blue;
+		opacity: 100;
+
+    }
 }
-*/

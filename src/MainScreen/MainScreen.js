@@ -17,7 +17,7 @@ class MainScreen {
         const pid = "#" + id;
         const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
-        this.terrain = new Terrain(this.offset, this.offset, this.width-(2*this.offset), this.height-(2*this.offset), '#mainScreen', this.observer);
+        this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer);
     }
 
     highlight(color) {
@@ -28,7 +28,7 @@ class MainScreen {
 
         if (color === "blue") {
             document.getElementById("mainScreen").className = blue;
-           
+
         }
         else if (color === "red") {
             document.getElementById("mainScreen").className = red;
@@ -36,8 +36,23 @@ class MainScreen {
         else {
             document.getElementById("mainScreen").className = originalClass;
         }
+        this.startOfTurn("")
         console.log(document.getElementById("mainScreen").className);
     }
+
+    startOfTurn(team) {
+        let classe = "infoBlue";
+        if (!team) {
+            console.log("team undefined")
+            team = ""
+        }
+        if (team === "red") {
+            classe = "infoRed";
+        }
+        $('#mainScreen').append('<span id="turnInfoText" style="display:block; z-index: 111; margin: auto;">\
+                                    <h1 class="' + classe + '">A vous de jouer Equipe ' + team + ' !!</h1\
+                                </span>');
+                                }
 }
 
 export default MainScreen;
