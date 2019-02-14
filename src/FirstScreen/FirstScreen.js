@@ -61,7 +61,6 @@ class FirstScreen {
         $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
         document.getElementById(btnID).onclick = () => {
             if (that.playerCount % 2 === 0) {
-                that.notifyServer(that);
                 that.observer.finishedFirstscreen();
             }
         };
@@ -124,24 +123,6 @@ class FirstScreen {
         /* MISC */
     initMockAddButton() {
         //$("#" + botRowID ).append();
-        /*
-        const addCard = () => {
-            if (this.playerCount < 6) {
-
-                if (this.playerCount % 2 == 0) {
-                    this.setPulsating("confirmFirstScreenBtn", false);
-                    this.addPlayerCard("blue", "toto");
-                    this.playerCount++;
-                } else {
-                    this.setPulsating("confirmFirstScreenBtn", true);
-                    this.addPlayerCard("red", "zeuby");
-                    this.playerCount++;
-                }
-            }
-
-        }
-        document.getElementById("add_mock").onclick = addCard;
-        */
         document.getElementById("add_mock").onclick = () => {
             if (this.playerCount < 6) {
                 this.observer.sendMessage("requesting player...", "addPlayerPlease");
@@ -155,11 +136,6 @@ class FirstScreen {
             this.observer.sendMessage("requesting scores...", "sendScores");
             // this.spawnHighScoresModal();
         };
-    }
-
-    notifyServer(that) {
-        const message = that.playerCount + "," + that.difficultyLevel;
-        that.observer.sendMessage(message, 'loginTable');
     }
 
     addPlayerCard(team, nem) {

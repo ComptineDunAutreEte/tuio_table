@@ -136,24 +136,25 @@ class Lifecycle {
         firstScreen.populate("app");
     }
 
-    loadMainScreen() {
+    loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
-        // $('#app').addEventListener('click',that.loadMainScreen());
+        mainScreen.startOfTurn(teamToplay);
     }
 
     loadWaitingScreen() {
+        this.clearScreen();
         const waitScreen = new WaitingScreen();
         this.actualScreen = waitScreen;
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
-        client.getSocket().on("indivQuestion", (msg) => {
+        client.getSocket().on("waitingScreen", (msg) => {
             console.log(msg);
+            this.loadMainScreen("red");
         });
-        //this.waitForResponse('indivQestion');
     }
 
     loadQuestionScreen() {
@@ -192,9 +193,6 @@ class Lifecycle {
             document.getElementById('messageT').style.visibility = 'hidden';
             document.getElementById('messageB').style.visibility = 'hidden';
         });
-        client.getSocket().on('response', (msg) => {
-            console.log(msg);
-        });
         client.getSocket().on('start-question-collectif', (message) => {
             console.log(message);
             // toQuestionnaireView();
@@ -215,34 +213,10 @@ class Lifecycle {
             console.log(msg.data);
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
         });
-
-        //client.send('login', 'login');
     }
 
     sendMessage(data, channel) {
         client.send(channel, data);
-        /*console.log("je notifiiieee le serveeeer : " + msg);
-        const socketIOUrl = 'http://localhost:4000';
-        const socketServer = io.connect(socketIOUrl);
-
-        socketServer.emit(channel, msg);
-
-        socketServer.on('table', (msg) => {
-            console.log(msg);
-        });
-
-        socketServer.on('response', (msg) => {
-            console.log(msg);
-        });*/
-    }
-
-    waitForResponse(channel) {
-        /*const socketIOUrl = 'http://localhost:4000';
-        const socketServer = io.connect(socketIOUrl);
-        socketServer.on(channel, (msg) => {
-            console.log(msg);
-            this.loadMainScreen();
-        });*/
     }
 
     /* MISC */

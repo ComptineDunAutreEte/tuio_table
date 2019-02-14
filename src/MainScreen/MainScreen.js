@@ -2,23 +2,57 @@
 
 import Terrain from "./Terrain";
 
-class MainScreen{
-    constructor(width, height, observer){
+class MainScreen {
+    constructor(width, height, observer) {
         this.width = width;
         this.height = height;
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
         this.terrain = null;
         this.observer = observer;
+        this.offset = 10;
     }
 
     populate(id) {
         const pid = "#" + id;
-        const str = '<div id="mainScreen" class="row align-self-center align-items-center w-100"> </div>';
+        const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
-        console.log("observer at TERRAIN : " + this.observer)
-        this.terrain =  new Terrain(0,0, this.width, this.height, '#mainScreen', this.observer);
-        document.getElementById(this.containerID).className = this.containerClass + " " + "MainScreenBackground";
+        this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer);
+    }
+
+    highlight(color) {
+        const originalClass = "row align-self-center align-items-center w-100 h-100";
+        const red = "row align-self-center align-items-center w-100 h-100 highlight_W2Red";
+        const blue = "row align-self-center align-items-center w-100 h-100 highlight_W2Blue";
+
+        if (color === "blue") {
+            console.log("blue detected")
+            document.getElementById("mainScreen").className = blue;
+        }
+        else if (color === "red") {
+            document.getElementById("mainScreen").className = red;
+        }
+        else {
+            document.getElementById("mainScreen").className = originalClass;
+        }
+    }
+
+    startOfTurn(team) {
+        let classe = "infoBlue";
+        if (!team) {
+            console.log("team undefined : setting default to BLUE")
+            team = "blue";
+            classe = "infoBlue";
+        } 
+        this.highlight(team);
+       
+        if (team === "red") {
+            classe = "infoRed";
+        }
+
+        $('#mainScreen').append('<span id="turnInfoText" style="display:block; z-index: 111; margin: auto;">\
+                                    <h1 class="' + classe + '">A vous de jouer Equipe ' + team + ' !!</h1\
+                                </span>');
     }
 }
 

@@ -7,7 +7,7 @@ import TerrainWidget from "./TerrainWidget";
 class Terrain {
     constructor(x, y, width, height, div, observer) {
         this.div = div;
-        this.widget = new TerrainWidget(x, y, width, height, 'assets/MainScreen/terrain1.png');
+        this.widget = new TerrainWidget(x, y, width, height, 'assets/mainScreen.png');
         this.widget.addTo(div);
         // this.pions = this.createPions();
         /* before */
