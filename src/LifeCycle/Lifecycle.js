@@ -136,21 +136,24 @@ class Lifecycle {
         firstScreen.populate("app");
     }
 
-    loadMainScreen() {
+    loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
+        mainScreen.startOfTurn(teamToplay);
     }
 
     loadWaitingScreen() {
+        this.clearScreen();
         const waitScreen = new WaitingScreen();
         this.actualScreen = waitScreen;
         waitScreen.populate("app");
         client.send("indivQuestion", "ready");
-        client.getSocket().on("indivQuestion", (msg) => {
+        client.getSocket().on("waitingScreen", (msg) => {
             console.log(msg);
+            this.loadMainScreen("red");
         });
     }
 

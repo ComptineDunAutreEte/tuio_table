@@ -1,64 +1,59 @@
-
 /*
 ==============================================
 slideDown
 ==============================================
 */
 
-
-.slideDown{
-	animation-name: slideDown;
-	-webkit-animation-name: slideDown;	
-
-	animation-duration: 1s;	
-	-webkit-animation-duration: 1s;
-
-	animation-timing-function: ease;	
-	-webkit-animation-timing-function: ease;	
-
-	visibility: visible !important;						
+.slideDown {
+    animation-name: slideDown;
+    -webkit-animation-name: slideDown;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: ease;
+    -webkit-animation-timing-function: ease;
+    visibility: visible !important;
 }
 
 @keyframes slideDown {
-	0% {
-		transform: translateY(-100%);
-	}
-	50%{
-		transform: translateY(8%);
-	}
-	65%{
-		transform: translateY(-4%);
-	}
-	80%{
-		transform: translateY(4%);
-	}
-	95%{
-		transform: translateY(-2%);
-	}			
-	100% {
-		transform: translateY(0%);
-	}		
+    0% {
+        transform: translateY(-100%);
+    }
+    50% {
+        transform: translateY(8%);
+    }
+    65% {
+        transform: translateY(-4%);
+    }
+    80% {
+        transform: translateY(4%);
+    }
+    95% {
+        transform: translateY(-2%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 @-webkit-keyframes slideDown {
-	0% {
-		-webkit-transform: translateY(-100%);
-	}
-	50%{
-		-webkit-transform: translateY(8%);
-	}
-	65%{
-		-webkit-transform: translateY(-4%);
-	}
-	80%{
-		-webkit-transform: translateY(4%);
-	}
-	95%{
-		-webkit-transform: translateY(-2%);
-	}			
-	100% {
-		-webkit-transform: translateY(0%);
-	}	
+    0% {
+        -webkit-transform: translateY(-100%);
+    }
+    50% {
+        -webkit-transform: translateY(8%);
+    }
+    65% {
+        -webkit-transform: translateY(-4%);
+    }
+    80% {
+        -webkit-transform: translateY(4%);
+    }
+    95% {
+        -webkit-transform: translateY(-2%);
+    }
+    100% {
+        -webkit-transform: translateY(0%);
+    }
 }
 
 /*
@@ -67,58 +62,157 @@ slideUp
 ==============================================
 */
 
-
-.slideUp{
-	animation-name: slideUp;
-	-webkit-animation-name: slideUp;	
-
-	animation-duration: 1s;	
-	-webkit-animation-duration: 1s;
-
-	animation-timing-function: ease;	
-	-webkit-animation-timing-function: ease;
-
-	visibility: visible !important;			
+.slideUp {
+    animation-name: slideUp;
+    -webkit-animation-name: slideUp;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: ease;
+    -webkit-animation-timing-function: ease;
+    visibility: visible !important;
 }
 
 @keyframes slideUp {
-	0% {
-		transform: translateY(100%);
-	}
-	50%{
-		transform: translateY(-8%);
-	}
-	65%{
-		transform: translateY(4%);
-	}
-	80%{
-		transform: translateY(-4%);
-	}
-	95%{
-		transform: translateY(2%);
-	}			
-	100% {
-		transform: translateY(0%);
-	}	
+    0% {
+        transform: translateY(100%);
+    }
+    50% {
+        transform: translateY(-8%);
+    }
+    65% {
+        transform: translateY(4%);
+    }
+    80% {
+        transform: translateY(-4%);
+    }
+    95% {
+        transform: translateY(2%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 @-webkit-keyframes slideUp {
-	0% {
-		-webkit-transform: translateY(100%);
-	}
-	50%{
-		-webkit-transform: translateY(-8%);
-	}
-	65%{
-		-webkit-transform: translateY(4%);
-	}
-	80%{
-		-webkit-transform: translateY(-4%);
-	}
-	95%{
-		-webkit-transform: translateY(2%);
-	}			
-	100% {
-		-webkit-transform: translateY(0%);
-	}	
+    0% {
+        -webkit-transform: translateY(100%);
+    }
+    50% {
+        -webkit-transform: translateY(-8%);
+    }
+    65% {
+        -webkit-transform: translateY(4%);
+    }
+    80% {
+        -webkit-transform: translateY(-4%);
+    }
+    95% {
+        -webkit-transform: translateY(2%);
+    }
+    100% {
+        -webkit-transform: translateY(0%);
+    }
+}
+
+/*
+==============================================
+Highlight
+==============================================
+*/
+
+.highlighted {
+    border: 0;
+    color: #f45e61;
+}
+
+.highlighted::before,
+.highlighted::after {
+    box-sizing: inherit;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes highlightRED {
+    from {
+		border-color: white;
+    }
+    to {
+		border-color: red;
+    }
+}
+
+@keyframes highlightBLUE {
+    from {
+        border-color: white;
+    }
+    to {
+        border-color: blue;
+    }
+}
+
+.highlight_W2Red {
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    border-left: 10px solid;
+    border-right: 10px solid;
+    animation-name: highlightRED;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+.highlight_W2Blue {
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    border-left: 10px solid;
+    border-right: 10px solid;
+    animation-name: highlightBLUE;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+.infoRed {
+    animation-name: highlightTextRED;
+	animation-duration: 1.5s;
+	animation-direction: alternate;
+	animation-iteration-count: 4;
+	opacity: 0;
+}
+
+.infoBlue {
+	transform: rotate(180deg);
+    animation-name: highlightTextBLUE;
+	animation-duration: 1.5s;
+	animation-direction: alternate;
+	animation-iteration-count: 4;
+	opacity: 0;
+}
+
+@keyframes highlightTextRED {
+    from {
+		color: white;
+		opacity: 0;
+
+    }
+    to {
+		color: red;
+		opacity: 100;
+
+    }
+}
+
+@keyframes highlightTextBLUE {
+    from {
+		color: white;
+		opacity: 0;
+
+    }
+    to {
+		color: blue;
+		opacity: 100;
+
+    }
 }
