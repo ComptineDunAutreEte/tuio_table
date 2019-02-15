@@ -17,7 +17,6 @@ class playingSequence {
     }
 
     playTurn(){
-        console.log("start of next turn : " + this.questionResults);
         if (this.indexInResults >= this.nbOfActions){
             this.endOfSequence();
         } else {
@@ -35,9 +34,11 @@ class playingSequence {
 
     endOfSequence(){
         // envoyer au server qu'il faut envoyer une nouvelle question
-        // decider ici le type de question etc
-        console.log("end of this playing sequence");
-        this.observer.sendMessage("sendNextQuestion",'indivQuestion');
+        this.observer.sendMessage("endOfSequence",'request-question');
+        this.questionResults = [];
+        this.indexInResults = 0;
+        // au serveur de decider quel est le type de question suivant
+        // au lifecycle d'attendre les ordres du server 
     }
 
 } export default playingSequence;

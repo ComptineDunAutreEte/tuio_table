@@ -78,7 +78,6 @@ class Lifecycle {
         this.containerClass = "container-fluid d-flex h-100";
         this.actualScreen = "";
         this.playingSequence = "";
-        // test 
         this.startingTeam = "";
     }
 
@@ -95,7 +94,6 @@ class Lifecycle {
     }
 
     pawnMoved(str) {
-        // recup le playingSequence et playturn
         console.log("pawnMoved " + str);
         this.playingSequence.playTurn();
 
@@ -122,6 +120,7 @@ class Lifecycle {
         console.log("FormationScreen DONE. transition to next screen");
         this.clearScreen();
         this.loadMainScreen();
+        this.firstTurn();
     }
 
     /* ==========  Screens inflaters  ========== */
@@ -148,8 +147,6 @@ class Lifecycle {
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
         // mainScreen.startOfTurn(teamToplay);
-        this.playingSequence = new playingSequence([this.startingTeam], this);
-        this.playingSequence.start();
     }
 
     loadWaitingScreen() {
@@ -210,7 +207,7 @@ class Lifecycle {
         });
         client.getSocket().on('indivQuestion', (msg) => {
             console.log(msg);
-            // that.loadMainScreen();
+            //that.loadMainScreen();
         });
         client.getSocket().on('returningPlayer', (msg) => {
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
@@ -230,17 +227,26 @@ class Lifecycle {
         });
 
         client.getSocket().on('indivQuestionResponse', (msg) => {
-            console.log(msg.data);
-            // client.getSocket().emit('indivQuestionTest', true); // mocks the end of a question
+            console.error("play order");
+            console.error(msg.data);
+            client.getSocket().emit('indivQuestionTest', {data : true});
+            this.loadMainScreen();
             const tabOfTeamSequence = this.getTeamSequence(msg.data);
             this.playingSequence = new playingSequence(tabOfTeamSequence, this)
-            sequence.start();
+            this.playingSequence.start();
         });
 
         client.getSocket().on('startTeam', (msg) => {
             console.log(msg.data);
             this.startingTeam = msg.data;
-        })
+        });
+
+        client.getSocket().on('start-of-new-question',(msg)=>{
+            if (msg.data === 1){
+                this.loadWaitingScreen();
+            }
+            // gerer les autres questions
+        });
     }
 
     sendMessage(data, channel) {
@@ -248,6 +254,11 @@ class Lifecycle {
     }
 
     /* ==========  MISC  ==========*/
+    firstTurn(){
+        this.playingSequence = new playingSequence([this.startingTeam],this);
+        this.playingSequence.start();
+    }
+
     getTeamSequence(tab) {
         let res = []
         for (let i = 0; i < tab.length; i++) {

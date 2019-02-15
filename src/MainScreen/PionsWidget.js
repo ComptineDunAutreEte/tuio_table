@@ -262,8 +262,6 @@ class PionsWidget extends ElementWidget {
 
     /* FOR DEMO CODE */
     pawnTouched(type) {
-            console.log("pawntouchedc; obs = ");
-            console.log(this.observer);
             if (type === "blue"){
                 this.observer.pawnMoved("indiv");
             } else if (type === "red"){
