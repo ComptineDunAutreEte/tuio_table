@@ -278,8 +278,9 @@ class PionsBRWidget extends PionsWidget {
                         }
                         nbV = i;
                         deplace = true;
-                        /*  if (this.src === 'assets/MainScreen/pionB.png'){this.pawnTouched("blue");}
-                          else {this.pawnTouched("red");}*/
+                        if (this.src === 'assets/MainScreen/pionB.png'){
+                            this.pawnTouched("blue");
+                        }else {this.pawnTouched("red");}
                     }
                     //Sinon si c'est un pion mais qu'il est différent
                     else if (PionsBRWidget.voisIsDifferent(PionsBRWidget.getPionOnCase(vois[i].idp))){
