@@ -7,6 +7,7 @@ import MainScreen from '../MainScreen/MainScreen';
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 import WaitingScreen from '../WaitingScreen/WaitingScreen';
 import client from '../client';
+import playingSequence from '../PlayingSequence/playingSequence';
 
 // Import JQuery
 
@@ -76,13 +77,14 @@ class Lifecycle {
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
         this.actualScreen = "";
+        this.playingSequence = "";
+        // test 
+        this.startingTeam = "";
     }
 
     start() {
         this.initConnexion();
         this.loadFirstScreen();
-        // this.loadMainScreen();
-        // this.loadWaitingScreen();
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {
@@ -93,20 +95,23 @@ class Lifecycle {
     }
 
     pawnMoved(str) {
+        // recup le playingSequence et playturn
+        console.log("pawnMoved " + str);
+        this.playingSequence.playTurn();
+
+        /* DEMO / MOCK code
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
-        //this.sendMessage(message, channel);
-        //this.clearScreen();
-        // this.loadWaitingScreen();
         if (str === "collectif") {
             this.loadQuestionScreen();
         } else if (str === "indiv") {
             this.loadWaitingScreen();
         }
+        */
     }
 
 
-    // finishing functions
+    /* ==========  finishing functions  ========== */
     finishedFirstscreen() {
         console.log("first screen DONE. Transition to next screen");
         this.clearScreen();
@@ -119,7 +124,7 @@ class Lifecycle {
         this.loadMainScreen();
     }
 
-    /* Screens inflaters */
+    /* ==========  Screens inflaters  ========== */
     loadFormationScreen() {
         this.clearScreen();
         $('#app').className = this.containerClass;
@@ -142,7 +147,9 @@ class Lifecycle {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
-        mainScreen.startOfTurn(teamToplay);
+        // mainScreen.startOfTurn(teamToplay);
+        this.playingSequence = new playingSequence([this.startingTeam], this);
+        this.playingSequence.start();
     }
 
     loadWaitingScreen() {
@@ -153,7 +160,11 @@ class Lifecycle {
         client.send("indivQuestion", "ready");
         client.getSocket().on("waitingScreen", (msg) => {
             console.log(msg);
-            this.loadMainScreen("red");
+            if (msg.data === "blue") {
+                this.loadMainScreen("blue");
+            } else {
+                this.loadMainScreen("red");
+            }
         });
     }
 
@@ -182,7 +193,7 @@ class Lifecycle {
          });*/
     }
 
-    /* server communication functions */
+    /* ==========  server communication functions  ========== */
     initConnexion() {
         client.getSocket().on('table', (msg) => {
             console.log(msg);
@@ -213,13 +224,38 @@ class Lifecycle {
             console.log(msg.data);
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
         });
+
+        client.getSocket().on('returningPlayer', (msg) => {
+            console.log(msg.data);
+        });
+
+        client.getSocket().on('indivQuestionResponse', (msg) => {
+            console.log(msg.data);
+            // client.getSocket().emit('indivQuestionTest', true); // mocks the end of a question
+            const tabOfTeamSequence = this.getTeamSequence(msg.data);
+            this.playingSequence = new playingSequence(tabOfTeamSequence, this)
+            sequence.start();
+        });
+
+        client.getSocket().on('startTeam', (msg) => {
+            console.log(msg.data);
+            this.startingTeam = msg.data;
+        })
     }
 
     sendMessage(data, channel) {
         client.send(channel, data);
     }
 
-    /* MISC */
+    /* ==========  MISC  ==========*/
+    getTeamSequence(tab) {
+        let res = []
+        for (let i = 0; i < tab.length; i++) {
+            res.push(tab[i].team);
+        }
+        console.log(res);
+        return res;
+    }
     clearScreen() {
         const root = document.getElementById("app");
         while (root.firstChild) {
