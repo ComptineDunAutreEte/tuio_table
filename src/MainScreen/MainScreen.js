@@ -49,7 +49,10 @@ class MainScreen {
         if (team === "red") {
             classe = "infoRed";
         }
-
+        if (document.getElementById('turnInfoText')){
+            document.getElementById('turnInfoText').remove();
+            console.error("just removed text")
+        }
         $('#mainScreen').append('<span id="turnInfoText" style="display:block; z-index: 111; margin: auto;">\
                                     <h1 class="' + classe + '">A vous de jouer Equipe ' + team + ' !!</h1\
                                 </span>');
