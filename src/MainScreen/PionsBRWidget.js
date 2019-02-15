@@ -412,6 +412,11 @@ class PionsBRWidget extends PionsWidget {
                     console.log(this.nbTouched);
                 }
             }
+            else {
+                if (this.src === 'assets/MainScreen/pionB.png'){
+                    this.pawnTouched("blue");
+                }else {this.pawnTouched("red");}
+            }
          /*   if (!this.passDisplayed) {
                 for (var k = 0; k < this.nbVoisins; k++) {
                     this.voisins[k]._domElem.attr('src', 'assets/MainScreen/pionN.png');

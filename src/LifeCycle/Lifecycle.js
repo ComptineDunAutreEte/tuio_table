@@ -7,6 +7,7 @@ import MainScreen from '../MainScreen/MainScreen';
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 import WaitingScreen from '../WaitingScreen/WaitingScreen';
 import client from '../client';
+import playingSequence from '../PlayingSequence/playingSequence';
 
 // Import JQuery
 
@@ -76,13 +77,13 @@ class Lifecycle {
         this.containerID = "app";
         this.containerClass = "container-fluid d-flex h-100";
         this.actualScreen = "";
+        this.playingSequence = "";
+        this.startingTeam = "";
     }
 
     start() {
         this.initConnexion();
         this.loadFirstScreen();
-        // this.loadMainScreen();
-        // this.loadWaitingScreen();
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {
@@ -93,20 +94,22 @@ class Lifecycle {
     }
 
     pawnMoved(str) {
+        console.log("pawnMoved " + str);
+        this.playingSequence.playTurn();
+
+        /* DEMO / MOCK code
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
-        //this.sendMessage(message, channel);
-        //this.clearScreen();
-        // this.loadWaitingScreen();
         if (str === "collectif") {
             this.loadQuestionScreen();
         } else if (str === "indiv") {
             this.loadWaitingScreen();
         }
+        */
     }
 
 
-    // finishing functions
+    /* ==========  finishing functions  ========== */
     finishedFirstscreen() {
         console.log("first screen DONE. Transition to next screen");
         this.clearScreen();
@@ -117,9 +120,10 @@ class Lifecycle {
         console.log("FormationScreen DONE. transition to next screen");
         this.clearScreen();
         this.loadMainScreen();
+        this.firstTurn();
     }
 
-    /* Screens inflaters */
+    /* ==========  Screens inflaters  ========== */
     loadFormationScreen() {
         this.clearScreen();
         $('#app').className = this.containerClass;
@@ -142,7 +146,7 @@ class Lifecycle {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
-        mainScreen.startOfTurn(teamToplay);
+        // mainScreen.startOfTurn(teamToplay);
     }
 
     loadWaitingScreen() {
@@ -153,7 +157,11 @@ class Lifecycle {
         client.send("indivQuestion", "ready");
         client.getSocket().on("waitingScreen", (msg) => {
             console.log(msg);
-            this.loadMainScreen("red");
+            if (msg.data === "blue") {
+                this.loadMainScreen("blue");
+            } else {
+                this.loadMainScreen("red");
+            }
         });
     }
 
@@ -182,7 +190,7 @@ class Lifecycle {
          });*/
     }
 
-    /* server communication functions */
+    /* ==========  server communication functions  ========== */
     initConnexion() {
         client.getSocket().on('table', (msg) => {
             console.log(msg);
@@ -199,7 +207,7 @@ class Lifecycle {
         });
         client.getSocket().on('indivQuestion', (msg) => {
             console.log(msg);
-            // that.loadMainScreen();
+            //that.loadMainScreen();
         });
         client.getSocket().on('returningPlayer', (msg) => {
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
@@ -213,13 +221,52 @@ class Lifecycle {
             console.log(msg.data);
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
         });
+
+        client.getSocket().on('returningPlayer', (msg) => {
+            console.log(msg.data);
+        });
+
+        client.getSocket().on('indivQuestionResponse', (msg) => {
+            console.error("play order");
+            console.error(msg.data);
+            client.getSocket().emit('indivQuestionTest', {data : true});
+            this.loadMainScreen();
+            const tabOfTeamSequence = this.getTeamSequence(msg.data);
+            this.playingSequence = new playingSequence(tabOfTeamSequence, this)
+            this.playingSequence.start();
+        });
+
+        client.getSocket().on('startTeam', (msg) => {
+            console.log(msg.data);
+            this.startingTeam = msg.data;
+        });
+
+        client.getSocket().on('start-of-new-question',(msg)=>{
+            if (msg.data === 1){
+                this.loadWaitingScreen();
+            }
+            // gerer les autres questions
+        });
     }
 
     sendMessage(data, channel) {
         client.send(channel, data);
     }
 
-    /* MISC */
+    /* ==========  MISC  ==========*/
+    firstTurn(){
+        this.playingSequence = new playingSequence([this.startingTeam],this);
+        this.playingSequence.start();
+    }
+
+    getTeamSequence(tab) {
+        let res = []
+        for (let i = 0; i < tab.length; i++) {
+            res.push(tab[i].team);
+        }
+        console.log(res);
+        return res;
+    }
     clearScreen() {
         const root = document.getElementById("app");
         while (root.firstChild) {
