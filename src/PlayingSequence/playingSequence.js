@@ -34,9 +34,12 @@ class playingSequence {
 
     endOfSequence(){
         // envoyer au server qu'il faut envoyer une nouvelle question
-        this.observer.sendMessage("endOfSequence",'request-question');
-        this.questionResults = [];
-        this.indexInResults = 0;
+        setInterval(()=> {
+            this.observer.sendMessage("endOfSequence",'request-question');
+            this.questionResults = [];
+            this.indexInResults = 0;
+        },7000);
+       
         // au serveur de decider quel est le type de question suivant
         // au lifecycle d'attendre les ordres du server 
     }
