@@ -115,17 +115,36 @@ class PionsBRWidget extends PionsWidget {
 
     onTouchCreation(tuioTouch) {
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
+            if (this.src === 'assets/MainScreen/pionB.png'){
+                if (PionsBRWidget.teamBleueJoue){
+                    super.onTouchCreation(tuioTouch);
+                    if (this.aLeBallon) {
+                        this.ballon.bougeParPion = true;
+                        this.ballon.onTouchCreation(tuioTouch);
+                    }
+                    //    }
+                    for (var i = 0; i < this.nbVoisins; i++) {
+                        this.voisins[i]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
+                        this.voisins[i].src = 'assets/MainScreen/bscircle.png';
+                    }
+                }
+            }
+            else {
+                if (PionsBRWidget.teamRougeJoue){
+                    super.onTouchCreation(tuioTouch);
+                    if (this.aLeBallon) {
+                        this.ballon.bougeParPion = true;
+                        this.ballon.onTouchCreation(tuioTouch);
+                    }
+                    //    }
+                    for (var j = 0; j < this.nbVoisins; j++) {
+                        this.voisins[j]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
+                        this.voisins[j].src = 'assets/MainScreen/bscircle.png';
+                    }
+                }
+            }
            // else if (this.nbTouched == 0) {
-            super.onTouchCreation(tuioTouch);
-            if (this.aLeBallon) {
-                this.ballon.bougeParPion = true;
-                this.ballon.onTouchCreation(tuioTouch);
-            }
-            //    }
-            for (var i = 0; i < this.nbVoisins; i++) {
-                this.voisins[i]._domElem.attr('src', 'assets/MainScreen/bscircle.png');
-                this.voisins[i].src = 'assets/MainScreen/bscircle.png';
-            }
+
         }
     }
 
@@ -333,7 +352,6 @@ class PionsBRWidget extends PionsWidget {
                     (intY <= vois[i].internY + 20 - 14.5) &&
                     (intY >= vois[i].internY - 20 - 14.5)){
 
-
                     //Si le voisin n'est pas un pion mais une case
                     if (PionsBRWidget.voisIsNotPawn(vois[i])){
                         //On remet les voisins normaux
@@ -526,5 +544,7 @@ PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = false;
 PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = 0;
 PionsBRWidget.firstButtonClicked = null;
 PionsBRWidget.secondButtonClicked = null;
+PionsBRWidget.teamRougeJoue = false;
+PionsBRWidget.teamBleueJoue = true;
 
 export default PionsBRWidget;

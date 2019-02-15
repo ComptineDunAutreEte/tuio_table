@@ -1,5 +1,7 @@
 /*eslint-disable*/
 
+import PionsBRWidget from "../MainScreen/PionsBRWidget";
+
 class playingSequence {
 
     constructor(sequence, obs){
@@ -22,6 +24,14 @@ class playingSequence {
         } else {
             const teamToPlay = this.questionResults[this.indexInResults].team;
             console.log("team to play = " );
+            if (teamToPlay === "red"){
+                PionsBRWidget.teamRougeJoue = true;
+                PionsBRWidget.teamBleueJoue = false;
+            }
+            else if (teamToPlay === "blue") {
+                PionsBRWidget.teamBleueJoue = true;
+                PionsBRWidget.teamRougeJoue = false;
+            }
             console.log(teamToPlay);
             try{
                 this.observer.actualScreen.startOfTurn(teamToPlay);
@@ -39,9 +49,9 @@ class playingSequence {
             this.questionResults = [];
             this.indexInResults = 0;
         },7000);
-       
+
         // au serveur de decider quel est le type de question suivant
-        // au lifecycle d'attendre les ordres du server 
+        // au lifecycle d'attendre les ordres du server
     }
 
 } export default playingSequence;
