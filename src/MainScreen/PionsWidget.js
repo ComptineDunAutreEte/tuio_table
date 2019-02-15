@@ -38,7 +38,7 @@ class PionsWidget extends ElementWidget {
         this.idp = idp;
       //  if (this.src === 'assets/MainScreen/pionN.png'){this.initVoisins();console.log(idp + "  :   " + this.voisins); console.log("nbVoisinsINIT : " + this.nbVoisins);}
         if (this.src === 'assets/MainScreen/pionN.png'){ PionsWidget.listePionsN.push(this); PionsWidget.nbPionsN++;}
-        if (PionsWidget.nbPionsN === 56) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(PionsWidget.listePionsN[i].idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
+        if (PionsWidget.nbPionsN === 56) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();}}
       /*  if (PionsWidget.nbPionsN === 55){
             for (var j = 0; j < PionsWidget.nbPionsN; j++){PionsWidget.listePionsN[j].updatePasses();}
         }*/

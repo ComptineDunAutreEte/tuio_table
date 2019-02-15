@@ -53,7 +53,7 @@ class Terrain {
                 if (inc == 2) inc = 1;
                 else inc = 2;
                 mx = i;
-                my = i * 29;
+                my = i * 27;
             }
             /*   if (inc == 2){
                    mt = 85;
@@ -61,7 +61,7 @@ class Terrain {
                else {
                    mt = 0;
                } */
-            new Pions(0, i, 200 + i + my, 100 + (i - mx) * 130 - mt, "none");
+            new Pions(0, i, 220 + i + my, 100 + (i - mx) * 130 - mt, "none");
 
             /*   if (inc == 2){
                    mt = 85;
@@ -76,13 +76,13 @@ class Terrain {
                 if (inc == 2) inc = 1;
                 else inc = 2;
                 mx = j;
-                my = j * 29;
+                my = j * 27;
             }
             if (pionsB.includes(j)) {
-                new Pions(j, id, 200 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu");
+                new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu");
                 id++;
             } else if (pionsR.includes(j)) {
-                new Pions(j, id, 200 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge");
+                new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge");
                 id++;
             }
         }

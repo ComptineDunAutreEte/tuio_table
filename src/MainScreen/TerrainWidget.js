@@ -28,10 +28,9 @@ class TerrainWidget extends ElementWidget {
     }
 
     onTouchCreation(tuioTouch) {
-        super.onTouchCreation(tuioTouch);
+      /*  super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            console.log(" terrain touché");
-        }
+        }*/
     }
 
     onTouchUpdate(tuioTouch) {

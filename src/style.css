@@ -191,6 +191,113 @@ Highlight
 	opacity: 0;
 }
 
+#mainScreen img {
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+.switchCages1 {
+   /* transform: rotate(180deg);
+    animation-name: changeCages;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    opacity: 0;*/
+
+    animation-name: changeCages1;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-direction: alternate;
+}
+
+@keyframes changeCages1 {
+    0% {
+        opacity:100;
+    }
+    45% {
+        opacity:70;
+    }
+    55% {
+        opacity:40;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+.switchCages2 {
+    /* transform: rotate(180deg);
+     animation-name: changeCages;
+     animation-duration: 1.5s;
+     animation-direction: alternate;
+     animation-iteration-count: infinite;
+     opacity: 0;*/
+
+    animation-name: changeCages2;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-direction: alternate;
+}
+
+@keyframes changeCages2 {
+    0% {
+        opacity:0;
+    }
+    45% {
+        opacity:40;
+    }
+    55% {
+        opacity:70;
+    }
+    100% {
+        opacity:100;
+    }
+}
+
+.switchCages3 {
+    /* transform: rotate(180deg);
+     animation-name: changeCages;
+     animation-duration: 1.5s;
+     animation-direction: alternate;
+     animation-iteration-count: infinite;
+     opacity: 0;*/
+
+    animation-name: changeCages3;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-direction: alternate;
+}
+
+@keyframes changeCages3 {
+    0% {
+        opacity:0;
+    }
+    45% {
+        opacity:100;
+    }
+    55% {
+        opacity:70;
+    }
+    100% {
+        opacity:40;
+    }
+}
+
+
+/*@keyframes changeCages {
+    from {
+      background-image: url("../assets/MainScreen/cages1.jpg");
+    }
+    to {
+        background-image: url("../assets/MainScreen/cages2.jpg");
+    }
+}*/
+
 @keyframes highlightTextRED {
     from {
 		color: white;
