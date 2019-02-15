@@ -38,7 +38,7 @@ class PionsWidget extends ElementWidget {
         this.idp = idp;
       //  if (this.src === 'assets/MainScreen/pionN.png'){this.initVoisins();console.log(idp + "  :   " + this.voisins); console.log("nbVoisinsINIT : " + this.nbVoisins);}
         if (this.src === 'assets/MainScreen/pionN.png'){ PionsWidget.listePionsN.push(this); PionsWidget.nbPionsN++;}
-        if (PionsWidget.nbPionsN === 55) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(PionsWidget.listePionsN[i].idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
+        if (PionsWidget.nbPionsN === 56) {for (var i = 0; i < PionsWidget.nbPionsN; i++) {PionsWidget.listePionsN[i].updateVoisins();console.log(PionsWidget.listePionsN[i].idp + "  :   " + PionsWidget.listePionsN[i].voisins); console.log("nbVoisinsUPDATE : " + PionsWidget.listePionsN[i].nbVoisins);}}
       /*  if (PionsWidget.nbPionsN === 55){
             for (var j = 0; j < PionsWidget.nbPionsN; j++){PionsWidget.listePionsN[j].updatePasses();}
         }*/
@@ -50,8 +50,49 @@ class PionsWidget extends ElementWidget {
         //sléctionné, lequel on garde en mémoire ?
     }
 
-
     updateVoisins(){
+        let id = 0;
+        let idPionsHaut = [6, 13, 20, 27,34,41,48,55];
+        let idPionsBas = [0, 7, 14, 21, 28, 35, 42, 49];
+        let idPionsGauches = [0, 1, 2, 3, 4, 5, 6];
+        let idPionsDroits = [49,50,51,52,53,54,55];
+
+        if (!idPionsHaut.includes(this.idp)){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 1];
+            id++;
+            if (!idPionsGauches.includes(this.idp)){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 6];
+                id++;
+            }
+            if (!idPionsDroits.includes(this.idp)){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 8];
+                id++;
+            }
+        }
+        if (!idPionsBas.includes((this.idp))){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 1];
+            id++;
+            if (!idPionsGauches.includes(this.idp)){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 8];
+                id++;
+            }
+            if (!idPionsDroits.includes(this.idp)){
+                this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 6];
+                id++;
+            }
+        }
+        if (!idPionsGauches.includes(this.idp)){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp - 7];
+            id++;
+        }
+        if (!idPionsDroits.includes(this.idp)){
+            this.voisins[id] = PionsWidget.getListePionsN()[this.idp + 7];
+        }
+        this.nbVoisins = this.voisins.length;
+    }
+
+
+   /* updateVoisinss(){
         let id = 0;
         let idPionsBas = [6, 13, 20, 27,34,41,48,55];
         if (this.idp === 0){
@@ -95,7 +136,7 @@ class PionsWidget extends ElementWidget {
             }
         }
         this.nbVoisins = this.voisins.length;
-    }
+    }*/
 
     static getListePionsN() {
         return PionsWidget.listePionsN;

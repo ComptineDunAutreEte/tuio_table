@@ -55,16 +55,16 @@ class PionsBRWidget extends PionsWidget {
     }
 
     coequipierLePlusLoin(pion){
-        let pionLePlusLoin = this;
-        for (var i = 0; i < PionsWidget.listePionsBR; i++){
-            if (this.src === PionsWidget.listePionsBR[i]){
-                if (this.src === 'assets/MainScreen/pionB.png') {
-                    if (PionsWidget.listePionsBR[i].internX > pionLePlusLoin.internX){
+        let pionLePlusLoin = pion;
+        for (var i = 0; i < PionsWidget.nbPionsBR; i++){
+            if (pion.src === PionsWidget.listePionsBR[i].src){
+                if (pion.src === 'assets/MainScreen/pionB.png') {
+                    if (PionsWidget.listePionsBR[i].internX > pionLePlusLoin.internX + 100){
                         pionLePlusLoin = PionsWidget.listePionsBR[i];
                     }
                 }
                 else {
-                    if (PionsWidget.listePionsBR[i].internX < pionLePlusLoin.internX){
+                    if (PionsWidget.listePionsBR[i].internX < pionLePlusLoin.internX - 100){
                         pionLePlusLoin = PionsWidget.listePionsBR[i];
                     }
                 }
@@ -98,7 +98,6 @@ class PionsBRWidget extends PionsWidget {
     }
 
     displayPass(){
-        console.log("display pass");
         this.nbTouched = 0;
         this.passDisplayed = true;
         if (PionsBRWidget.pionDisplayed != null){
@@ -164,6 +163,78 @@ class PionsBRWidget extends PionsWidget {
         return true;
     }
 
+    static voisIsDifferent(vois){
+        return this.src !== vois.src;
+    }
+
+    replaceBallon(){
+        if (this.src === 'assets/MainScreen/pionB.png') {
+            this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
+            this.ballon.internX = this.internX + this.width + 5;
+            this.ballon.mx = this.ballon.internX;
+        }
+        else {
+            this.ballon._domElem.css('left', `${this.internX - 40}px`);
+            this.ballon.internX = this.internX - 40;
+            this.ballon.mx = this.ballon.internX;
+        }
+        this.ballon._domElem.css('top', `${this.internY + 20}px`);
+        this.ballon.internY = this.internY + 20;
+        this.ballon.my = this.ballon.internY;
+    }
+
+    static getPionOnCase(idp){
+        for (var i = 0; i < PionsWidget.nbPionsBR; i++){
+            if (PionsWidget.listePionsBR[i].place === idp){
+                return PionsWidget.listePionsBR[i];
+            }
+        }
+        return null;
+    }
+
+    goOnVoisin(me, voisin){
+        me._domElem.css('left', `${voisin.internX - 14.5}px`);
+        me._domElem.css('top', `${voisin.internY - 14.5}px`);
+        me.internX = voisin.internX - 14.5;
+        me.internY = voisin.internY - 14.5;
+        me.place = voisin.idp;
+        me.mx = me.internX;
+        me.my = me.internY;
+        me.nbVoisins = voisin.nbVoisins;
+        me.voisins = voisin.voisins;
+    }
+
+    takeBallon(pionVoisin){
+        this.ballon = pionVoisin.ballon;
+        this.aLeBallon = true;
+        pionVoisin.aLeBallon = false;
+        this.replaceBallon();
+    }
+
+    switchPawns(pionVoisin){
+        console.log("voisin avant : " + pionVoisin.aLeBallon);
+        console.log("moi avant : " + this.aLeBallon);
+        console.log("eeeeeeeh oooooh ");
+
+        const mintX = this.internX;
+        const mintY = this.internY;
+
+        console.log("x y this avant : " + this.internX + "   " + this.internY);
+        console.log("x y voisin avant : " + pionVoisin.internX + "    " + pionVoisin.internY);
+
+        this.internX = pionVoisin.internX;
+        this.internY = pionVoisin.internY;
+        this._domElem.css('left', `${pionVoisin.internX}px`);
+        this._domElem.css('top', `${pionVoisin.internY}px`);
+
+        pionVoisin.internX = 500;
+        pionVoisin.internY = 500;
+        pionVoisin._domElem.css('left', `${500}px`);
+        pionVoisin._domElem.css('top', `${500}px`);
+
+        console.log("x y this après : " + this.internX + "   " + this.internY);
+        console.log("x y voisin après : " + pionVoisin.internX + "    " + pionVoisin.internY);
+    }
 
     onTouchDeletion(tuioTouchId) {
         let deplace = false;
@@ -186,52 +257,56 @@ class PionsBRWidget extends PionsWidget {
             const vois = this.voisins;
             for (var i = 0; i < nbV; i++) {
                 //Si le pion est relaché près d'un de ses voisins
-                if (((intX <= vois[i].internX + 20 - 14.5) &&
+                if ((intX <= vois[i].internX + 20 - 14.5) &&
                     (intX >= vois[i].internX - 20 - 14.5) &&
                     (intY <= vois[i].internY + 20 - 14.5) &&
-                    (intY >= vois[i].internY - 20 - 14.5))&&(PionsBRWidget.voisIsNotPawn(vois[i]))){
-                    //On remet les voisins nomraux
-                    for (var j = 0; j < this.nbVoisins; j++){
-                        this.voisins[j]._domElem.attr('src', 'assets/MainScreen/pionN.png');
-                        this.voisins[j].src = 'assets/MainScreen/pionN.png';
-                    }
-                    //Changement coordonnées du pion qui prend les coordonnées de son voisin
-                    this._domElem.css('left', `${this.voisins[i].internX - 14.5}px`);
-                    this._domElem.css('top', `${this.voisins[i].internY - 14.5}px`);
-                    this.internX = this.voisins[i].internX - 14.5;
-                    this.internY = this.voisins[i].internY - 14.5;
-                    this.place = this.voisins[i].idp;
-                    this.mx = this.internX;
-                    this.my = this.internY;
-                    this.nbVoisins = this.voisins[i].nbVoisins;
-                    this.voisins = this.voisins[i].voisins;
+                    (intY >= vois[i].internY - 20 - 14.5)){
+                    //Si le voisin n'est pas un pion mais une case
+                    if (PionsBRWidget.voisIsNotPawn(vois[i])){
 
-                    //Changement coordonnées du ballon si le pion le possède
-                    if (this.aLeBallon){
-                        if (this.src === 'assets/MainScreen/pionB.png') {
-                            this.ballon._domElem.css('left', `${this.internX + this.width + 5}px`);
-                            this.ballon.internX = this.internX + this.width + 5;
-                            this.ballon.mx = this.ballon.internX;
+                        //On remet les voisins normaux
+                        for (var j = 0; j < this.nbVoisins; j++){
+                            this.voisins[j]._domElem.attr('src', 'assets/MainScreen/pionN.png');
+                            this.voisins[j].src = 'assets/MainScreen/pionN.png';
+                        }
+                        //Changement coordonnées de ce pion qui prend les coordonnées de son voisin
+                        this.goOnVoisin(this, this.voisins[i]);
+
+                        //Changement coordonnées du ballon si le pion le possède
+                        if (this.aLeBallon){
+                            this.replaceBallon();
+                        }
+                        nbV = i;
+                        deplace = true;
+                        /*  if (this.src === 'assets/MainScreen/pionB.png'){this.pawnTouched("blue");}
+                          else {this.pawnTouched("red");}*/
+                    }
+                    //Sinon si c'est un pion mais qu'il est différent
+                    else if (PionsBRWidget.voisIsDifferent(PionsBRWidget.getPionOnCase(vois[i].idp))){
+                        //S'il a le ballon il lui prend, sinon il ne peut pas se déplacer
+
+                        const pionVoisin = PionsBRWidget.getPionOnCase(vois[i].idp);
+                        if (pionVoisin.aLeBallon){
+                          //  this.switchPawns(pionVoisin);
+                            this.takeBallon(pionVoisin);
+                            const place = this.place;
+                            this.goOnVoisin(this, vois[i]);
+                            this.goOnVoisin(pionVoisin, PionsWidget.listePionsN[place]);
+
+                            console.log("voisin après : " + PionsBRWidget.getPionOnCase(vois[i].idp).aLeBallon);
+                            console.log("moi après : " + this.aLeBallon);
+
+                            deplace = true;
                         }
                         else {
-                            this.ballon._domElem.css('left', `${this.internX - 40}px`);
-                            this.ballon.internX = this.internX - 40;
-                            this.ballon.mx = this.ballon.internX;
+                            console.log("he doesn't have the ball");
                         }
-                        this.ballon._domElem.css('top', `${this.internY + 20}px`);
-                        this.ballon.internY = this.internY + 20;
-                        this.ballon.my = this.ballon.internY;
-
                     }
-                    nbV = i;
-                    deplace = true;
-                  /*  if (this.src === 'assets/MainScreen/pionB.png'){this.pawnTouched("blue");}
-                    else {this.pawnTouched("red");}*/
+
                 }
             }
             //Si le pion n'a pas été placé sur un voisin, ou si la case est il revient à sa place
             if (!deplace) {
-                console.log("iiccii");
                 this._domElem.css('left', `${this.mx}px`);
                 this._domElem.css('top', `${this.my}px`);
                 this.internX = this.mx;
@@ -252,7 +327,6 @@ class PionsBRWidget extends PionsWidget {
                     this.voisins[k].src = 'assets/MainScreen/pionN.png';
                 }
             }
-            console.log("nombre de fois touche : " + this.nbTouched);
           /*  if (this.src === 'assets/MainScreen/pionB.png') {
                 this.pawnTouched("blue");
             }
@@ -260,12 +334,11 @@ class PionsBRWidget extends PionsWidget {
                 this.pawnTouched("red");
             }*/
         }
-        else {console.log("eruicvjdilj");}
+        else {}
     }
 
 
     moveTo(x, y, angle = null) {
-      console.log("x : " + x +", y : " + y + " / internX : " + this.internX + ", internY : " + this.internY);
        if ((x === this.internX)&&(y === this.internY)){
          /*  if (PionsBRWidget.firstButtonClicked != null){
               console.log("ici !!!");
@@ -301,8 +374,6 @@ class PionsBRWidget extends PionsWidget {
                PionsBRWidget.firstButtonClicked = null;
                PionsBRWidget.pionDisplayed = null;
            }
-
-           /*this.aEteBouge = true;*/ console.log("presque pas bouge");
        }
        else {
            this.nbTouched = 0;
@@ -319,17 +390,32 @@ class PionsBRWidget extends PionsWidget {
        if (this.nbTouched === 2){
            console.log("2 fois touche");
            this.nbTouched = 0;
-           this.displayPass();
-         /*  if (this.aLeBallon){
+           //this.displayPass();
+           if (this.aLeBallon){
                console.log("envoie ballon");
                const cLePlusLoin = this.coequipierLePlusLoin(this);
+               if (this !== cLePlusLoin){
+                   console.log("pas le même");
+               }
+               else {
+                   console.log("le même");
+               }
+               console.log(cLePlusLoin);
+               this.ballon.internX = 100;
+               this.ballon.internY = 100;
                this.aLeBallon = false;
                cLePlusLoin.aLeBallon = true;
                cLePlusLoin.ballon = this.ballon;
-               if (this.src === 'assets/MainScreen/pionB.png') {cLePlusLoin.ballon.internX = cLePlusLoin.internX + this.width + 5;}
-               else {cLePlusLoin.ballon.internX = cLePlusLoin.internX - 40;}
+               if (this.src === 'assets/MainScreen/pionB.png') {
+                   this.ballon._domElem.css('left', `${cLePlusLoin.internX + cLePlusLoin.width + 5}px`);
+                   cLePlusLoin.ballon.internX = cLePlusLoin.internX + this.width + 5;
+               }
+               else {
+                   cLePlusLoin.ballon._domElem.css('left', `${cLePlusLoin.internX - 40}px`);
+                   cLePlusLoin.ballon.internX = cLePlusLoin.internX - 40;}
+               cLePlusLoin.ballon._domElem.css('top', `${cLePlusLoin.internY + 20}px`);
                cLePlusLoin.ballon.internY = cLePlusLoin.internY + 20;
-           }*/
+           }
 
        }
         super.moveTo(x, y, angle);
