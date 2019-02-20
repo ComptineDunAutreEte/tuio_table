@@ -142,9 +142,6 @@ class PionsWidget extends ElementWidget {
     }
     /* END DEMO CODE */
 
-    delete(){
-        this.deleteWidget();
-    }
 
     get domElem(){ return this._domElem; }
 }

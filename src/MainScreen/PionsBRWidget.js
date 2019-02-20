@@ -155,7 +155,7 @@ class PionsBRWidget extends PionsWidget {
 
 
     onTouchUpdate(tuioTouch){
-        super.onTouchUpdate(tuioTouch);
+      //  super.onTouchUpdate(tuioTouch);
         if (this.aLeBallon){
             this.ballon.onTouchUpdate(tuioTouch);
         }
