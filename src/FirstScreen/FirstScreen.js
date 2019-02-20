@@ -62,7 +62,7 @@ class FirstScreen {
         const btnID = "confirmFirstScreenBtn";
         const that = this;
 
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn-circle btn-xxl middleScreen"></button>');
         document.getElementById(btnID).onclick = () => {
             if (that.playerCount % 2 === 0) {
                 that.observer.finishedFirstscreen();
@@ -143,6 +143,7 @@ class FirstScreen {
     }
 
     addPlayerCard(team, nem) {
+        this.playerCount ++;
         let animationClass, teamClass, whereID;
         if (team === "A") {
             animationClass = "slideUp";
