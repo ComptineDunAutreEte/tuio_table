@@ -280,11 +280,6 @@ class Lifecycle {
         });
         client.getSocket().on('returningPlayer', (msg) => {
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
-            if (this.actualScreen.playerCount % 2 === 0) {
-                this.actualScreen.setPulsating("confirmFirstScreenBtn", true);
-            } else {
-                this.actualScreen.setPulsating("confirmFirstScreenBtn", false);
-            }
         });
         client.getSocket().on('listen-user-login', (msg) => {
             console.log(msg.data);
