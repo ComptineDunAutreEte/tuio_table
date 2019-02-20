@@ -9,6 +9,7 @@ class playingSequence {
         this.indexInResults = 0;
         this.nbOfActions = sequence.length;
         this.observer = obs;
+        console.error(this.questionResults[0]);
     }
 
     start(){
@@ -33,7 +34,7 @@ class playingSequence {
                 this.indexInResults = 0;
             }
         } else {
-            const teamToPlay = this.questionResults[this.indexInResults].team;
+            const teamToPlay = this.questionResults[this.indexInResults];
             console.log("team to play = " + teamToPlay);
             if (teamToPlay === "red"){
                 PionsBRWidget.teamRougeJoue = true;

@@ -307,7 +307,7 @@ class Lifecycle {
 
         client.getSocket().on('startTeam', (msg) => {
             console.log(msg.data);
-            this.startingTeam = msg.data;
+            this.startingTeam = msg.data.team;
         });
 
         client.getSocket().on('start-of-new-question', (msg) => {
@@ -324,7 +324,7 @@ class Lifecycle {
 
     /* ==========  MISC  ==========*/
     firstTurn() {
-        this.playingSequence = new playingSequence([{team: this.startingTeam}], this);
+        this.playingSequence = new playingSequence([this.startingTeam], this);
         this.playingSequence.start();
     }
 
