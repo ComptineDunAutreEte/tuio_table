@@ -5,109 +5,83 @@ import PionsWidget from "./PionsWidget";
 import TerrainWidget from "./TerrainWidget";
 
 class Terrain {
-    constructor(x, y, width, height, div, observer) {
+    constructor(x, y, width, height, div, observer, valuesSaved) {
         this.div = div;
         this.widget = new TerrainWidget(x, y, width, height, 'assets/mainScreen.png');
         this.widget.addTo(div);
-        // this.pions = this.createPions();
-        /* before */
 
         /* modified */
-        this.createPions();
         this.observer = observer;
-        console.log(this.observer);
+        console.log("COUCOUUUU : " + this.observer);
+        this.valuesSaved = valuesSaved;
+        this.createPions();
         this.attachObserverToPawns(observer);
-        /*   this.pionsEquipeR = this.createPionsR();
-           this.pionsEquipeB = this.createPionsB();*/
     }
     createPions() {
         let t = [];
         let pionsB = [];
         let pionsR = [];
-     //   pionsB = [2,4,8,10,12/*,30,32, 36,38,40*/];
-       // pionsR = [/*15,17,19,23,25,*/ 43, 45, 47,51,53];
+
+        //Définition des formations
         if (FormationWidget.formationBChoisie.getId() === "1"){
-            pionsB = [2,4,8,10,12/*,30,32, 36,38,40*/];
+            pionsB = [2,4,8,10,12];
         }
         else if (FormationWidget.formationBChoisie.getId()=== "2"){
-            pionsB = [2,3,4,5,10/*,30,32, 36,38,40*/];
+            pionsB = [2,3,4,5,10];
         }
         else if (FormationWidget.formationBChoisie.getId() === "3"){
-            pionsB = [1,5,9,10,11/*,30,32, 36,38,40*/];
+            pionsB = [1,5,9,10,11];
        }
         if (FormationWidget.formationRChoisie.getId() === "1"){
-            pionsR = [/*15,17,19,23,25,*/ 43, 45, 47,51,53];
+            pionsR = [43, 45, 47,51,53];
       }
         else if (FormationWidget.formationRChoisie.getId() === "2"){
-            pionsR = [/*15,17,19,23,25,*/ 45, 50, 51,52,53];
+            pionsR = [45, 50, 51,52,53];
         }
         else if (FormationWidget.formationRChoisie.getId() === "3"){
-            pionsR = [/*15,17,19,23,25,*/ 44, 45, 46,50,54];
+            pionsR = [44, 45, 46,50,54];
         }
         let inc = 2;
         let mx = 0;
         let my = 0;
         let mt = 0;
         for (var i = 0; i < 56; i++) {
+            //Il n'y a que 7 pions sur une colonne
             if (i % 7 == 0) {
                 if (inc == 2) inc = 1;
                 else inc = 2;
+                //On réinitialise le mx parce qu'on veut que le pion se replace en haut
                 mx = i;
+                //On décale le pion de 27 encore vers la droite
                 my = i * 27;
             }
-            /*   if (inc == 2){
-                   mt = 85;
-               }
-               else {
-                   mt = 0;
-               } */
-            new Pions(0, i, 220 + i + my, 100 + (i - mx) * 130 - mt, "none");
-
-            /*   if (inc == 2){
-                   mt = 85;
-               }
-               else {
-                   mt = 0;
-               } */
+            //Création des cases
+            new Pions(0, i, 220 + i + my, 100 + (i - mx) * 130 - mt, "none", null);
         }
-        var id = 0;
-        for (var j = 0; j < 56; j++){
-            if (j % 7 == 0) {
-                if (inc == 2) inc = 1;
-                else inc = 2;
-                mx = j;
-                my = j * 27;
-            }
-            if (pionsB.includes(j)) {
-                new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu");
-                id++;
-            } else if (pionsR.includes(j)) {
-                new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge");
-                id++;
+        if (this.valuesSaved == null){
+            var id = 0;
+            for (var j = 0; j < 56; j++){
+                if (j % 7 == 0) {
+                    if (inc == 2) inc = 1;
+                    else inc = 2;
+                    mx = j;
+                    my = j * 27;
+                }
+                if (pionsB.includes(j)) {
+                    new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu",null);
+                    id++;
+                } else if (pionsR.includes(j)) {
+                    new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge",null);
+                    id++;
+                }
             }
         }
-       /* for (var j = 0; j < 36; j++) {
-            console.log(PionsWidget.getPionsTouches()[j]);
-        }*/
+        else {
+            new Pions(null, null, null, null, null, this.valuesSaved);
+        }
         return t;
 
     }
-
-    /*  createPionsR(){
-          let t = {};
-          let xlist = {}
-          for (var i = 0; i < 10; i++){
-              t[i] = new Pions(i ,i * 90,"rouge");
-          }
-          return t;
-      }
-      createPionsB(){
-          let t = {};
-          for (var i = 0; i < 10; i++){
-              t[i] = new Pions((i * 70) + 1,(i * 70)  +1,"bleu");
-          }
-          return t;
-      }*/
 
     attachObserverToPawns(obs) {
         for (let i = 0; i < PionsWidget.listePionsBR.length; i++) {

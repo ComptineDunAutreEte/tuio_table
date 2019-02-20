@@ -22,6 +22,7 @@ class playingSequence {
         if (this.indexInResults >= this.nbOfActions){
             this.endOfSequence();
         } else {
+            //const teamToPlay = "red";
             const teamToPlay = this.questionResults[this.indexInResults].team;
             console.log("team to play = " );
             if (teamToPlay === "red"){

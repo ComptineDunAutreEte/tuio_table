@@ -79,6 +79,7 @@ class Lifecycle {
         this.actualScreen = "";
         this.playingSequence = "";
         this.startingTeam = "";
+        this.valuesSaved = null;
     }
 
     start() {
@@ -93,7 +94,15 @@ class Lifecycle {
         this.finishedFormationScreen();
     }
 
-    pawnMoved(str) {
+    sauvegardeTerrain(valuesSaved){
+        this.valuesSaved = valuesSaved;
+    }
+
+
+
+    pawnMoved(str, valuesSaved) {
+        console.log("is used by pions");
+        this.sauvegardeTerrain(valuesSaved);
         console.log("pawnMoved " + str);
         this.playingSequence.playTurn();
 
@@ -143,7 +152,7 @@ class Lifecycle {
     loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, this.valuesSaved);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
         // mainScreen.startOfTurn(teamToplay);
@@ -232,7 +241,7 @@ class Lifecycle {
             client.getSocket().emit('indivQuestionTest', {data : true});
             this.loadMainScreen();
             const tabOfTeamSequence = this.getTeamSequence(msg.data);
-            this.playingSequence = new playingSequence(tabOfTeamSequence, this)
+            this.playingSequence = new playingSequence(tabOfTeamSequence, this);
             this.playingSequence.start();
         });
 
@@ -260,7 +269,7 @@ class Lifecycle {
     }
 
     getTeamSequence(tab) {
-        let res = []
+        let res = [];
         for (let i = 0; i < tab.length; i++) {
             res.push(tab[i].team);
         }
