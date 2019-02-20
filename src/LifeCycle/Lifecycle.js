@@ -113,6 +113,7 @@ class Lifecycle {
 
     start() {
         this.initConnexion();
+        this.loadFirstScreen();
     }
 
     static deleteWidgets() {
