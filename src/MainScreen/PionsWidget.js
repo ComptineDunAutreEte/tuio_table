@@ -47,8 +47,8 @@ class PionsWidget extends ElementWidget {
         for (var j = 0; j < PionsWidget.nbPionsBR; j++) {
             PionsWidget.setPionsTouches(j, 0);
         }
-        // voir : en fait si on appuye sur un bouton il faudrait le garde en mémoire si c'est un bouton qui n'était pas
-        //sléctionné, lequel on garde en mémoire ?
+
+        PionsWidget.listeAEffacer.push(this);
     }
 
     updateVoisins(){
@@ -128,6 +128,10 @@ class PionsWidget extends ElementWidget {
         return valuesToSave;
     }
 
+    delete(){
+        this.deleteWidget();
+    }
+
     /* FOR DEMO CODE */
     pawnTouched(type) {
         if (type === "blue"){
@@ -138,8 +142,13 @@ class PionsWidget extends ElementWidget {
     }
     /* END DEMO CODE */
 
+    delete(){
+        this.deleteWidget();
+    }
+
     get domElem(){ return this._domElem; }
 }
+PionsWidget.listeAEffacer = [];
 PionsWidget.nbPionsN = 0;
 PionsWidget.nbPionsBR = 0;
 PionsWidget.listePionsN = [];

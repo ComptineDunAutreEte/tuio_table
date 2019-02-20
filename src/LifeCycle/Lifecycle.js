@@ -3,11 +3,16 @@ import $ from 'jquery/dist/jquery.min';
 import FirstScreen from '../FirstScreen/FirstScreen';
 import FormationScreen from '../FormationScreen/FormationScreen';
 import MainScreen from '../MainScreen/MainScreen';
+import BallonWidget from '../MainScreen/BallonWidget';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from 'tuiomanager/core/constants';
 import WaitingScreen from '../WaitingScreen/WaitingScreen';
 import client from '../client';
 import playingSequence from '../PlayingSequence/playingSequence';
+import FormationWidget from "../FormationScreen/FormationWidget";
+import TerrainWidget from "../MainScreen/TerrainWidget";
+import PionsWidget from "../MainScreen/PionsWidget";
+
 
 // Import JQuery
 
@@ -85,6 +90,25 @@ class Lifecycle {
     start() {
         this.initConnexion();
         this.loadFirstScreen();
+    }
+
+    static deleteWidgets(){
+        for (var i = 0; i < FormationWidget.listeAEffacer.length; i++){
+            FormationWidget.listeAEffacer[i].delete();
+        }
+        for (var j = 0; j < TerrainWidget.listeAEffacer.length; j++){
+            TerrainWidget.listeAEffacer[j].delete();
+        }
+        for (var k = 0; k < PionsWidget.listeAEffacer.length; k++){
+            PionsWidget.listeAEffacer[k].delete();
+        }
+        for (var l = 0; l < BallonWidget.listeAEffacer.length; l++){
+            BallonWidget.listeAEffacer[l].delete();
+        }
+        FormationWidget.listeAEffacer = [];
+        TerrainWidget.listeAEffacer = [];
+        PionsWidget.listeAEffacer = [];
+        BallonWidget.listeAEffacer = [];
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {
@@ -277,6 +301,7 @@ class Lifecycle {
         return res;
     }
     clearScreen() {
+        Lifecycle.deleteWidgets();
         const root = document.getElementById("app");
         while (root.firstChild) {
             root.className = "container-fluid d-flex h-100";
@@ -288,4 +313,5 @@ class Lifecycle {
         console.log("life cycle reached !\n first arg : " + a);
     }
 }
+
 export default Lifecycle;

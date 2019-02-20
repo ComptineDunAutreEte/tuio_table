@@ -3,7 +3,6 @@
 import $ from 'jquery/dist/jquery.min';
 import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 
-
 class TerrainWidget extends ElementWidget {
 
     constructor(x, y, width, height, imgSrc) {
@@ -21,6 +20,9 @@ class TerrainWidget extends ElementWidget {
         this._domElem.css('left', `${x}px`);
         this._domElem.css('top', `${y}px`);
         this.hasDuplicate = false;
+
+        TerrainWidget.listeAEffacer.push(this);
+
     }
 
     changeSrc(src){
@@ -37,7 +39,11 @@ class TerrainWidget extends ElementWidget {
 
     }
 
+    delete(){
+        this.deleteWidget();
+    }
+
     get domElem() { return this._domElem; }
 }
-
+TerrainWidget.listeAEffacer = [];
 export default TerrainWidget;
