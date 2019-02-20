@@ -12,6 +12,7 @@ import playingSequence from '../PlayingSequence/playingSequence';
 import FormationWidget from "../FormationScreen/FormationWidget";
 import TerrainWidget from "../MainScreen/TerrainWidget";
 import PionsWidget from "../MainScreen/PionsWidget";
+import ScoreScreen from "../ScoreScreen/ScoreScreen";
 
 
 // Import JQuery
@@ -113,7 +114,8 @@ class Lifecycle {
 
     start() {
         this.initConnexion();
-        this.loadFirstScreen();
+        this.loadScoreScreen();
+        //this.loadFirstScreen();
     }
 
     static deleteWidgets() {
@@ -257,6 +259,12 @@ class Lifecycle {
             videoTop.on('timeupdate', myScript);
             videoBot.on('timeupdate', myScript2);
         });
+    }
+
+    loadScoreScreen(){
+        this.clearScreen();
+        const scoreScreen = new ScoreScreen("app","zeub");
+        scoreScreen.populate();
     }
 
     /* ==========  server communication functions  ========== */

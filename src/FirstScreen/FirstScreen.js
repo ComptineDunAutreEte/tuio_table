@@ -65,9 +65,6 @@ class FirstScreen {
         };
     }
 
-
-    createDifficultyLevelStepper() { }
-
     createPlayerCountCOL(parentID) {
         const pid = parentID;
         // contenu
@@ -83,24 +80,6 @@ class FirstScreen {
             document.getElementById(btnsIDs[i]).onclick = () => {
                 this.setPlayerCount((i + 1) * 2);
             }
-        }
-    }
-
-    createDifficultyLevelCOL(parentID) {
-        const pid = "#" + parentID;
-        // contenu
-        $(pid).append('<div id="difficultyHalf" class="col"> </div>');
-        $('#difficultyHalf').append('<div class="row justify-content-center" id="diffHalfRow"> </div>');
-
-        const btnsIDs = ['easyBtn', 'mediumBtn', 'hardBtn'];
-        const btnsTexts = ['facile', 'moyen', 'difficile'];
-        const colors = ["success", "warning", "danger"];
-        this.createRadioBtnGroup(btnsIDs, btnsTexts, colors, 'diffHalfRow');
-
-        for (let i = 0; i < btnsIDs.length; i++) {
-            document.getElementById(btnsIDs[i]).onclick = () => {
-                this.setDifficultyLevel(i + 1);
-            };
         }
     }
 
@@ -144,13 +123,15 @@ class FirstScreen {
             teamClass = "blueTeam";
             whereID = "#topDeck";
         }
-
+        // appending card to div
         $(whereID).append('<div class="card h-100 ' + animationClass + '">\
                             <div class="card-body ' + teamClass + '">\
                                 <h5 class="card-title">Equipe ' + team + '</h5>\
                                 <p class="card-text">' + nem + '</p>\
                             </div>\
                         </div>');
+
+        // checking if need to pulse
         if (this.playerCount % 2 === 0) {
             console.log("confirm button to pulsating");
             this.setPulsating("confirmFirstScreenBtn", true);
