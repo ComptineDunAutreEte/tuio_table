@@ -20,10 +20,15 @@ class playingSequence {
 
     playTurn(){
         if (this.indexInResults >= this.nbOfActions){
+            if (this.nbOfActions === 0){
+                this.endOfSequence()
+            }else {
+                setInterval(()=> {this.endOfSequence()},7000);
+            }
             this.endOfSequence();
         } else {
             const teamToPlay = this.questionResults[this.indexInResults].team;
-            console.log("team to play = " );
+            console.log("team to play = ");
             if (teamToPlay === "red"){
                 PionsBRWidget.teamRougeJoue = true;
                 PionsBRWidget.teamBleueJoue = false;
@@ -44,11 +49,10 @@ class playingSequence {
 
     endOfSequence(){
         // envoyer au server qu'il faut envoyer une nouvelle question
-        setInterval(()=> {
+            this.observer.finishQuestion();
             this.observer.sendMessage("endOfSequence",'request-question');
             this.questionResults = [];
             this.indexInResults = 0;
-        },7000);
 
         // au serveur de decider quel est le type de question suivant
         // au lifecycle d'attendre les ordres du server

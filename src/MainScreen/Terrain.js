@@ -15,7 +15,6 @@ class Terrain {
         /* modified */
         this.createPions();
         this.observer = observer;
-        console.log(this.observer);
         this.attachObserverToPawns(observer);
         /*   this.pionsEquipeR = this.createPionsR();
            this.pionsEquipeB = this.createPionsB();*/

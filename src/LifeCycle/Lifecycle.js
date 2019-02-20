@@ -123,6 +123,12 @@ class Lifecycle {
         this.firstTurn();
     }
 
+    finishQuestion(){
+        console.log("question finished");
+        this.clearScreen();
+        this.loadMainScreen();
+    }
+
     /* ==========  Screens inflaters  ========== */
     loadFormationScreen() {
         this.clearScreen();
@@ -242,6 +248,7 @@ class Lifecycle {
         });
 
         client.getSocket().on('start-of-new-question',(msg)=>{
+            // recoit un chiffre qui lui indique quelle question lancer
             if (msg.data === 1){
                 this.loadWaitingScreen();
             }
