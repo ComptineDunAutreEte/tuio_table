@@ -32,8 +32,10 @@ class FirstScreen {
         const mainColID = "mainCol";
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
+        /*
         $(pid).append('<button id="add_mock" class="testButton">Request Player from server<button>');
         $(pid).append('<button id="scores_mock" class="testButton2" >Request Scores from server<button>');
+        */
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
 
@@ -49,8 +51,10 @@ class FirstScreen {
         //$("#" + botRowID ).append();
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
 
+        /*
         this.initMockAddButton();
         this.initMockScoresButton();
+        */
     }
 
     createConfirmBtn(parentID) {
