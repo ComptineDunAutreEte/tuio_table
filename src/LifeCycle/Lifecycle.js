@@ -337,7 +337,7 @@ class Lifecycle {
         return res;
     }
     clearScreen() {
-        Lifecycle.deleteWidgets();
+       // Lifecycle.deleteWidgets();
         const root = document.getElementById("app");
         while (root.firstChild) {
             root.className = "container-fluid d-flex h-100";

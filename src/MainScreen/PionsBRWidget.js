@@ -10,7 +10,6 @@ class PionsBRWidget extends PionsWidget {
         super(idp, x, y, width, height, imgSrc);
         this.place = place;
         this.ballon = ballon;
-        console.log("EFJKZJEKFJZEKFJZKEFJ : " + PionsBRWidget.startingTeam);
         if (ballon == null){
             if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
                 if (PionsWidget.startingTeam === "blue"){
