@@ -121,7 +121,6 @@ class FirstScreen {
         document.getElementById("add_mock").onclick = () => {
             if (this.playerCount < 6) {
                 this.observer.sendMessage("requesting player...", "addPlayerPlease");
-                this.playerCount++;
             }
         };
     }
