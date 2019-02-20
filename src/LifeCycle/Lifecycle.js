@@ -324,7 +324,7 @@ class Lifecycle {
 
     /* ==========  MISC  ==========*/
     firstTurn() {
-        this.playingSequence = new playingSequence([this.startingTeam], this);
+        this.playingSequence = new playingSequence({team: [this.startingTeam]}, this);
         this.playingSequence.start();
     }
 

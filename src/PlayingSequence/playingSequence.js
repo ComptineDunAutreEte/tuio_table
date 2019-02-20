@@ -24,7 +24,7 @@ class playingSequence {
         } else {
             //const teamToPlay = "red";
             const teamToPlay = this.questionResults[this.indexInResults].team;
-            console.log("team to play = " );
+            console.log("team to play = " + teamToPlay);
             if (teamToPlay === "red"){
                 PionsBRWidget.teamRougeJoue = true;
                 PionsBRWidget.teamBleueJoue = false;
