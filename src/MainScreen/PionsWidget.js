@@ -145,6 +145,7 @@ class PionsWidget extends ElementWidget {
 
     get domElem(){ return this._domElem; }
 }
+PionsWidget.startingTeam = null;
 PionsWidget.listeAEffacer = [];
 PionsWidget.nbPionsN = 0;
 PionsWidget.nbPionsBR = 0;

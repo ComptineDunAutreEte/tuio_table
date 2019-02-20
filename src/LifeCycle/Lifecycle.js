@@ -200,7 +200,7 @@ class Lifecycle {
     loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, this.valuesSaved);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, this.valuesSaved, this.startingTeam);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
         // mainScreen.startOfTurn(teamToplay);

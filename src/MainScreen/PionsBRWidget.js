@@ -12,8 +12,14 @@ class PionsBRWidget extends PionsWidget {
         this.ballon = ballon;
         if (ballon == null){
             if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
-                PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomInt(10);
-                PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
+                if (PionsWidget.startingTeam === "blue"){
+                    PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(0,4);
+                    PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
+                }
+                else {
+                    PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(5,9);
+                    PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
+                }
             }
             if (PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut === this.idp) {
                 this.aLeBallon = true;
@@ -49,6 +55,12 @@ class PionsBRWidget extends PionsWidget {
 
     static getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    static getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
     }
 
     static contains(liste, n, obj){

@@ -5,10 +5,11 @@ import PionsWidget from "./PionsWidget";
 import TerrainWidget from "./TerrainWidget";
 
 class Terrain {
-    constructor(x, y, width, height, div, observer, valuesSaved) {
+    constructor(x, y, width, height, div, observer, valuesSaved, startingTeam) {
         this.div = div;
         this.widget = new TerrainWidget(x, y, width, height, 'assets/mainScreen.png');
         this.widget.addTo(div);
+        PionsWidget.startingTeam = startingTeam;
 
         /* modified */
         this.observer = observer;
