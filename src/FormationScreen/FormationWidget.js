@@ -23,6 +23,8 @@ class FormationWidget extends ElementWidget {
         this.hasDuplicate = false;
         this.idf = idf;
         this.observer = null;
+
+        FormationWidget.listeAEffacer.push(this);
     }
 
     getId(){
@@ -32,34 +34,37 @@ class FormationWidget extends ElementWidget {
     onTouchCreation(tuioTouch) {
         super.onTouchCreation(tuioTouch);
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
-            if (this.src == 'assets/Formation/okR.PNG') {
-                if (!FormationWidget.okR && FormationWidget.formationRChoisie !== null){
+            if (this.src === 'assets/Formation/okR.PNG') {
+                if (!FormationWidget.okR && FormationWidget.formationRChoisie !== null) {
                     FormationWidget.okR = true;
                     console.log("okR");
                     document.getElementById("textEquipeR").innerHTML = "Equipe Rouge : Vous avez choisi la formation" + FormationWidget.formationRChoisie.getId() + "!";
                     // console.log("L'équipe rouge a choisi la formation" + FormationWidget.formationRChoisie.getId());
                 }
-            }
-            else if (this.src == 'assets/Formation/okB.PNG'){
-                if (!FormationWidget.okB && FormationWidget.formationBChoisie !== null){
+            } else if (this.src === 'assets/Formation/okB.PNG') {
+                if (!FormationWidget.okB && FormationWidget.formationBChoisie !== null) {
                     FormationWidget.okB = true;
                     console.log("okB");
                     document.getElementById("textEquipeB").innerHTML = "Equipe Bleue : Vous avez choisi la formation " + FormationWidget.formationBChoisie.getId() + "!";
                     // console.log("L'équipe bleue a choisi la formation" + FormationWidget.formationBChoisie.getId());
                 }
             }
-            if (FormationWidget.okR && FormationWidget.okB){
-                this.observer.formationChosen(FormationWidget.formationRChoisie.getId(),FormationWidget.formationBChoisie.getId());
+            if (FormationWidget.okR && FormationWidget.okB) {
+                this.observer.formationChosen(FormationWidget.formationRChoisie.getId(), FormationWidget.formationBChoisie.getId());
             }
         }
     }
 
     onTouchUpdate(tuioTouch) {
+    }
 
+    delete(){
+        this.deleteWidget();
     }
 
     get domElem() { return this._domElem; }
 }
+FormationWidget.listeAEffacer = [];
 FormationWidget.okR = false;
 FormationWidget.okB = false;
 FormationWidget.formationRChoisie = null;

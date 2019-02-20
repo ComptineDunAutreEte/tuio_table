@@ -3,7 +3,6 @@
 import $ from 'jquery/dist/jquery.min';
 import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 
-
 class BallonWidget extends ElementWidget {
 
     constructor(x, y, width, height, imgSrc) {
@@ -25,6 +24,8 @@ class BallonWidget extends ElementWidget {
 
         this.mx = x;
         this.my = y;
+
+        BallonWidget.listeAEffacer.push(this);
     }
 
     getId(){
@@ -52,7 +53,11 @@ class BallonWidget extends ElementWidget {
         }
     }
 
+    delete(){
+        this.deleteWidget();
+    }
+
     get domElem() { return this._domElem; }
 }
-
+BallonWidget.listeAEffacer = [];
 export default BallonWidget;
