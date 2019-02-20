@@ -76,12 +76,40 @@ p {
     font-size: 100px;
     color: white;
     height: 48vh;
-    width: 98.5vw;
+    width: calc(98.5vw / 3.8);
     background: lightslategray;
     text-align: center;
     visibility: hidden;
 }
 
+.rightPane {
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+    align-content: center;
+    align-items: center;
+}
+
+.marginR {
+    margin-left: 73vw;
+}
+
 .marginM {
     margin-top: 40vh;
+}
+
+.marginText {
+    margin-top: 41vh;
+}
+
+.textSize {
+    font-size: 80px;
+}
+
+.textBot {
+    font-size: 80px;
+}
+
+.textBut {
+    font-size: 50px;
 }

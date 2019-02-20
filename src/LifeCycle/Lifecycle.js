@@ -13,24 +13,40 @@ import client from '../client';
 
 //const io = require('socket.io-client'); // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 const separator = ",";
-let done = [false, false];
+var done = [false, false];
+var pause_time = 0;
+var question_type = 'PAR_';
 
 function enableMessage() {
-    document.getElementById('messageT').style.visibility = 'visible';
-    document.getElementById('messageB').style.visibility = 'visible';
     const videoTop = $("#videoTop");
     const videoBot = $("#videoBot");
+
+    const paneBot = $("#paneBot");
+    const paneTop = $("#paneTop");
+    paneBot.empty();
+    paneTop.empty();
+
+    paneTop.append('<p class="marginText rotate180" id="textTop">Team B \n Indice: Regardez bien la position des jouers</p>');
+    paneBot.append('<p id="textBot">Team A\n Indice: Regardez bien la position des jouers</p>');
+
+    document.querySelector('#butTop').innerHTML = 'Regarder votre tablette';
+    document.querySelector('#butBot').innerHTML = 'Regarder votre tablette';
     //console.log(video);
     videoTop.off('timeupdate', myScript);
     videoBot.off('timeupdate', myScript2);
-    client.send('ready-screen-par', '');
+    if (question_type === 'PAR_') {
+        client.send('ready-question', '');
+    } else {
+        client.send('ready-screen-par', '');
+    }
+
 }
 
 function myScript() {
     const video = document.querySelector('#videoTop');
-    //console.log(video);
+
     //console.log('myScript');
-    if (video.currentTime >= 5) {
+    if (video.currentTime >= pause_time) {
         // console.log('Je suis Dedans');
         video.pause();
         done[0] = true;
@@ -43,8 +59,16 @@ function myScript() {
 
 function myScript2() {
     const video = document.querySelector('#videoBot');
+    const duration = document.querySelector('#durationBot');
+
+    var minutes = parseInt(video.currentTime / 60, 10);
+    var seconds = parseInt(video.currentTime % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    duration.innerText = '0' + minutes + ":" + seconds;
+    //console.log(duration);
     // console.log(video);
-    if (video.currentTime >= 5) {
+    if (video.currentTime >= pause_time) {
+        document.querySelector('#butBot').innerHTML = 'Pause';
         video.pause();
         done[1] = true;
         // console.log(done);
@@ -80,9 +104,10 @@ class Lifecycle {
 
     start() {
         this.initConnexion();
-        this.loadFirstScreen();
+        //this.loadFirstScreen();
         // this.loadMainScreen();
         // this.loadWaitingScreen();
+        this.loadQuestionScreen_par();
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {
@@ -158,6 +183,9 @@ class Lifecycle {
     }
 
     loadQuestionScreen() {
+        done = [false, false];
+        pause_time = 5;
+        question_type = 'SEQ_';
         client.send('question-collectif-seq', '');
         $('#app').load('src/questionnaire/questionnaire.html', () => {
             //console.log('load question');
@@ -167,19 +195,28 @@ class Lifecycle {
             videoTop.on('timeupdate', myScript);
             videoBot.on('timeupdate', myScript2);
         });
-        /*$('#videoTop').ready(() => {
+    }
 
-            if (video !== null) {
+    loadQuestionScreen_par() {
+        done = [false, false];
+        pause_time = 24;
+        question_type = 'PAR_';
+        client.send('question-collectif-par', '');
+        $('#app').load('src/questionnaire/questionnaire_par.html', () => {
+            //console.log('load question');
 
-            }
-        });*/
-        /* $('videoBot').ready(() => {
-             const video = document.querySelector('#videoBot');
-             if (video !== null) {
-                 video.addEventListener('timeupdate', myScript2);
-             }
-             // .ontimeupdate = () => myScript(document.querySelector('#videoTop'));
-         });*/
+            const paneBot = $("#paneBot");
+            const paneTop = $("#paneTop");
+
+            paneTop.append('<p class="marginText rotate180" id="textTop">Team B</p>');
+            paneBot.append('<p id="textBot">Team A</p>');
+
+            const videoTop = $("#videoTop");
+            const videoBot = $("#videoBot");
+            //console.log(video);
+            videoTop.on('timeupdate', myScript);
+            videoBot.on('timeupdate', myScript2);
+        });
     }
 
     /* server communication functions */
