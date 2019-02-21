@@ -11,7 +11,8 @@ class ScoreScreen {
 
     populate() {
         const pid = "#" + this.containerID;
-        const str = '<div id="' + this.id + '" class="container align-self-center align-items-center w-100 h-100"> </div>';
+        const str = '<div id="' + this.id + '" class="container align-self-center align-items-center w-100 h-100"></div>';
+        $(pid).addClass('scoreScreen');
         $(pid).append(str);
 
         this.createDivs(this.id);
@@ -26,11 +27,11 @@ class ScoreScreen {
         const botRowID = "botRow";
         const mainColID = "mainCol";
         // main COL
-        $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
+        $(pid).append('<div id="' + mainColID + '" class="h-100 w-100 flex-score-container"> </div>');
         // Top row
-        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 blueTeam"></div>');
+        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topScoreRow"></div>');
         // Bottom row
-        $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 redTeam"></div>');
+        $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5"></div>');
         this.buildTable(topRowID);
         this.buildTable(botRowID);
     }
@@ -38,28 +39,33 @@ class ScoreScreen {
     buildTable(id) {
         // bas = equipe rouge
         // prendre le tableau d'equipes et constuire une liste de noms de joueurs
-        $("#" + id ).append('<table class="table">\
-        <tbody>\
-          <tr>\
-            <th scope="row">1</th>\
-            <td>Mark</td>\
-            <td>Otto</td>\
-            <td>@mdo</td>\
-          </tr>\
-          <tr>\
-            <th scope="row">2</th>\
-            <td>Jacob</td>\
-            <td>Thornton</td>\
-            <td>@fat</td>\
-          </tr>\
-          <tr>\
-            <th scope="row">3</th>\
-            <td>Larry</td>\
-            <td>the Bird</td>\
-            <td>@twitter</td>\
-          </tr>\
-        </tbody>\
-      </table>')
+        $("#" + id).append('<div class="card text-center">\
+        <div class="card-body">\
+            <h5 class="card-title">Scores à cette question</h5>\
+                <table class="table">\
+                <tbody>\
+                <tr>\
+                    <th scope="row">1</th>\
+                    <td>Pseudo</td>\
+                    <td>Temps</td>\
+                    <td>équipe</td>\
+                </tr>\
+                <tr>\
+                    <th scope="row">2</th>\
+                    <td>Pseudo</td>\
+                    <td>Temps</td>\
+                    <td>équipe</td>\
+                </tr>\
+                <tr>\
+                    <th scope="row">3</th>\
+                    <td>Pseudo</td>\
+                    <td>Temps</td>\
+                    <td>équipe</td>\
+                </tr>\
+                </tbody>\
+            </table>\
+            </div>\
+        </div>')
     }
 
 } export default ScoreScreen;
