@@ -12,9 +12,9 @@ class WaitingScreen {
         document.getElementById(this.containerID).className = this.containerClass + " " + "firstScreenBackground";
         $('#app').append('<div id="wtext" class="col"> </div>');
         $('#wtext').append('<div class="row h-50 w-100 align-items-center d-flex justify-content-center" style="transform: rotate(180deg);" id="topText" > </div>');
-        $('#topText').append('<h1 class="text-center">' + texte + ' </h1>');
+        $('#topText').append('<h1 class="text-center" style="color: #E4F01F;">' + texte + ' </h1>');
         $('#wtext').append('<div class="row h-50 w-100 align-items-center d-flex justify-content-center" id="botText" > </div>');
-        $('#botText').append('<h1 class="text-center">' + texte + ' </h1>');
+        $('#botText').append('<h1 class="text-center" style="color: #E4F01F;">' + texte + ' </h1>');
     }
 }
 export default WaitingScreen;
