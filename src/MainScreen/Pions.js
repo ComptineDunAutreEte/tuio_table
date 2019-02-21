@@ -4,8 +4,8 @@ import PionsWidget from "./PionsWidget";
 import PionsBRWidget from "./PionsBRWidget";
 
 class Pions{
-    constructor(place, idp, x,y,couleur, valuesSaved, premiereCreation){
-        if (premiereCreation){
+    constructor(place, idp, x,y,couleur, valuesSaved){
+        if (valuesSaved == null){
             this.ballon = false;
             this.x = x;
             this.y = y;
@@ -21,11 +21,6 @@ class Pions{
         }
         else {
             //Re-création des pions BR à partir de leur valeurs à la fin de la partie précédente
-        /*    for (var j = 0; j < valuesSaved[0].length; j++){
-                console.log("places pions : " + valuesSaved[0][j]);
-                console.log("ballon pions : " + valuesSaved[1][j]);
-                console.log("src pions : " + valuesSaved[2][j]);
-            }*/
             for (var i = 0; i < valuesSaved[0].length; i++){
                 let place = valuesSaved[0][i];
                 let ballon = valuesSaved[1][i];

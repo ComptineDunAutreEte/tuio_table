@@ -34,7 +34,10 @@ class playingSequence {
                 this.indexInResults = 0;
             }
         } else {
+<<<<<<< HEAD
             //const teamToPlay = "red";
+=======
+>>>>>>> parent of ec47212... sauvegarde état jeu
             const teamToPlay = this.questionResults[this.indexInResults];
             console.log("team to play = " + teamToPlay);
             if (teamToPlay === "red"){
@@ -67,7 +70,7 @@ class playingSequence {
             this.indexInResults = 0;
         }, 7000);
         // au serveur de decider quel est le type de question suivant
-        // au lifecycle d'attendre les ordres du server
+        // au lifecycle d'attendre les ordres du server 
     }
 
 } export default playingSequence;
