@@ -263,7 +263,7 @@ class Lifecycle {
 
     loadScoreScreen(){
         this.clearScreen();
-        const scoreScreen = new ScoreScreen("app","zeub");
+        const scoreScreen = new ScoreScreen(["zeub1", "zeub2","zeub3"]);
         scoreScreen.populate();
     }
 

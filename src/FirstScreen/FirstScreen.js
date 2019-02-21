@@ -114,6 +114,7 @@ class FirstScreen {
     addPlayerCard(team, nem) {
         this.playerCount++;
         let animationClass, teamClass, whereID;
+        // deciding where to put the card
         if (team === "A") {
             animationClass = "slideUp";
             teamClass = "redTeam";

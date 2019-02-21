@@ -1,46 +1,65 @@
 /* eslint-disable */
 
 class ScoreScreen {
-    // modal contenant deux decks de carte pour afficher les highscores
-    constructor(pid, scores) {
-        this.pid = pid;
+    // screen contenant deux cartes pour afficher les highscores
+    constructor(scores) {
+        this.id = "highscores";
         this.scores = scores;
+        this.containerID = "app";
+        this.containerClass = "container-fluid d-flex h-100";
     }
 
     populate() {
-        // idem que les joueurs
-        const PID = '#' + this.pid;
-        const body = this.buildModal();
-        const topDeck = this.buildCardTop();
-        const botDeck = this.buildCardBot();
+        const pid = "#" + this.containerID;
+        const str = '<div id="' + this.id + '" class="container align-self-center align-items-center w-100 h-100"> </div>';
+        $(pid).append(str);
 
-        // topDeck.appendTo(body);
-        // botDeck.appendTo(body);
-        $(PID).append(body)
-    }
-
-    buildModal() {
-        return '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">\
-        Launch demo modal\
-      </button>\
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">\
-            <div class="modal-dialog modal-dialog-centered" role="document">\
-                <div class="modal-content">\
-                    <div class="modal-body">\
-                        <p>zeuby</p>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>\
-        '
-    }
-
-    buildCardBot() {
+        this.createDivs(this.id);
+        // document.getElementById(this.containerID).className = this.containerClass + " " + "scoreScreenBackground";
 
     }
 
-    buildCardTop() {
+    /** populate function **/
+    createDivs(parentID) {
+        const pid = "#" + parentID;
+        const topRowID = "topRow";
+        const botRowID = "botRow";
+        const mainColID = "mainCol";
+        // main COL
+        $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
+        // Top row
+        $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 blueTeam"></div>');
+        // Bottom row
+        $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 redTeam"></div>');
+        this.buildTable(topRowID);
+        this.buildTable(botRowID);
+    }
 
+    buildTable(id) {
+        // bas = equipe rouge
+        // prendre le tableau d'equipes et constuire une liste de noms de joueurs
+        $("#" + id ).append('<table class="table">\
+        <tbody>\
+          <tr>\
+            <th scope="row">1</th>\
+            <td>Mark</td>\
+            <td>Otto</td>\
+            <td>@mdo</td>\
+          </tr>\
+          <tr>\
+            <th scope="row">2</th>\
+            <td>Jacob</td>\
+            <td>Thornton</td>\
+            <td>@fat</td>\
+          </tr>\
+          <tr>\
+            <th scope="row">3</th>\
+            <td>Larry</td>\
+            <td>the Bird</td>\
+            <td>@twitter</td>\
+          </tr>\
+        </tbody>\
+      </table>')
     }
 
 } export default ScoreScreen;
