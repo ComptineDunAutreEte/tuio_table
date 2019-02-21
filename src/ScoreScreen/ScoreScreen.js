@@ -17,7 +17,6 @@ class ScoreScreen {
 
         this.createDivs(this.id);
         // document.getElementById(this.containerID).className = this.containerClass + " " + "scoreScreenBackground";
-
     }
 
     /** populate function **/
@@ -43,21 +42,30 @@ class ScoreScreen {
         <div class="card-body">\
             <h5 class="card-title">Scores à cette question</h5>\
                 <table class="table">\
-                <tbody id="table'+ id +'">\
+                <tbody id="table'+ id + '">\
                 </tbody>\
             </table>\
             </div>\
         </div>');
 
-        for (let i = 1; i < this.scores.length +1 ; i++) {
-            $("#table" + id ).append('<tr>\
-            <th scope="row">'+ i +'</th>\
-            <td>Pseudo</td>\
-            <td>Temps</td>\
-            <td>équipe</td>\
-        </tr>'
-        );
-        }
+        if (this.scores.length === 0) {
+            $("#table" + id).append('<tr>\
+            <th scope="row">'+ i + '</th>\
+            <td>Vous</td>\
+            <td>êtes</td>\
+            <td>tous nuls</td>\
+            </tr>')
+        };
+
+        for (let i = 1; i < this.scores.length + 1; i++) {
+            $("#table" + id).append('<tr>\
+            <th scope="row">'+ i + '</th>\
+            <td>'+ this.scores[i - 1].pseudo + '</td>\
+            <td>'+ this.scores[i - 1].team + '</td>\
+            <td>'+ this.scores[i - 1].responseTime + '</td>\
+            </tr>'
+            )
+        };
     }
 
 } export default ScoreScreen;
