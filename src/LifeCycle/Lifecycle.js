@@ -302,7 +302,7 @@ class Lifecycle {
             console.error(msg.data);
             client.getSocket().emit('indivQuestionTest', { data: true });
             // score screen first
-            this.loadFirstScreen(msg.data);
+            this.loadScoreScreen(msg.data);
             // main screen actions
             const tabOfTeamSequence = this.getTeamSequence(msg.data);
             setTimeout(()=>{

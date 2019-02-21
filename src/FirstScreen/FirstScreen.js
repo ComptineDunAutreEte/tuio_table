@@ -32,10 +32,12 @@ class FirstScreen {
         const mainColID = "mainCol";
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
-
+/*
         $(pid).append('<button id="add_mock" class="testButton">Request Player from server<button>');
         $(pid).append('<button id="scores_mock" class="testButton2" >Request Scores from server<button>');
-
+        this.initMockAddButton();
+        this.initMockScoresButton();
+*/
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
         $("#" + topRowID).append('<div id="topDeck" class="card-deck"> </div>');
@@ -45,11 +47,6 @@ class FirstScreen {
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 botRow"> </div>');
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
-
-
-        this.initMockAddButton();
-        this.initMockScoresButton();
-
     }
 
     createConfirmBtn(parentID) {
@@ -115,7 +112,7 @@ class FirstScreen {
         this.playerCount++;
         let animationClass, teamClass, whereID;
         // deciding where to put the card
-        if (team === "A") {
+        if (team === "Rouge") {
             animationClass = "slideUp";
             teamClass = "redTeam";
             whereID = "#botDeck";
