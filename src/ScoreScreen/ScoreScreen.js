@@ -43,29 +43,21 @@ class ScoreScreen {
         <div class="card-body">\
             <h5 class="card-title">Scores à cette question</h5>\
                 <table class="table">\
-                <tbody>\
-                <tr>\
-                    <th scope="row">1</th>\
-                    <td>Pseudo</td>\
-                    <td>Temps</td>\
-                    <td>équipe</td>\
-                </tr>\
-                <tr>\
-                    <th scope="row">2</th>\
-                    <td>Pseudo</td>\
-                    <td>Temps</td>\
-                    <td>équipe</td>\
-                </tr>\
-                <tr>\
-                    <th scope="row">3</th>\
-                    <td>Pseudo</td>\
-                    <td>Temps</td>\
-                    <td>équipe</td>\
-                </tr>\
+                <tbody id="table'+ id +'">\
                 </tbody>\
             </table>\
             </div>\
-        </div>')
+        </div>');
+
+        for (let i = 1; i < this.scores.length +1 ; i++) {
+            $("#table" + id ).append('<tr>\
+            <th scope="row">'+ i +'</th>\
+            <td>Pseudo</td>\
+            <td>Temps</td>\
+            <td>équipe</td>\
+        </tr>'
+        );
+        }
     }
 
 } export default ScoreScreen;
