@@ -1,5 +1,5 @@
 .flex-container {
-    background-color: red;
+    background-color: rgb(29, 133, 32);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -17,6 +17,11 @@ button {
     text-decoration: none;
     width: 20vw;
     font-size: 80px;
+}
+
+.terminer {
+    font-size: 80px;
+    background-color: #4CAF50;
 }
 
 .video {
@@ -69,6 +74,13 @@ p {
     font-size: 50px;
 }
 
+.whitetransparent {
+    background: rgba(255, 255, 255, 0.4);
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
 .message {
     z-index: 10;
     position: absolute;
@@ -79,7 +91,7 @@ p {
     width: 100%;
     background: lightslategray;
     text-align: center;
-    visibility: hidden;
+    visibility: visible;
 }
 
 .rightPane {
@@ -88,6 +100,33 @@ p {
     flex: 1;
     align-content: center;
     align-items: center;
+}
+
+.column {
+    flex-direction: column;
+    display: flex;
+}
+
+.panes {
+    flex: 2;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+}
+
+.titre {
+    font-size: 100px;
+}
+
+.pane {
+    height: 20vh;
+    width: 30vw;
+    background: white;
+    margin: 10px;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
 }
 
 .marginR {
