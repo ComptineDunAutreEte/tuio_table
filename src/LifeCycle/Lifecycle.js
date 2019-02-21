@@ -230,8 +230,8 @@ class Lifecycle {
 
 
     pawnMoved(str) {
-        this.playingSequence.playTurn();
-        //this.loadMainScreen();
+        //this.playingSequence.playTurn();
+        this.loadMainScreen();
         /* DEMO / MOCK code
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED

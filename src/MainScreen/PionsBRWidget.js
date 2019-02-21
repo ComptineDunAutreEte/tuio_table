@@ -16,13 +16,14 @@ class PionsBRWidget extends PionsWidget {
             if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
                 if (PionsWidget.startingTeam === "blue"){
                     PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(0,4);
+                    PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
                 }
                 else {
                     PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(5,9);
+                    PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
                 }
             }
             if (PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut === this.idp) {
-                PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
                 this.aLeBallon = true;
                 if (imgSrc ===  'assets/MainScreen/pionB.png'){
                     this.ballon = new BallonWidget(this.x + this.width + 5, this.y + 20, 50,50, 'assets/MainScreen/ballon.png');
@@ -136,6 +137,7 @@ class PionsBRWidget extends PionsWidget {
             BallonWidget.currentPion = this;
             if (this.src === 'assets/MainScreen/pionB.png'){
                 if (PionsBRWidget.teamBleueJoue){
+                    console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY);
                     super.onTouchCreation(tuioTouch);
                     if (this.aLeBallon) {
                         this.ballon.bougeParPion = true;
@@ -146,6 +148,7 @@ class PionsBRWidget extends PionsWidget {
             }
             else {
                 if (PionsBRWidget.teamRougeJoue){
+                    console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY + "ballon : " + this.ballon.internX + "  " + this.ballon.internY);
                     super.onTouchCreation(tuioTouch);
                     if (this.aLeBallon) {
                         this.ballon.bougeParPion = true;
