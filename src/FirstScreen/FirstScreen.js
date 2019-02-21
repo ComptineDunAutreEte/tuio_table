@@ -32,10 +32,12 @@ class FirstScreen {
         const mainColID = "mainCol";
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
-
+/*
         $(pid).append('<button id="add_mock" class="testButton">Request Player from server<button>');
         $(pid).append('<button id="scores_mock" class="testButton2" >Request Scores from server<button>');
-
+        this.initMockAddButton();
+        this.initMockScoresButton();
+*/
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
         $("#" + topRowID).append('<div id="topDeck" class="card-deck"> </div>');
@@ -45,11 +47,6 @@ class FirstScreen {
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 botRow"> </div>');
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
-
-
-        this.initMockAddButton();
-        this.initMockScoresButton();
-
     }
 
     createConfirmBtn(parentID) {
@@ -64,9 +61,6 @@ class FirstScreen {
             }
         };
     }
-
-
-    createDifficultyLevelStepper() { }
 
     createPlayerCountCOL(parentID) {
         const pid = parentID;
@@ -83,24 +77,6 @@ class FirstScreen {
             document.getElementById(btnsIDs[i]).onclick = () => {
                 this.setPlayerCount((i + 1) * 2);
             }
-        }
-    }
-
-    createDifficultyLevelCOL(parentID) {
-        const pid = "#" + parentID;
-        // contenu
-        $(pid).append('<div id="difficultyHalf" class="col"> </div>');
-        $('#difficultyHalf').append('<div class="row justify-content-center" id="diffHalfRow"> </div>');
-
-        const btnsIDs = ['easyBtn', 'mediumBtn', 'hardBtn'];
-        const btnsTexts = ['facile', 'moyen', 'difficile'];
-        const colors = ["success", "warning", "danger"];
-        this.createRadioBtnGroup(btnsIDs, btnsTexts, colors, 'diffHalfRow');
-
-        for (let i = 0; i < btnsIDs.length; i++) {
-            document.getElementById(btnsIDs[i]).onclick = () => {
-                this.setDifficultyLevel(i + 1);
-            };
         }
     }
 
@@ -121,7 +97,6 @@ class FirstScreen {
         document.getElementById("add_mock").onclick = () => {
             if (this.playerCount < 6) {
                 this.observer.sendMessage("requesting player...", "addPlayerPlease");
-                this.playerCount++;
             }
         };
     }
@@ -136,7 +111,8 @@ class FirstScreen {
     addPlayerCard(team, nem) {
         this.playerCount++;
         let animationClass, teamClass, whereID;
-        if (team === "A") {
+        // deciding where to put the card
+        if (team === "Rouge") {
             animationClass = "slideUp";
             teamClass = "redTeam";
             whereID = "#botDeck";
@@ -145,13 +121,15 @@ class FirstScreen {
             teamClass = "blueTeam";
             whereID = "#topDeck";
         }
-
+        // appending card to div
         $(whereID).append('<div class="card h-100 ' + animationClass + '">\
                             <div class="card-body ' + teamClass + '">\
                                 <h5 class="card-title">Equipe ' + team + '</h5>\
                                 <p class="card-text">' + nem + '</p>\
                             </div>\
                         </div>');
+
+        // checking if need to pulse
         if (this.playerCount % 2 === 0) {
             console.log("confirm button to pulsating");
             this.setPulsating("confirmFirstScreenBtn", true);
