@@ -209,7 +209,7 @@ Highlight
     animation-name: changeCages1;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-direction: alternate;
 }
 
@@ -239,7 +239,7 @@ Highlight
     animation-name: changeCages2;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-direction: alternate;
 }
 

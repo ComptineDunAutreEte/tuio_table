@@ -134,6 +134,7 @@ class PionsWidget extends ElementWidget {
 
     /* FOR DEMO CODE */
     pawnTouched(type) {
+        console.log("coucou j'ai été bougé");
         PionsWidget.saveValues();
         if (type === "blue"){
             this.observer.pawnMoved("indiv");

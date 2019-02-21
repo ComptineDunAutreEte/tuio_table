@@ -21,7 +21,7 @@ class MainScreen {
         const pid = "#" + id;
         const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
-        console.log("premiere creation mainscreen : " + this.premiereCreation);
+        console.log("starting team dans le main : " + this.startingTeam);
         this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved, this.startingTeam, this.premiereCreation);
     }
 

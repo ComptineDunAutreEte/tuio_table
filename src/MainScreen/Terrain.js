@@ -9,6 +9,7 @@ class Terrain {
         this.div = div;
         this.widget = new TerrainWidget(x, y, width, height, 'assets/mainScreen.png');
         this.widget.addTo(div);
+        console.log("starting team dans le terrain " + startingTeam);
         PionsWidget.startingTeam = startingTeam;
 
         /* modified */
