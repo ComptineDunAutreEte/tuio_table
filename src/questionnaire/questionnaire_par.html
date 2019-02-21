@@ -1,36 +1,35 @@
 <script>
-    function playT(event) {
-        console.log(event);
-        const vidT = document.getElementById('videoTop');
-        vidT.play();
-        event.textContent = "||";
-    }
-
-    function playB(event) {
-        console.log(event);
-        const vidB = document.getElementById('videoBot');
-        vidB.play()
-        event.textContent = "||";
-    } //vidB.addEventListener('timeupdate', pause);}
 </script>
 
 <div class="flex-container" id="question">
 
-    <div class="item one">
-        <button onclick="playT(this)" class="one  textSize rotate180" id='butTop'>Commencer</button>
-        <video muted id="videoTop" class="one video rotate180" src="assets/video/football-par.mp4"></video>
-        <div class="one" id="paneTop">
+    <div class="item one rotate180">
+        <div id="messageT" class="message">
+            <p>Regarder votre tablette</p>
         </div>
+        <div class="rightPane" id="paneTop">
+        </div>
+        <video muted id="videoTop" class="one video" src="assets/video/football-par.mp4"></video>
+        <div class="rightPane">
+            <div class="two">
+                <p class="two textBot" id="durationTop">00:00</p>
+            </div>
+            <button class="auto textBut" id='butTop'>Commencer</button>
+        </div>
+
     </div>
     <div class="item one">
-        <div class="one" id="paneBot">
+        <div id="messageB" class="message">
+            <p>Regarder votre tablette</p>
+        </div>
+        <div class="rightPane" id="paneBot">
         </div>
         <video id="videoBot" class="one video" src="assets/video/football-par.mp4" muted></video>
         <div class="rightPane">
             <div class="two">
                 <p class="two textBot" id="durationBot">00:00</p>
             </div>
-            <button class="auto textBut" onclick="playB(this)" id='butBot'>Commencer</button>
+            <button class="auto textBut" id='butBot'>Commencer</button>
         </div>
     </div>
 </div>

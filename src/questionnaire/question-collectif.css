@@ -76,7 +76,7 @@ p {
     font-size: 100px;
     color: white;
     height: 48vh;
-    width: calc(98.5vw / 3.8);
+    width: 100%;
     background: lightslategray;
     text-align: center;
     visibility: hidden;
@@ -112,4 +112,25 @@ p {
 
 .textBut {
     font-size: 50px;
+}
+
+.msg {
+    background: white;
+    width: 90%;
+    margin: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.photo {
+    display: block;
+    float: left;
+    background-repeat: no-repeat;
+    height: 60%;
+    width: 100%;
+    margin-top: 20%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    overflow: hidden;
 }
