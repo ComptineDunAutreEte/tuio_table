@@ -20,26 +20,60 @@ import PionsWidget from "../MainScreen/PionsWidget";
 //const io = require('socket.io-client'); // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 const separator = ",";
 var done = [false, false];
+
+var end = [false, false];
 var pause_time = 0;
 var question_type = 'PAR_';
+var videoTop = null;
+var videoBot = null;
+
+
+function theEnd() {
+    client.send('ask-result', '');
+}
+
+function endTop() {
+    end[0] = true;
+    if (end[0] && end[1]) {
+        console.log("theEndTop");
+        theEnd();
+    }
+    console.log("theEndTopOut");
+}
+
+function endBot() {
+    end[1] = true;
+    if (end[0] && end[1]) {
+        console.log("theEndBot");
+        theEnd();
+    }
+    console.log("theEndBotOut");
+}
 
 function enableMessage() {
-    const videoTop = $("#videoTop");
-    const videoBot = $("#videoBot");
+    //const videoTop = $("#videoTop");
+    //const videoBot = $("#videoBot");
 
     const paneBot = $("#paneBot");
     const paneTop = $("#paneTop");
     paneBot.empty();
     paneTop.empty();
 
-    paneTop.append('<p class="marginText rotate180" id="textTop">Team B \n Indice: Regardez bien la position des jouers</p>');
-    paneBot.append('<p id="textBot">Team A\n Indice: Regardez bien la position des jouers</p>');
+    paneBot.append('<div id="alertBot" class="auto msg"><img class="auto photo" src="assets/tablette.jpg" alt="monimage"></div>');
+    paneTop.append('<div id="alertTop" class="auto msg"><img class="auto photo" src="assets/tablette.jpg" alt="monimage"></div>');
 
-    document.querySelector('#butTop').innerHTML = 'Regarder votre tablette';
-    document.querySelector('#butBot').innerHTML = 'Regarder votre tablette';
+    //document.querySelector('#butTop').innerHTML = 'Regarder votre tablette';
+    //document.querySelector('#butBot').innerHTML = 'Regarder votre tablette';
     //console.log(video);
     videoTop.off('timeupdate', myScript);
     videoBot.off('timeupdate', myScript2);
+
+    videoTop.on('timeupdate', timeUpdateTop);
+    videoBot.on('timeupdate', timeUpdateBot);
+
+    $("#butBot").prop("onclick", null).off("click");
+    $("#butTop").prop("onclick", null).off("click");
+
     if (question_type === 'PAR_') {
         client.send('ready-question', '');
     } else {
@@ -48,12 +82,56 @@ function enableMessage() {
 
 }
 
+function playT(event) {
+    console.log(event);
+    const vidT = document.getElementById('videoTop');
+    vidT.play();
+    event.textContent = "||";
+}
+
+function playB(event) {
+    console.log(event);
+    const vidB = document.getElementById('videoBot');
+    vidB.play();
+    event.textContent = "||";
+
+} //vidB.addEventListener('timeupdate', pause);}
+
+function timeUpdateTop() {
+    const video = document.querySelector('#videoTop');
+    const duration = document.querySelector('#durationTop');
+
+    var minutes = parseInt(video.currentTime / 60, 10);
+    var seconds = parseInt(video.currentTime % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    duration.innerText = '0' + minutes + ":" + seconds;
+}
+
+function timeUpdateBot() {
+    const video = document.querySelector('#videoBot');
+    const duration = document.querySelector('#durationBot');
+    //console.log(video.currentTime);
+    var minutes = parseInt(video.currentTime / 60, 10);
+    var seconds = parseInt(video.currentTime % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    duration.innerText = '0' + minutes + ":" + seconds;
+}
+
 function myScript() {
     const video = document.querySelector('#videoTop');
+    /* const duration = document.querySelector('#durationTop');
+
+    var minutes = parseInt(video.currentTime / 60, 10);
+    var seconds = parseInt(video.currentTime % 60);
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    duration.innerText = '0' + minutes + ":" + seconds; */
 
     //console.log('myScript');
+
+    timeUpdateTop();
     if (video.currentTime >= pause_time) {
-        // console.log('Je suis Dedans');
+        document.querySelector('#butTop').innerHTML = 'Pause';
+        //console.log('Je suis Dedans');
         video.pause();
         done[0] = true;
         // console.log(done);
@@ -65,14 +143,15 @@ function myScript() {
 
 function myScript2() {
     const video = document.querySelector('#videoBot');
-    const duration = document.querySelector('#durationBot');
+    /*const duration = document.querySelector('#durationBot');
 
     var minutes = parseInt(video.currentTime / 60, 10);
     var seconds = parseInt(video.currentTime % 60);
     seconds = seconds < 10 ? '0' + seconds : seconds;
-    duration.innerText = '0' + minutes + ":" + seconds;
+    duration.innerText = '0' + minutes + ":" + seconds;*/
     //console.log(duration);
     // console.log(video);
+    timeUpdateBot();
     if (video.currentTime >= pause_time) {
         document.querySelector('#butBot').innerHTML = 'Pause';
         video.pause();
@@ -113,6 +192,7 @@ class Lifecycle {
 
     start() {
         this.initConnexion();
+        this.loadQuestionScreen_par();
     }
 
     static deleteWidgets() {
@@ -222,7 +302,7 @@ class Lifecycle {
     }
 
     loadQuestionScreen() {
-        done = [false, false];
+        /*done = [false, false];
         pause_time = 5;
         question_type = 'SEQ_';
         client.send('question-collectif-seq', '');
@@ -233,7 +313,7 @@ class Lifecycle {
             //console.log(video);
             videoTop.on('timeupdate', myScript);
             videoBot.on('timeupdate', myScript2);
-        });
+        });*/
     }
 
     loadQuestionScreen_par() {
@@ -247,14 +327,21 @@ class Lifecycle {
             const paneBot = $("#paneBot");
             const paneTop = $("#paneTop");
 
-            paneTop.append('<p class="marginText rotate180" id="textTop">Team B</p>');
-            paneBot.append('<p id="textBot">Team A</p>');
+            paneBot.append('<p ><br><br>Observer bien la vidéo</p>');
+            paneTop.append('<p ><br><br>Observer bien la vidéo</p>');
 
-            const videoTop = $("#videoTop");
-            const videoBot = $("#videoBot");
+            // paneBot.append('<div id="alertBot" class="auto msg"><img class="auto photo" src="assets/tablette.jpg" alt="monimage"></div>');
+            // paneTop.append('<div id="alertTop" class="auto msg"><img class="auto photo" src="assets/tablette.jpg" alt="monimage"></div>');
+            // paneBot.append('<p id="textBot">Team A</p>');
+
+            videoTop = $("#videoTop");
+            videoBot = $("#videoBot");
             //console.log(video);
             videoTop.on('timeupdate', myScript);
             videoBot.on('timeupdate', myScript2);
+
+            $("#butBot").on("click", () => playB($("#butBot")));
+            $("#butTop").on("click", () => playT($("#butTop")));
         });
     }
 
@@ -264,10 +351,23 @@ class Lifecycle {
             console.log(msg);
         });
 
-        client.getSocket().on('back-to-video', (msg) => {
-            console.log('back-to-video');
-            document.getElementById('messageT').style.visibility = 'hidden';
-            document.getElementById('messageB').style.visibility = 'hidden';
+        client.getSocket().on('result', (msg) => {
+            $('#messageT').css("visibility", "visible");
+            $('#messageB').css("visibility", "visible");
+        });
+
+        client.getSocket().on('all-answered', (msg) => {
+            console.log('all-answered');
+            const paneBot = $("#paneBot");
+            const paneTop = $("#paneTop");
+            paneBot.empty();
+            paneTop.empty();
+            $("#butBot").textContent = "Continuer";
+            $("#butTop").textContent = "Continuer";
+            $("#butBot").on("click", () => playB($("#butBot")));
+            $("#butTop").on("click", () => playT($("#butTop")));
+            $('#videoTop').on('ended', endTop);
+            $('#videoBot').on('ended', endBot);
         });
         client.getSocket().on('start-question-collectif', (message) => {
             console.log(message);
