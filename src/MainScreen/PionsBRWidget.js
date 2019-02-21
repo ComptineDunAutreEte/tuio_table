@@ -137,23 +137,23 @@ class PionsBRWidget extends PionsWidget {
             BallonWidget.currentPion = this;
             if (this.src === 'assets/MainScreen/pionB.png'){
                 if (PionsBRWidget.teamBleueJoue){
-                    console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY);
+                //    console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY);
                     super.onTouchCreation(tuioTouch);
-                    if (this.aLeBallon) {
+                  /*  if (this.aLeBallon) {
                         this.ballon.bougeParPion = true;
                         this.ballon.onTouchCreation(tuioTouch);
-                    }
+                    }*/
                     this.displayVoisins();
                 }
             }
             else {
                 if (PionsBRWidget.teamRougeJoue){
-                    console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY + "ballon : " + this.ballon.internX + "  " + this.ballon.internY);
+                  //  console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY + "ballon : " + this.ballon.internX + "  " + this.ballon.internY);
                     super.onTouchCreation(tuioTouch);
-                    if (this.aLeBallon) {
+                   /* if (this.aLeBallon) {
                         this.ballon.bougeParPion = true;
                         this.ballon.onTouchCreation(tuioTouch);
-                    }
+                    }*/
                     //    }
                    this.displayVoisins();
                 }

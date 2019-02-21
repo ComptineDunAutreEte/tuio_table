@@ -12,7 +12,6 @@ import playingSequence from '../PlayingSequence/playingSequence';
 import FormationWidget from "../FormationScreen/FormationWidget";
 import TerrainWidget from "../MainScreen/TerrainWidget";
 import PionsWidget from "../MainScreen/PionsWidget";
-import ScoreScreen from "../ScoreScreen/ScoreScreen";
 import PionsBRWidget from "../MainScreen/PionsBRWidget";
 
 
@@ -244,6 +243,8 @@ class Lifecycle {
         */
     }
 
+    //ec47212c28f1db98e33851174fa7a6c29465a164
+
 
     /* ==========  finishing functions  ========== */
     finishedFirstscreen() {
@@ -347,12 +348,6 @@ class Lifecycle {
         });
     }
 
-    loadScoreScreen(tab){
-        this.clearScreen();
-        const scoreScreen = new ScoreScreen(tab);
-        scoreScreen.populate();
-    }
-
     /* ==========  server communication functions  ========== */
     initConnexion() {
         client.getSocket().on('table', (msg) => {
@@ -401,16 +396,10 @@ class Lifecycle {
             console.error("play order");
             console.error(msg.data);
             client.getSocket().emit('indivQuestionTest', { data: true });
-            // score screen first
-            this.loadScoreScreen(msg.data);
-            // main screen actions
+            this.loadMainScreen();
             const tabOfTeamSequence = this.getTeamSequence(msg.data);
-            setTimeout(()=>{
-                this.loadMainScreen();
-                this.playingSequence = new playingSequence(tabOfTeamSequence, this);
-                this.playingSequence.start();
-            }, 10000)
-            
+            this.playingSequence = new playingSequence(tabOfTeamSequence, this);
+            this.playingSequence.start();
         });
 
         client.getSocket().on('startTeam', (msg) => {

@@ -33,8 +33,8 @@ class BallonWidget extends ElementWidget {
     }
 
     onTouchCreation(tuioTouch) {
-        console.log("coucou tuioTouch du ballon");
-      /*  if (this.bougeParPion) {
+      /*  console.log("coucou tuioTouch du ballon");
+        if (this.bougeParPion) {
             super.onTouchCreation(tuioTouch);
             this.bougeParPion = false;
         }*/
