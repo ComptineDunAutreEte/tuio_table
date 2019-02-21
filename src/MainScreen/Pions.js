@@ -25,7 +25,7 @@ class Pions{
                 let place = valuesSaved[0][i];
                 let ballon = valuesSaved[1][i];
                 let src = valuesSaved[2][i];
-                this.widget = new PionsBRWidget(place, i, PionsWidget.listePionsN[place].x, PionsWidget.listePionsN[place].y, 100,100,src, ballon);
+                this.widget = new PionsBRWidget(place, i, PionsWidget.listePionsN[place].x - 14.5, PionsWidget.listePionsN[place].y -14.5, 100,100,src, ballon);
                 this.widget.addTo('#mainScreen');
             }
         }

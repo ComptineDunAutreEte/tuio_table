@@ -192,7 +192,8 @@ class Lifecycle {
 
     start() {
         this.initConnexion();
-        this.loadQuestionScreen_par();
+        this.loadFirstScreen();
+
     }
 
     static deleteWidgets() {
@@ -279,7 +280,7 @@ class Lifecycle {
     loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, this.valuesSaved);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, this.valuesSaved, this.startingTeam);
         this.actualScreen = mainScreen;
         mainScreen.populate("app");
         // mainScreen.startOfTurn(teamToplay);
@@ -379,11 +380,6 @@ class Lifecycle {
         });
         client.getSocket().on('returningPlayer', (msg) => {
             this.actualScreen.addPlayerCard(msg.data.team, msg.data.pseudo);
-            if (this.actualScreen.playerCount % 2 === 0) {
-                this.actualScreen.setPulsating("confirmFirstScreenBtn", true);
-            } else {
-                this.actualScreen.setPulsating("confirmFirstScreenBtn", false);
-            }
         });
         client.getSocket().on('listen-user-login', (msg) => {
             console.log(msg.data);
@@ -406,7 +402,7 @@ class Lifecycle {
 
         client.getSocket().on('startTeam', (msg) => {
             console.log(msg.data);
-            this.startingTeam = msg.data;
+            this.startingTeam = msg.data.team;
         });
 
         client.getSocket().on('start-of-new-question', (msg) => {
@@ -436,7 +432,7 @@ class Lifecycle {
         return res;
     }
     clearScreen() {
-        Lifecycle.deleteWidgets();
+        // Lifecycle.deleteWidgets();
         const root = document.getElementById("app");
         while (root.firstChild) {
             root.className = "container-fluid d-flex h-100";

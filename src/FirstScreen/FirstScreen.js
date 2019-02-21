@@ -32,25 +32,24 @@ class FirstScreen {
         const mainColID = "mainCol";
         // main COL
         $(pid).append('<div id="' + mainColID + '" class="col h-100 w-100 align-items-center"> </div>');
+
         $(pid).append('<button id="add_mock" class="testButton">Request Player from server<button>');
         $(pid).append('<button id="scores_mock" class="testButton2" >Request Scores from server<button>');
+
         // Top row
         $("#" + mainColID).append('<div id="' + topRowID + '" class="row justify-content-center pb-5 topRow"> </div>');
-
-        //$("#" + topRowID ).append();
         $("#" + topRowID).append('<div id="topDeck" class="card-deck"> </div>');
-
         // middle row
         $("#" + mainColID).append('<div id="' + middleRowID + '" class="row justify-content-center mt-10"> </div>');
         this.createConfirmBtn(middleRowID);
-
         // Bottom row
         $("#" + mainColID).append('<div id="' + botRowID + '" class="row justify-content-center pt-5 botRow"> </div>');
-        //$("#" + botRowID ).append();
         $("#" + botRowID).append('<div id="botDeck" class="card-deck"> </div>');
+
 
         this.initMockAddButton();
         this.initMockScoresButton();
+
     }
 
     createConfirmBtn(parentID) {
@@ -58,20 +57,16 @@ class FirstScreen {
         const btnID = "confirmFirstScreenBtn";
         const that = this;
 
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn btn-info btn-circle btn-xxl middleScreen"><i class="fa fa-check"></i></button>');
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn-circle btn-xxl middleScreen"></button>');
         document.getElementById(btnID).onclick = () => {
             if (that.playerCount % 2 === 0) {
                 that.observer.finishedFirstscreen();
             }
         };
-        /*
-        const message = this.playerCount + "," + this.difficultyLevel;
-        console.log("should be : " + message)
-        */
     }
 
 
-    createDifficultyLevelStepper() {}
+    createDifficultyLevelStepper() { }
 
     createPlayerCountCOL(parentID) {
         const pid = parentID;
@@ -110,17 +105,17 @@ class FirstScreen {
     }
 
     createRadioBtnGroup(ids, texts, colors, parentID) {
-            const pid = "#" + parentID;
-            const selfIDstr = parentID + "radioGroup";
-            const selfID = "#" + selfIDstr;
-            const selfstring = '<div id="' + selfIDstr + '" class="btn-group-lg btn-group-toggle" data-toggle="buttons"></div>';
-            $(pid).append(selfstring);
-            for (let i = 0; i < ids.length; i++) {
-                $(selfID).append('<label id="' + ids[i] + '" class="btn btn-' + colors[i] + '"> \
+        const pid = "#" + parentID;
+        const selfIDstr = parentID + "radioGroup";
+        const selfID = "#" + selfIDstr;
+        const selfstring = '<div id="' + selfIDstr + '" class="btn-group-lg btn-group-toggle" data-toggle="buttons"></div>';
+        $(pid).append(selfstring);
+        for (let i = 0; i < ids.length; i++) {
+            $(selfID).append('<label id="' + ids[i] + '" class="btn btn-' + colors[i] + '"> \
             <input type="radio" name="options" autocomplete="off" checked>' + texts[i] + '</label>');
-            }
         }
-        /* MISC */
+    }
+    /* MISC */
     initMockAddButton() {
         //$("#" + botRowID ).append();
         document.getElementById("add_mock").onclick = () => {
@@ -139,6 +134,7 @@ class FirstScreen {
     }
 
     addPlayerCard(team, nem) {
+        this.playerCount++;
         let animationClass, teamClass, whereID;
         if (team === "A") {
             animationClass = "slideUp";
@@ -156,6 +152,13 @@ class FirstScreen {
                                 <p class="card-text">' + nem + '</p>\
                             </div>\
                         </div>');
+        if (this.playerCount % 2 === 0) {
+            console.log("confirm button to pulsating");
+            this.setPulsating("confirmFirstScreenBtn", true);
+        } else {
+            console.log("confirm button to non-pulsating");
+            this.setPulsating("confirmFirstScreenBtn", false);
+        }
     }
 
 

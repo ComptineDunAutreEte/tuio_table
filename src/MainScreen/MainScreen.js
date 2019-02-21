@@ -3,7 +3,7 @@
 import Terrain from "./Terrain";
 
 class MainScreen {
-    constructor(width, height, observer, valuesSaved) {
+    constructor(width, height, observer, valuesSaved, startingTeam) {
         this.width = width;
         this.height = height;
         this.containerID = "app";
@@ -12,13 +12,14 @@ class MainScreen {
         this.observer = observer;
         this.offset = 10;
         this.valuesSaved = valuesSaved;
+        this.startingTeam = startingTeam;
     }
 
     populate(id) {
         const pid = "#" + id;
         const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
-        this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved);
+        this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved, this.startingTeam);
     }
 
     highlight(color) {
