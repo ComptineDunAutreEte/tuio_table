@@ -289,14 +289,14 @@ Highlight
 }
 
 
-/*@keyframes changeCages {
+@keyframes changeCages {
     from {
       background-image: url("../assets/MainScreen/cages1.jpg");
     }
     to {
         background-image: url("../assets/MainScreen/cages2.jpg");
     }
-}*/
+}
 
 @keyframes highlightTextRED {
     from {

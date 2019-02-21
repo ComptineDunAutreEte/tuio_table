@@ -7,7 +7,6 @@ import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 class PionsWidget extends ElementWidget {
 
     constructor(idp, x, y, width, height, imgSrc) {
-        //Choses communes
         if (imgSrc === 'assets/MainScreen/pionN.png'){
             super(x, y, width, height, 0, 1);
         }

@@ -5,7 +5,7 @@ import PionsWidget from "./PionsWidget";
 import TerrainWidget from "./TerrainWidget";
 
 class Terrain {
-    constructor(x, y, width, height, div, observer, valuesSaved, startingTeam) {
+    constructor(x, y, width, height, div, observer, valuesSaved, startingTeam, premiereCreation) {
         this.div = div;
         this.widget = new TerrainWidget(x, y, width, height, 'assets/mainScreen.png');
         this.widget.addTo(div);
@@ -13,8 +13,8 @@ class Terrain {
 
         /* modified */
         this.observer = observer;
-        console.log("COUCOUUUU : " + this.observer);
         this.valuesSaved = valuesSaved;
+        this.premiereCreation = premiereCreation;
         this.createPions();
         this.attachObserverToPawns(observer);
     }
@@ -28,7 +28,7 @@ class Terrain {
             pionsB = [2,4,8,10,12];
         }
         else if (FormationWidget.formationBChoisie.getId()=== "2"){
-            pionsB = [2,3,4,5,10];
+            pionsB = [1,2,4,5,10];
         }
         else if (FormationWidget.formationBChoisie.getId() === "3"){
             pionsB = [1,5,9,10,11];
@@ -37,7 +37,7 @@ class Terrain {
             pionsR = [43, 45, 47,51,53];
       }
         else if (FormationWidget.formationRChoisie.getId() === "2"){
-            pionsR = [45, 50, 51,52,53];
+            pionsR = [45, 50, 51,53,54];
         }
         else if (FormationWidget.formationRChoisie.getId() === "3"){
             pionsR = [44, 45, 46,50,54];
@@ -57,9 +57,9 @@ class Terrain {
                 my = i * 27;
             }
             //Création des cases
-            new Pions(0, i, 220 + i + my, 100 + (i - mx) * 130 - mt, "none", null);
+            new Pions(0, i, 220 + i + my, 100 + (i - mx) * 130 - mt, "none", null, true);
         }
-        if (this.valuesSaved == null){
+        if (this.premiereCreation){
             var id = 0;
             for (var j = 0; j < 56; j++){
                 if (j % 7 == 0) {
@@ -69,16 +69,16 @@ class Terrain {
                     my = j * 27;
                 }
                 if (pionsB.includes(j)) {
-                    new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu",null);
+                    new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "bleu",null, this.premiereCreation);
                     id++;
                 } else if (pionsR.includes(j)) {
-                    new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge",null);
+                    new Pions(j, id, 220 + j + my - 14.5, 100 + (j - mx) * 130 - mt - 14.5, "rouge",null, this.premiereCreation);
                     id++;
                 }
             }
         }
         else {
-            new Pions(null, null, null, null, null, this.valuesSaved);
+            new Pions(null, null, null, null, null, this.valuesSaved, this.premiereCreation);
         }
         return t;
 

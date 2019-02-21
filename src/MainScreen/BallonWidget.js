@@ -33,10 +33,21 @@ class BallonWidget extends ElementWidget {
     }
 
     onTouchCreation(tuioTouch) {
-        if (this.bougeParPion) {
+      /*  if (this.bougeParPion) {
             super.onTouchCreation(tuioTouch);
             this.bougeParPion = false;
-        }
+        }*/
+      if (BallonWidget.currentPion.src === 'assets/MainScreen/pionB.png'){
+          if (this.isTouched(tuioTouch.x + 105, tuioTouch.y + 20)) {
+
+          }
+      }
+      else {
+          if (this.isTouched(tuioTouch.x - 40, tuioTouch.y + 20)) {
+
+          }
+      }
+
     }
 
     onTouchUpdate(tuioTouch) {
@@ -59,5 +70,6 @@ class BallonWidget extends ElementWidget {
 
     get domElem() { return this._domElem; }
 }
+BallonWidget.currentPion = null;
 BallonWidget.listeAEffacer = [];
 export default BallonWidget;
