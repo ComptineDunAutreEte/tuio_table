@@ -56,7 +56,7 @@ class FirstScreen {
 
         $(pid).append('<button id="' + btnID + '" type="button" class="btn-circle btn-xxl middleScreen"></button>');
         document.getElementById(btnID).onclick = () => {
-            if (that.playerCount % 2 === 0 && that.playerCount > 0) {
+            if (that.playerCount % 2 === 0 /*&& that.playerCount > 0*/) {
                 that.observer.finishedFirstscreen();
             }
         };

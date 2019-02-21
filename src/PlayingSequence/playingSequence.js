@@ -4,7 +4,7 @@ import PionsBRWidget from "../MainScreen/PionsBRWidget";
 
 class playingSequence {
 
-    constructor(sequence, obs){
+    constructor(sequence, obs) {
         this.questionResults = sequence; // tableau envoyé par lutthy : 0 = plus rapide
         this.indexInResults = 0;
         this.nbOfActions = sequence.length;
@@ -12,7 +12,7 @@ class playingSequence {
         console.error(this.questionResults[0]);
     }
 
-    start(){
+    start() {
         console.log("starting playing sequence : ");
         this.indexInResults = 0;
         console.log(this);
@@ -22,21 +22,11 @@ class playingSequence {
     playTurn() {
         console.log("starting turn")
         if (this.indexInResults >= this.nbOfActions) {
-            if (this.nbOfActions === 0) {
-                setTimeout(() => {
-                    this.observer.sendMessage("endOfSequence", 'request-question');
-                    this.questionResults = [];
-                    this.indexInResults = 0;
-                }, 7000);
-            } else {
-                this.observer.sendMessage("endOfSequence", 'request-question');
-                this.questionResults = [];
-                this.indexInResults = 0;
-            }
+            this.endOfSequence();
         } else {
             const teamToPlay = this.questionResults[this.indexInResults];
             console.log("team to play = " + teamToPlay);
-            if (teamToPlay === "red"){
+            if (teamToPlay === "red") {
                 PionsBRWidget.teamRougeJoue = true;
                 PionsBRWidget.teamBleueJoue = false;
             }
@@ -44,7 +34,7 @@ class playingSequence {
                 PionsBRWidget.teamBleueJoue = true;
                 PionsBRWidget.teamRougeJoue = false;
             }
-            else if (!teamToPlay){
+            else if (!teamToPlay) {
                 PionsBRWidget.teamBleueJoue = false;
                 PionsBRWidget.teamRougeJoue = false;
             }
@@ -59,14 +49,9 @@ class playingSequence {
 
     endOfSequence() {
         // envoyer au server qu'il faut envoyer une nouvelle question
-        console.log("setting timeout");
-        setTimeout(() => {
-            this.observer.sendMessage("endOfSequence", 'request-question');
-            this.questionResults = [];
-            this.indexInResults = 0;
-        }, 7000);
-        // au serveur de decider quel est le type de question suivant
-        // au lifecycle d'attendre les ordres du server 
+        this.observer.sendMessage("endOfSequence", 'request-question');
+        this.questionResults = [];
+        this.indexInResults = 0;
     }
 
 } export default playingSequence;
