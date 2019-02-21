@@ -9,12 +9,14 @@ class Terrain {
         this.div = div;
         this.widget = new TerrainWidget(x, y, width, height, 'assets/mainScreen.png');
         this.widget.addTo(div);
+        console.log("starting team dans le terrain " + startingTeam);
         PionsWidget.startingTeam = startingTeam;
 
         /* modified */
         this.observer = observer;
         this.valuesSaved = valuesSaved;
         this.premiereCreation = premiereCreation;
+        console.log("premiere creation constructeur terrain : " + premiereCreation + "   " + this.premiereCreation);
         this.createPions();
         this.attachObserverToPawns(observer);
     }
@@ -59,6 +61,7 @@ class Terrain {
             //Création des cases
             new Pions(0, i, 220 + i + my, 100 + (i - mx) * 130 - mt, "none", null, true);
         }
+        console.log("premiere creation terrain : " + this.premiereCreation);
         if (this.premiereCreation){
             var id = 0;
             for (var j = 0; j < 56; j++){

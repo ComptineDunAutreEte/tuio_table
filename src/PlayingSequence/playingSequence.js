@@ -20,7 +20,7 @@ class playingSequence {
     }
 
     playTurn() {
-        console.log("starting turn")
+        console.log("starting turn");
         if (this.indexInResults >= this.nbOfActions) {
             if (this.nbOfActions === 0) {
                 setTimeout(() => {
@@ -34,7 +34,7 @@ class playingSequence {
                 this.indexInResults = 0;
             }
         } else {
-            //const teamToPlay = "blue";
+           // const teamToPlay = "red";
             const teamToPlay = this.questionResults[this.indexInResults];
             console.log("team to play = " + teamToPlay);
             if (teamToPlay === "red"){
@@ -58,7 +58,7 @@ class playingSequence {
         }
     }
 
-    endOfSequence() {
+    endOfSequence(){
         // envoyer au server qu'il faut envoyer une nouvelle question
         console.log("setting timeout");
         setTimeout(() => {

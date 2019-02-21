@@ -13,16 +13,20 @@ class PionsBRWidget extends PionsWidget {
         this.place = place;
 
         if (premiereCreation){
+            console.log("starting team dans pionBRWidget : " + PionsWidget.startingTeam);
             if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
                 if (PionsWidget.startingTeam === "blue"){
+                    console.log("it's blue");
                     PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(0,4);
+                    PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
                 }
                 else {
+                    console.log("it's red");
                     PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(5,9);
+                    PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
                 }
             }
             if (PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut === this.idp) {
-                PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon = true;
                 this.aLeBallon = true;
                 if (imgSrc ===  'assets/MainScreen/pionB.png'){
                     this.ballon = new BallonWidget(this.x + this.width + 5, this.y + 20, 50,50, 'assets/MainScreen/ballon.png');
@@ -45,6 +49,20 @@ class PionsBRWidget extends PionsWidget {
             else {
                 this.ballon = null;
                 this.aLeBallon = false;
+            }
+            //Si c'est un pion bleu qui est touché
+            if (this.src === 'assets/MainScreen/pionB.png') {
+                //S'il est prêt d'un but
+                if ((this.isNextToBut(this.place)) && (this.aLeBallon)) {
+                    console.log("next to buts");
+                    PionsBRWidget.changeCages("bleu");
+                }
+            }
+            else {
+                if ((this.isNextToBut(this.place)) && (this.aLeBallon)) {
+                    console.log("next to buts");
+                    PionsBRWidget.changeCages("rouge");
+                }
             }
         }
         this.voisins = PionsWidget.getListePionsN()[this.place].voisins;
@@ -135,22 +153,28 @@ class PionsBRWidget extends PionsWidget {
         if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
             BallonWidget.currentPion = this;
             if (this.src === 'assets/MainScreen/pionB.png'){
+                console.log("bleuuu");
                 if (PionsBRWidget.teamBleueJoue){
+                    console.log("team bleu joue");
+                //    console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY);
                     super.onTouchCreation(tuioTouch);
-                    if (this.aLeBallon) {
+                  /*  if (this.aLeBallon) {
                         this.ballon.bougeParPion = true;
                         this.ballon.onTouchCreation(tuioTouch);
-                    }
+                    }*/
                     this.displayVoisins();
                 }
             }
             else {
+                console.log("rouuuge");
                 if (PionsBRWidget.teamRougeJoue){
+                    console.log("team rouge joue");
+                  //  console.log(tuioTouch.x + "  " + tuioTouch.y + " : " + this.internX + "  " + this.internY + "ballon : " + this.ballon.internX + "  " + this.ballon.internY);
                     super.onTouchCreation(tuioTouch);
-                    if (this.aLeBallon) {
+                   /* if (this.aLeBallon) {
                         this.ballon.bougeParPion = true;
                         this.ballon.onTouchCreation(tuioTouch);
-                    }
+                    }*/
                     //    }
                    this.displayVoisins();
                 }
@@ -292,8 +316,8 @@ class PionsBRWidget extends PionsWidget {
         const cname = "switchCages1";
         img.backgroundImage = 'assets/MainScreen/cages1.jpg';
         img.style.position = "absolute";
-        img.style.width = "119px";
-        img.style.height = "320px";
+        img.style.width = "107px";
+        img.style.height = "295px";
         img.style.zIndex = "400";
         img.className = cname;
 
@@ -303,8 +327,8 @@ class PionsBRWidget extends PionsWidget {
         img2.backgroundImage = 'assets/MainScreen/cages2.jpg';
         img2.style.position = "absolute";
 
-        img2.style.width = "119px";
-        img2.style.height = "320px";
+        img2.style.width = "107px";
+        img2.style.height = "295px";
         img2.style.zIndex = "400";
         img2.className = cname2;
 
@@ -313,32 +337,32 @@ class PionsBRWidget extends PionsWidget {
         const cname3 = "switchCage3";
         img3.backgroundImage = 'assets/MainScreen/cages4.jpg';
         img3.style.position = "absolute";
-        img3.style.width = "119px";
-        img3.style.height = "320px";
+        img3.style.width = "107px";
+        img3.style.height = "295px";
         img3.style.zIndex = "400";
         img3.className = cname3;
 
         if (couleur === "bleu"){
             console.log("on est bleuuuus");
-            img.style.left = "1780px";
-            img.style.top = "380px";
+            img.style.left = "1793px";
+            img.style.top = "392px";
 
-            img2.style.left = "1780px";
-            img2.style.top = "380px";
+            img2.style.left = "1793px";
+            img2.style.top = "392px";
 
-            img3.style.left = "1780px";
-            img3.style.top = "380px";
+            img3.style.left = "1793px";
+            img3.style.top = "392px";
         }
         else {
             console.log("on est rouuuuges");
             img.style.left = "20px";
-            img.style.top = "380px";
+            img.style.top = "392px";
 
             img2.style.left = "20px";
-            img2.style.top = "380px";
+            img2.style.top = "392px";
 
             img3.style.left = "20px";
-            img3.style.top = "380px";
+            img3.style.top = "392px";
         }
 
         console.log("près du but (dans changeCages)");
@@ -441,7 +465,7 @@ class PionsBRWidget extends PionsWidget {
                 //Si c'est un pion bleu qui est touché
                 if (this.src === 'assets/MainScreen/pionB.png'){
                     //S'il est prêt d'un but
-                    if (this.isNextToBut(this.place)){
+                    if ((this.isNextToBut(this.place))&&(this.aLeBallon)){
                         console.log("next to buts");
                         PionsBRWidget.changeCages("bleu");
                     }
@@ -453,7 +477,7 @@ class PionsBRWidget extends PionsWidget {
                 //Si c'est un pion rouge qui est touché
                 else {
                     //S'il est prêt d'un but
-                    if (this.isNextToBut(this.place)){
+                    if ((this.isNextToBut(this.place))&&(this.aLeBallon)){
                         PionsBRWidget.changeCages("rouge");
                     }
                     this.pawnTouched("red");

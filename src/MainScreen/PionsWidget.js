@@ -7,6 +7,7 @@ import ElementWidget from 'tuiomanager/widgets/ElementWidget/ElementWidget';
 class PionsWidget extends ElementWidget {
 
     constructor(idp, x, y, width, height, imgSrc) {
+        //Choses communes
         if (imgSrc === 'assets/MainScreen/pionN.png'){
             super(x, y, width, height, 0, 1);
         }
@@ -133,6 +134,7 @@ class PionsWidget extends ElementWidget {
 
     /* FOR DEMO CODE */
     pawnTouched(type) {
+        console.log("coucou j'ai été bougé");
         PionsWidget.saveValues();
         if (type === "blue"){
             this.observer.pawnMoved("indiv");

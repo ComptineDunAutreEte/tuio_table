@@ -32,34 +32,51 @@ class BallonWidget extends ElementWidget {
         return this.idf;
     }
 
-    onTouchCreation(tuioTouch) {
-      /*  if (this.bougeParPion) {
+    onTouchCreation(tuioTouch){
+      /*  console.log("coucou tuioTouch du ballon");
+        if (this.bougeParPion) {
             super.onTouchCreation(tuioTouch);
             this.bougeParPion = false;
         }*/
-      if (BallonWidget.currentPion.src === 'assets/MainScreen/pionB.png'){
+     /* if (BallonWidget.currentPion.src === 'assets/MainScreen/pionB.png'){
           if (this.isTouched(tuioTouch.x + 105, tuioTouch.y + 20)) {
-
+              console.log("oui on m'a déplacé c'est tellement cool !");
+              super.onTouchCreation(tuioTouch);
+          }
+          else if (BallonWidget.currentPion.ballon === this){
+              console.log("oui on m'a déplacé c'est tellement cool !");
+              super.onTouchCreation(tuioTouch);
           }
       }
       else {
+          console.log("Trop cool, je suis attaché à un ballon rouge ! Allez les rouuuuges");
           if (this.isTouched(tuioTouch.x - 40, tuioTouch.y + 20)) {
-
+              console.log("oui on m'a déplacé c'est tellement cool !");
+              super.onTouchCreation(tuioTouch);
           }
-      }
+          else if (BallonWidget.currentPion.ballon === this){
+              console.log("oui on m'a déplacé c'est tellement cool !");
+              super.onTouchCreation(tuioTouch);
+          }
+          else {
+              console.log("bouhouhouh, je ne suis pas touché");
+          }
+      }*/
 
     }
 
     onTouchUpdate(tuioTouch) {
+        super.onTouchUpdate(tuioTouch);
         if (this.bougeParPion){
-            super.onTouchUpdate(tuioTouch);
             this.bougeParPion = false;
         }
     }
 
     onTouchDeletion(tuioTouchId) {
-        if (this.bougeParPion) {
+        if (typeof (this._lastTouchesValues[tuioTouchId]) !== 'undefined') {
             super.onTouchDeletion(tuioTouchId);
+        }
+        if (this.bougeParPion) {
             this.bougeParPion = false;
         }
     }

@@ -5,13 +5,11 @@ import PionsBRWidget from "./PionsBRWidget";
 
 class Pions{
     constructor(place, idp, x,y,couleur, valuesSaved, premiereCreation){
+        console.log("premier creation : " + premiereCreation);
         if (premiereCreation){
             this.ballon = false;
             this.x = x;
             this.y = y;
-
-            //ce tab donne les actions possible que peut faire le joueur en cliquant sur ce pion
-            this.actionsPossibles = {};
 
             if (couleur === "rouge"){this.src = 'assets/MainScreen/pionR.png'; this.widget = new PionsBRWidget(place, idp, x, y, 100,100, this.src, null, true);}
             else if (couleur === "bleu") {this.src = 'assets/MainScreen/pionB.png'; this.widget = new PionsBRWidget(place, idp, x, y, 100,100, this.src, null, true);}
@@ -21,11 +19,6 @@ class Pions{
         }
         else {
             //Re-création des pions BR à partir de leur valeurs à la fin de la partie précédente
-        /*    for (var j = 0; j < valuesSaved[0].length; j++){
-                console.log("places pions : " + valuesSaved[0][j]);
-                console.log("ballon pions : " + valuesSaved[1][j]);
-                console.log("src pions : " + valuesSaved[2][j]);
-            }*/
             for (var i = 0; i < valuesSaved[0].length; i++){
                 let place = valuesSaved[0][i];
                 let ballon = valuesSaved[1][i];
