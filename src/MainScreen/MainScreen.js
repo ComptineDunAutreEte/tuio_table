@@ -1,9 +1,10 @@
 /*eslint-disable*/
 
 import Terrain from "./Terrain";
+import PionsWidget from "./PionsWidget";
 
 class MainScreen {
-    constructor(width, height, observer, valuesSaved, startingTeam) {
+    constructor(width, height, observer, valuesSaved, startingTeam, premiereCreation) {
         this.width = width;
         this.height = height;
         this.containerID = "app";
@@ -13,15 +14,16 @@ class MainScreen {
         this.offset = 10;
         this.valuesSaved = valuesSaved;
         this.startingTeam = startingTeam;
+        this.premiereCreation = premiereCreation;
     }
 
     populate(id) {
         const pid = "#" + id;
         const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
-        this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved, this.startingTeam);
+        console.log("premiere creation mainscreen : " + this.premiereCreation);
+        this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved, this.startingTeam, this.premiereCreation);
     }
-
 
     highlight(color) {
         const originalClass = "row align-self-center align-items-center w-100 h-100";
@@ -52,7 +54,7 @@ class MainScreen {
         if (team === "red") {
             classe = "infoRed";
         }
-        if (document.getElementById('turnInfoText')) {
+        if (document.getElementById('turnInfoText')){
             document.getElementById('turnInfoText').remove();
             console.error("just removed text");
         }

@@ -4,14 +4,12 @@ import PionsWidget from "./PionsWidget";
 import PionsBRWidget from "./PionsBRWidget";
 
 class Pions{
-    constructor(place, idp, x,y,couleur, valuesSaved){
-        if (valuesSaved == null){
+    constructor(place, idp, x,y,couleur, valuesSaved, premiereCreation){
+        console.log("premier creation : " + premiereCreation);
+        if (premiereCreation){
             this.ballon = false;
             this.x = x;
             this.y = y;
-
-            //ce tab donne les actions possible que peut faire le joueur en cliquant sur ce pion
-            this.actionsPossibles = {};
 
             if (couleur === "rouge"){this.src = 'assets/MainScreen/pionR.png'; this.widget = new PionsBRWidget(place, idp, x, y, 100,100, this.src, null, true);}
             else if (couleur === "bleu") {this.src = 'assets/MainScreen/pionB.png'; this.widget = new PionsBRWidget(place, idp, x, y, 100,100, this.src, null, true);}

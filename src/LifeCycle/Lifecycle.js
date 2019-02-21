@@ -187,18 +187,18 @@ class Lifecycle {
         this.containerClass = "container-fluid d-flex h-100";
         this.actualScreen = "";
         this.playingSequence = "";
-        this.startingTeam = "";
-        this.valuesSaved = null;
     }
 
     start() {
+        this.startingTeam = "";
+        this.premierAppel = true;
         this.initConnexion();
         this.loadFirstScreen();
 
     }
 
     static deleteWidgets() {
-        for (var i = 0; i < FormationWidget.listeAEffacer.length; i++) {
+      /*  for (var i = 0; i < FormationWidget.listeAEffacer.length; i++) {
             FormationWidget.listeAEffacer[i].delete();
         }
         for (var j = 0; j < TerrainWidget.listeAEffacer.length; j++) {
@@ -209,11 +209,15 @@ class Lifecycle {
         }
         for (var l = 0; l < BallonWidget.listeAEffacer.length; l++) {
             BallonWidget.listeAEffacer[l].delete();
-        }
+        }*/
         FormationWidget.listeAEffacer = [];
         TerrainWidget.listeAEffacer = [];
         PionsWidget.listeAEffacer = [];
         BallonWidget.listeAEffacer = [];
+        PionsWidget.listePionsBR = [];
+        PionsWidget.listePionsN = [];
+        PionsWidget.nbPionsBR = 0;
+        PionsWidget.nbPionsN = 0;
     }
 
     formationChosen(RED_TEAM, BLUE_TEAM) {
@@ -226,14 +230,8 @@ class Lifecycle {
 
 
     pawnMoved(str) {
-<<<<<<< HEAD
-        //this.playingSequence.playTurn();
-        this.loadMainScreen();
-=======
-        console.log("is used by pions");
-        console.log("pawnMoved " + str);
         this.playingSequence.playTurn();
->>>>>>> parent of ec47212... sauvegarde état jeu
+        //this.loadMainScreen();
         /* DEMO / MOCK code
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
@@ -244,8 +242,6 @@ class Lifecycle {
         }
         */
     }
-
-    //ec47212c28f1db98e33851174fa7a6c29465a164
 
 
     /* ==========  finishing functions  ========== */
@@ -282,7 +278,9 @@ class Lifecycle {
     loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, PionsWidget.valuesSaved, this.startingTeam);
+        console.log("premier appel : " + this.premierAppel);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, PionsWidget.valuesSaved, this.startingTeam, this.premierAppel);
+        this.premierAppel = false;
         this.actualScreen = mainScreen;
         PionsWidget.valuesSaved = [];
         mainScreen.populate("app");
@@ -435,7 +433,7 @@ class Lifecycle {
         return res;
     }
     clearScreen() {
-        // Lifecycle.deleteWidgets();
+        Lifecycle.deleteWidgets();
         const root = document.getElementById("app");
         while (root.firstChild) {
             root.className = "container-fluid d-flex h-100";

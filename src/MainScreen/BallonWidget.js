@@ -32,8 +32,7 @@ class BallonWidget extends ElementWidget {
         return this.idf;
     }
 
-    onTouchCreation(tuioTouch) {
-<<<<<<< HEAD
+    onTouchCreation(tuioTouch){
       /*  console.log("coucou tuioTouch du ballon");
         if (this.bougeParPion) {
             super.onTouchCreation(tuioTouch);
@@ -64,12 +63,6 @@ class BallonWidget extends ElementWidget {
           }
       }*/
 
-=======
-        if (this.bougeParPion) {
-            super.onTouchCreation(tuioTouch);
-            this.bougeParPion = false;
-        }
->>>>>>> parent of ec47212... sauvegarde état jeu
     }
 
     onTouchUpdate(tuioTouch) {
@@ -94,5 +87,6 @@ class BallonWidget extends ElementWidget {
 
     get domElem() { return this._domElem; }
 }
+BallonWidget.currentPion = null;
 BallonWidget.listeAEffacer = [];
 export default BallonWidget;
