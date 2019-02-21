@@ -114,8 +114,7 @@ class Lifecycle {
 
     start() {
         this.initConnexion();
-        this.loadScoreScreen();
-        //this.loadFirstScreen();
+        this.loadFirstScreen();
     }
 
     static deleteWidgets() {
@@ -261,9 +260,8 @@ class Lifecycle {
         });
     }
 
-    loadScoreScreen(){
+    loadScoreScreen(tab){
         this.clearScreen();
-        const tab = ["zeub1", "zeub2","zeub3"];
         const scoreScreen = new ScoreScreen(tab);
         scoreScreen.populate();
     }
@@ -303,10 +301,16 @@ class Lifecycle {
             console.error("play order");
             console.error(msg.data);
             client.getSocket().emit('indivQuestionTest', { data: true });
-            this.loadMainScreen();
+            // score screen first
+            this.loadFirstScreen(msg.data);
+            // main screen actions
             const tabOfTeamSequence = this.getTeamSequence(msg.data);
-            this.playingSequence = new playingSequence(tabOfTeamSequence, this);
-            this.playingSequence.start();
+            setTimeout(()=>{
+                this.loadMainScreen();
+                this.playingSequence = new playingSequence(tabOfTeamSequence, this);
+                this.playingSequence.start();
+            }, 10000)
+            
         });
 
         client.getSocket().on('startTeam', (msg) => {
