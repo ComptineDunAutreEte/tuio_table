@@ -24,6 +24,7 @@ class MainScreen {
         this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved, this.startingTeam, this.premiereCreation);
     }
 
+
     highlight(color) {
         const originalClass = "row align-self-center align-items-center w-100 h-100";
         const red = "row align-self-center align-items-center w-100 h-100 highlight_W2Red";
@@ -53,7 +54,7 @@ class MainScreen {
         if (team === "red") {
             classe = "infoRed";
         }
-        if (document.getElementById('turnInfoText')){
+        if (document.getElementById('turnInfoText')) {
             document.getElementById('turnInfoText').remove();
             console.error("just removed text");
         }

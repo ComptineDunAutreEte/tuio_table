@@ -1,0 +1,20 @@
+.scoreScreen {
+    background-image: url("../../assets/mainScreen.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flex-score-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background: none;
+}
+
+.topScoreRow {
+    transform: rotate(180deg);
+}
