@@ -9,7 +9,7 @@ class WaitingScreen {
     populate() {
         // ajouter le texte 
         const texte = "Répondez à la question sur vos tablettes...";
-        document.getElementById(this.containerID).className = this.containerClass + " " + "firstScreenBackground";
+        document.getElementById(this.containerID).className = this.containerClass + " " + "scoreScreen";
         $('#app').append('<div id="wtext" class="col"> </div>');
         $('#wtext').append('<div class="row h-50 w-100 align-items-center d-flex justify-content-center" style="transform: rotate(180deg);" id="topText" > </div>');
         $('#topText').append('<h1 class="text-center" style="color: #E4F01F;">' + texte + ' </h1>');
