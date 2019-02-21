@@ -50,7 +50,6 @@ class ScoreScreen {
 
         if (this.scores.length === 0) {
             $("#table" + id).append('<tr>\
-            <th scope="row">'+ i + '</th>\
             <td>Vous</td>\
             <td>êtes</td>\
             <td>tous nuls</td>\

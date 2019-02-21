@@ -20,13 +20,6 @@ class MainScreen {
         const str = '<div id="mainScreen" class="row align-self-center align-items-center h-100 w-100"> </div>';
         $(pid).append(str);
         this.terrain = new Terrain(this.offset, this.offset, this.width - (2 * this.offset), this.height - (2 * this.offset), '#mainScreen', this.observer, this.valuesSaved, this.startingTeam);
-        const btnID = "zeub";
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn-circle btn-xxl middleScreen" style="z-index: 300"></button>');
-        const that = this;
-
-        document.getElementById(btnID).onclick = () => {
-            that.observer.playingSequence.playTurn();
-        }
     }
 
 
