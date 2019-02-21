@@ -12,6 +12,7 @@ import playingSequence from '../PlayingSequence/playingSequence';
 import FormationWidget from "../FormationScreen/FormationWidget";
 import TerrainWidget from "../MainScreen/TerrainWidget";
 import PionsWidget from "../MainScreen/PionsWidget";
+import PionsBRWidget from "../MainScreen/PionsBRWidget";
 
 
 // Import JQuery
@@ -142,18 +143,12 @@ class Lifecycle {
         this.finishedFormationScreen();
     }
 
-    sauvegardeTerrain(valuesSaved) {
-        this.valuesSaved = valuesSaved;
-    }
 
 
-
-    pawnMoved(str, valuesSaved) {
+    pawnMoved(str) {
         console.log("is used by pions");
-        this.sauvegardeTerrain(valuesSaved);
         console.log("pawnMoved " + str);
         this.playingSequence.playTurn();
-
         /* DEMO / MOCK code
         const message = "startQuestions";
         const channel = "table"; // TOBE DEFINED
@@ -200,8 +195,9 @@ class Lifecycle {
     loadMainScreen(teamToplay) {
         this.clearScreen();
         $('#app').className = this.containerClass;
-        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, this.valuesSaved, this.startingTeam);
+        const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, PionsWidget.valuesSaved, this.startingTeam);
         this.actualScreen = mainScreen;
+        PionsWidget.valuesSaved = [];
         mainScreen.populate("app");
         // mainScreen.startOfTurn(teamToplay);
     }

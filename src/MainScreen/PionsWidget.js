@@ -125,7 +125,7 @@ class PionsWidget extends ElementWidget {
         valuesToSave.push(places);
         valuesToSave.push(ballon);
         valuesToSave.push(src);
-        return valuesToSave;
+        PionsWidget.valuesSaved = valuesToSave;
     }
 
     delete(){
@@ -134,10 +134,11 @@ class PionsWidget extends ElementWidget {
 
     /* FOR DEMO CODE */
     pawnTouched(type) {
+        PionsWidget.saveValues();
         if (type === "blue"){
-            this.observer.pawnMoved("indiv", PionsWidget.saveValues());
+            this.observer.pawnMoved("indiv");
         } else if (type === "red"){
-            this.observer.pawnMoved("collectif", PionsWidget.saveValues());
+            this.observer.pawnMoved("collectif");
         }
     }
     /* END DEMO CODE */
@@ -145,6 +146,7 @@ class PionsWidget extends ElementWidget {
 
     get domElem(){ return this._domElem; }
 }
+PionsWidget.valuesSaved = [];
 PionsWidget.startingTeam = null;
 PionsWidget.listeAEffacer = [];
 PionsWidget.nbPionsN = 0;

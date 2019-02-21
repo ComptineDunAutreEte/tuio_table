@@ -6,11 +6,11 @@ import BallonWidget from "./BallonWidget";
 
 class PionsBRWidget extends PionsWidget {
 
-    constructor(place, idp, x, y, width, height, imgSrc, ballon) {
+    constructor(place, idp, x, y, width, height, imgSrc, ballon, premiereCreation) {
         super(idp, x, y, width, height, imgSrc);
         this.place = place;
         this.ballon = ballon;
-        if (ballon == null){
+        if (premiereCreation){
             if (!PionsBRWidget.unPionADejaEteChoisiPourAvoirLeBallon){
                 if (PionsWidget.startingTeam === "blue"){
                     PionsBRWidget.pionChoisiPourAvoirLeBallonAuDebut = PionsBRWidget.getRandomIntInclusive(0,4);
