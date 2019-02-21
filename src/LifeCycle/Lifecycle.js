@@ -13,7 +13,7 @@ import FormationWidget from "../FormationScreen/FormationWidget";
 import TerrainWidget from "../MainScreen/TerrainWidget";
 import PionsWidget from "../MainScreen/PionsWidget";
 import ScoreScreen from "../ScoreScreen/ScoreScreen";
-
+import TutoScreen from "../TutoScreen/TutoScreen";
 
 // Import JQuery
 
@@ -177,8 +177,11 @@ class Lifecycle {
     finishedFormationScreen() {
         console.log("FormationScreen DONE. transition to next screen");
         this.clearScreen();
-        this.loadMainScreen();
-        this.firstTurn();
+        this.loadTuto();
+        setTimeout(() => {
+            this.loadMainScreen();
+            this.firstTurn();
+        }, 7000);
     }
 
     /* ==========  Screens inflaters  ========== */
@@ -264,6 +267,12 @@ class Lifecycle {
         this.clearScreen();
         const scoreScreen = new ScoreScreen(tab);
         scoreScreen.populate();
+    }
+
+    loadTuto(){
+        this.clearScreen();
+        const tuto = new TutoScreen();
+        tuto.populate();
     }
 
     /* ==========  server communication functions  ========== */

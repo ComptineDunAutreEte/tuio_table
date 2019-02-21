@@ -7,6 +7,7 @@ class TutoScreen {
     }
 
     populate(){
-        
+        const pid = "#" + this.containerID;
+        $(pid).addClass("tutoScreenBackground");
     }
-}
+} export default TutoScreen;
