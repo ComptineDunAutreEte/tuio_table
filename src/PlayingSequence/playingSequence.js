@@ -34,7 +34,7 @@ class playingSequence {
                 this.indexInResults = 0;
             }
         } else {
-           // const teamToPlay = "red";
+            //const teamToPlay = "red";
             const teamToPlay = this.questionResults[this.indexInResults];
             console.log("team to play = " + teamToPlay);
             if (teamToPlay === "red"){
