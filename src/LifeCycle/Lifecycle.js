@@ -266,7 +266,6 @@ class Lifecycle {
 
     /* ==========  finishing functions  ========== */
     finishedFirstscreen() {
-        console.log("first screen DONE. Transition to next screen");
         this.clearScreen();
         this.loadFormationScreen();
     }
@@ -418,7 +417,10 @@ class Lifecycle {
 
         client.getSocket().on('terminer', (msg) => {
             this.loadMainScreen('rouge');
-            //this.loadMainScreen(teamToplay) 
+            console.error(msg.data);
+            const tabOfTeamSequence = this.getLongQSequence(msg.data);
+            this.playingSequence = new playingSequence(tabOfTeamSequence, this);
+            this.playingSequence.start();
         });
 
         client.getSocket().on('all-answered', (msg) => {
@@ -499,6 +501,20 @@ class Lifecycle {
         console.log(res);
         return res;
     }
+
+    getLongQSequence(tab){
+        // [pts equipe bleue, pt equipe rouge]
+        let res;
+        if (tab[0] < tab [1]){
+            res = ["blue", "blue","blue"];
+        }
+        else {
+            res = ["red", "red","red"];
+        }
+        console.error(res);
+        return res;
+    }
+
     clearScreen() {
         Lifecycle.deleteWidgets();
         const root = document.getElementById("app");
