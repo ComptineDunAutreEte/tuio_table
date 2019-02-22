@@ -50,20 +50,6 @@ class PionsBRWidget extends PionsWidget {
                 this.ballon = null;
                 this.aLeBallon = false;
             }
-            //Si c'est un pion bleu qui est touché
-            if (this.src === 'assets/MainScreen/pionB.png') {
-                //S'il est prêt d'un but
-                if ((this.isNextToBut(this.place)) && (this.aLeBallon)) {
-                    console.log("next to buts");
-                    PionsBRWidget.changeCages("bleu");
-                }
-            }
-            else {
-                if ((this.isNextToBut(this.place)) && (this.aLeBallon)) {
-                    console.log("next to buts");
-                    PionsBRWidget.changeCages("rouge");
-                }
-            }
         }
         this.voisins = PionsWidget.getListePionsN()[this.place].voisins;
         this.nbVoisins = PionsWidget.getListePionsN()[this.place].nbVoisins;
@@ -78,6 +64,21 @@ class PionsBRWidget extends PionsWidget {
 
         this.mx = x;
         this.my = y;
+
+        if (this.src === 'assets/MainScreen/pionB.png') {
+            //S'il est prêt d'un but
+            if ((this.isNextToBut(this.place)) && (this.aLeBallon)) {
+                console.log("next to buts");
+                PionsBRWidget.changeCages("bleu");
+            }
+        }
+        else {
+            if ((this.isNextToBut(this.place)) && (this.aLeBallon)) {
+                console.log("next to buts");
+                PionsBRWidget.changeCages("rouge");
+            }
+        }
+
     }
 
     static getRandomInt(max) {
@@ -310,7 +311,6 @@ class PionsBRWidget extends PionsWidget {
     }
 
     static changeCages(couleur){
-
         const img = document.createElement("img");
         img.src ='assets/MainScreen/cages1.jpg';
         const cname = "switchCages1";
@@ -369,6 +369,18 @@ class PionsBRWidget extends PionsWidget {
         $('#mainScreen').append(img2, img);
     }
 
+    static estDansLaSurfaceBleue(pion){
+        return pion.place < 28;
+    }
+
+    static estDansLaSurfaceRouge(pion){
+        return pion.place > 27;
+    }
+
+    static sontDansLaMemeSurfaceDeJeu(pA,pB) {
+        return ((PionsBRWidget.estDansLaSurfaceBleue(pA) && PionsBRWidget.estDansLaSurfaceBleue(pB)) || (PionsBRWidget.estDansLaSurfaceRouge(pA) && PionsBRWidget.estDansLaSurfaceRouge(pB)));
+    }
+
     onTouchDeletion(tuioTouchId) {
         let deplace = false;
           if(this.aEteTouche){
@@ -381,6 +393,10 @@ class PionsBRWidget extends PionsWidget {
         super.onTouchDeletion(tuioTouchId);
         if (this.aLeBallon) this.ballon.onTouchDeletion(tuioTouchId);
         if (typeof (this._lastTouchesValues[tuioTouchId]) !== 'undefined') {
+            //On remet les voisins normaux
+            for (var j = 0; j < PionsWidget.nbPionsBR; j++){
+                this.deselectVoisins(PionsWidget.listePionsBR[j]);
+            }
             let nbV = this.nbVoisins;
             const intX = this.internX;
             const intY = this.internY;
@@ -448,6 +464,9 @@ class PionsBRWidget extends PionsWidget {
                 if (this.nbTouched === 1){
                     this.nbTouched = -1;
                     PionsBRWidget.firstButtonClicked = this;
+                    if ((this.aLeBallon)&&(PionsBRWidget.coequipierLePlusLoin(this) !== this)&&(PionsBRWidget.sontDansLaMemeSurfaceDeJeu(PionsBRWidget.coequipierLePlusLoin(this), this))){
+                        PionsBRWidget.coequipierLePlusLoin(this).takeBallon(this);
+                    }
                     console.log("touché 2 fois : " + this.nbTouched);
                 }
                 //Sinon
@@ -456,7 +475,7 @@ class PionsBRWidget extends PionsWidget {
                     for (var j = 0; j < PionsWidget.nbPionsBR; j++){
                         this.deselectVoisins(PionsWidget.listePionsBR[j]);
                     }
-
+                    if (PionsBRWidget.firstButtonClicked != null) PionsBRWidget.firstButtonClicked.nbTouched = 0;
                     PionsBRWidget.firstButtonClicked = this;
                     this.nbTouched++;
                 }
@@ -465,21 +484,21 @@ class PionsBRWidget extends PionsWidget {
                 //Si c'est un pion bleu qui est touché
                 if (this.src === 'assets/MainScreen/pionB.png'){
                     //S'il est prêt d'un but
-                    if ((this.isNextToBut(this.place))&&(this.aLeBallon)){
+                   /* if ((this.isNextToBut(this.place))&&(this.aLeBallon)){
                         console.log("next to buts");
                         PionsBRWidget.changeCages("bleu");
                     }
                     else {
                         console.log("not près du but");
-                    }
+                    }*/
                     this.pawnTouched("blue");
                 }
                 //Si c'est un pion rouge qui est touché
                 else {
                     //S'il est prêt d'un but
-                    if ((this.isNextToBut(this.place))&&(this.aLeBallon)){
+                  /*  if ((this.isNextToBut(this.place))&&(this.aLeBallon)){
                         PionsBRWidget.changeCages("rouge");
-                    }
+                    }*/
                     this.pawnTouched("red");
                 }
             }
