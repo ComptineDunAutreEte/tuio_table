@@ -12,7 +12,7 @@ class TutoScreen {
         const btnID = "btn";
         const that = this;
         $(pid).addClass("tutoScreenBackground");
-        $(pid).append('<button id="' + btnID + '" type="button" class="btn-circle btn-xxl middleScreen"></button>');
+        $(pid).append('<button id="' + btnID + '" type="button" class="btn-circle btn-xxl pulse-button middleScreen"></button>');
         document.getElementById(btnID).onclick = () => {
             that.observer.finishedTutoScreen();
         };
