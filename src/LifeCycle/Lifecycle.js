@@ -213,7 +213,6 @@ class Lifecycle {
         this.premierAppel = true;
         this.initConnexion();
         this.loadFirstScreen();
-
         //this.loadQuestionScreen_par();
     }
 
@@ -502,14 +501,13 @@ class Lifecycle {
         return res;
     }
 
-    getLongQSequence(tab){
+    getLongQSequence(tab) {
         // [pts equipe bleue, pt equipe rouge]
         let res;
-        if (tab[0] < tab [1]){
-            res = ["blue", "blue","blue"];
-        }
-        else {
-            res = ["red", "red","red"];
+        if (tab[0] < tab[1]) {
+            res = ["blue", "blue", "blue"];
+        } else {
+            res = ["red", "red", "red"];
         }
         console.error(res);
         return res;
