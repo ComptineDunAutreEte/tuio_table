@@ -298,7 +298,7 @@ class Lifecycle {
         this.clearScreen();
         $('#app').className = this.containerClass;
         console.log("premier appel : " + this.premierAppel);
-       // this.startingTeam = "red";
+        // this.startingTeam = "red";
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, PionsWidget.valuesSaved, this.startingTeam, this.premierAppel);
         this.premierAppel = false;
         this.actualScreen = mainScreen;
@@ -395,7 +395,8 @@ class Lifecycle {
         });
 
         client.getSocket().on('terminer', (msg) => {
-            this.loadMainScreen('red');
+            this.loadMainScreen('rouge');
+            //this.loadMainScreen(teamToplay) 
         });
 
         client.getSocket().on('all-answered', (msg) => {
