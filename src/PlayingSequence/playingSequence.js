@@ -27,11 +27,11 @@ class playingSequence {
             //const teamToPlay = "red";
             const teamToPlay = this.questionResults[this.indexInResults];
             console.log("team to play = " + teamToPlay);
-            if (teamToPlay === "red") {
+            if (teamToPlay === "A") {
                 PionsBRWidget.teamRougeJoue = true;
                 PionsBRWidget.teamBleueJoue = false;
             }
-            else if (teamToPlay === "blue") {
+            else if (teamToPlay === "B") {
                 PionsBRWidget.teamBleueJoue = true;
                 PionsBRWidget.teamRougeJoue = false;
             }

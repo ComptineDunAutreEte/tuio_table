@@ -1,7 +1,6 @@
 /*eslint-disable*/
 
 import Terrain from "./Terrain";
-import PionsWidget from "./PionsWidget";
 
 class MainScreen {
     constructor(width, height, observer, valuesSaved, startingTeam, premiereCreation) {
@@ -30,11 +29,11 @@ class MainScreen {
         const red = "row align-self-center align-items-center w-100 h-100 highlight_W2Red";
         const blue = "row align-self-center align-items-center w-100 h-100 highlight_W2Blue";
 
-        if (color === "blue") {
+        if (color === "B") {
             console.log("blue detected");
             document.getElementById("mainScreen").className = blue;
         }
-        else if (color === "red") {
+        else if (color === "A") {
             document.getElementById("mainScreen").className = red;
         }
         else {
@@ -46,14 +45,15 @@ class MainScreen {
         let classe = "infoBlue";
         if (!team) {
             console.log("team undefined : setting default to BLUE");
-            team = "blue";
+            team = "B";
             classe = "infoBlue";
         }
-        this.highlight(team);
-
-        if (team === "red") {
+        if (team === "A") {
             classe = "infoRed";
         }
+
+        this.highlight(team);
+
         if (document.getElementById('turnInfoText')){
             document.getElementById('turnInfoText').remove();
             console.error("just removed text");

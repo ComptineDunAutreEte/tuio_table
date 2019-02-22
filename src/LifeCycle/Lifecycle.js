@@ -417,7 +417,6 @@ class Lifecycle {
 
         client.getSocket().on('terminer', (msg) => {
             this.loadMainScreen('rouge');
-            console.error(msg.data);
             const tabOfTeamSequence = this.getLongQSequence(msg.data);
             this.playingSequence = new playingSequence(tabOfTeamSequence, this);
             this.playingSequence.start();
@@ -464,10 +463,14 @@ class Lifecycle {
             console.error("play order");
             console.error(msg.data);
             client.getSocket().emit('indivQuestionTest', { data: true });
-            this.loadMainScreen();
             const tabOfTeamSequence = this.getTeamSequence(msg.data);
-            this.playingSequence = new playingSequence(tabOfTeamSequence, this);
-            this.playingSequence.start();
+            this.loadScoreScreen(tabOfTeamSequence);
+            setTimeout(() => {
+                this.loadMainScreen();
+                this.playingSequence = new playingSequence(tabOfTeamSequence, this);
+                this.playingSequence.start();
+            }, 11000);
+
         });
 
         client.getSocket().on('startTeam', (msg) => {
@@ -506,10 +509,10 @@ class Lifecycle {
         // [pts equipe bleue, pt equipe rouge]
         let res;
         if (tab[0] < tab [1]){
-            res = ["blue", "blue","blue"];
+            res = ["B", "B", "B"];
         }
         else {
-            res = ["red", "red","red"];
+            res = ["A", "A", "A"];
         }
         console.error(res);
         return res;
