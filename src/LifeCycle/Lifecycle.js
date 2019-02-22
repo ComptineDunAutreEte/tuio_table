@@ -12,8 +12,9 @@ import playingSequence from '../PlayingSequence/playingSequence';
 import FormationWidget from "../FormationScreen/FormationWidget";
 import TerrainWidget from "../MainScreen/TerrainWidget";
 import PionsWidget from "../MainScreen/PionsWidget";
+import ScoreScreen from "../ScoreScreen/ScoreScreen";
+import TutoScreen from "../TutoScreen/TutoScreen";
 import PionsBRWidget from "../MainScreen/PionsBRWidget";
-
 
 // Import JQuery
 
@@ -271,7 +272,11 @@ class Lifecycle {
     }
 
     finishedFormationScreen() {
-        console.log("FormationScreen DONE. transition to next screen");
+        this.clearScreen();
+        this.loadTuto();
+    }
+
+    finishedTutoScreen(){
         this.clearScreen();
         this.loadMainScreen();
         this.firstTurn();
@@ -375,6 +380,18 @@ class Lifecycle {
             $("#butBot").on("click", () => playB());
             $("#butTop").on("click", () => playT());
         });
+    }
+
+    loadScoreScreen(tab){
+        this.clearScreen();
+        const scoreScreen = new ScoreScreen(tab);
+        scoreScreen.populate();
+    }
+
+    loadTuto(){
+        this.clearScreen();
+        const tuto = new TutoScreen(this);
+        tuto.populate();
     }
 
     /* ==========  server communication functions  ========== */

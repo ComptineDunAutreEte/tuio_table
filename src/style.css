@@ -1,3 +1,10 @@
+.tutoScreenBackground {
+    background-image: url("./../../assets/tuto.PNG");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /*
 ==============================================
 slideDown
@@ -136,10 +143,10 @@ Highlight
 
 @keyframes highlightRED {
     from {
-		border-color: white;
+        border-color: white;
     }
     to {
-		border-color: red;
+        border-color: red;
     }
 }
 
@@ -176,19 +183,19 @@ Highlight
 
 .infoRed {
     animation-name: highlightTextRED;
-	animation-duration: 1.5s;
-	animation-direction: alternate;
-	animation-iteration-count: 4;
-	opacity: 0;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: 4;
+    opacity: 0;
 }
 
 .infoBlue {
-	transform: rotate(180deg);
+    transform: rotate(180deg);
     animation-name: highlightTextBLUE;
-	animation-duration: 1.5s;
-	animation-direction: alternate;
-	animation-iteration-count: 4;
-	opacity: 0;
+    animation-duration: 1.5s;
+    animation-direction: alternate;
+    animation-iteration-count: 4;
+    opacity: 0;
 }
 
 #mainScreen img {
@@ -199,13 +206,12 @@ Highlight
 }
 
 .switchCages1 {
-   /* transform: rotate(180deg);
+    /* transform: rotate(180deg);
     animation-name: changeCages;
     animation-duration: 1.5s;
     animation-direction: alternate;
     animation-iteration-count: infinite;
     opacity: 0;*/
-
     animation-name: changeCages1;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -215,16 +221,16 @@ Highlight
 
 @keyframes changeCages1 {
     0% {
-        opacity:100;
+        opacity: 100;
     }
     45% {
-        opacity:70;
+        opacity: 70;
     }
     55% {
-        opacity:40;
+        opacity: 40;
     }
     100% {
-        opacity:0;
+        opacity: 0;
     }
 }
 
@@ -235,7 +241,6 @@ Highlight
      animation-direction: alternate;
      animation-iteration-count: infinite;
      opacity: 0;*/
-
     animation-name: changeCages2;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -245,16 +250,16 @@ Highlight
 
 @keyframes changeCages2 {
     0% {
-        opacity:0;
+        opacity: 0;
     }
     45% {
-        opacity:40;
+        opacity: 40;
     }
     55% {
-        opacity:70;
+        opacity: 70;
     }
     100% {
-        opacity:100;
+        opacity: 100;
     }
 }
 
@@ -265,7 +270,6 @@ Highlight
      animation-direction: alternate;
      animation-iteration-count: infinite;
      opacity: 0;*/
-
     animation-name: changeCages3;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -275,19 +279,18 @@ Highlight
 
 @keyframes changeCages3 {
     0% {
-        opacity:0;
+        opacity: 0;
     }
     45% {
-        opacity:100;
+        opacity: 100;
     }
     55% {
-        opacity:70;
+        opacity: 70;
     }
     100% {
-        opacity:40;
+        opacity: 40;
     }
 }
-
 
 /*@keyframes changeCages {
     from {
@@ -300,26 +303,22 @@ Highlight
 
 @keyframes highlightTextRED {
     from {
-		color: white;
-		opacity: 0;
-
+        color: white;
+        opacity: 0;
     }
     to {
-		color: red;
-		opacity: 100;
-
+        color: red;
+        opacity: 100;
     }
 }
 
 @keyframes highlightTextBLUE {
     from {
-		color: white;
-		opacity: 0;
-
+        color: white;
+        opacity: 0;
     }
     to {
-		color: blue;
-		opacity: 100;
-
+        color: blue;
+        opacity: 100;
     }
 }
