@@ -115,6 +115,7 @@ class Lifecycle {
     start() {
         this.initConnexion();
         this.loadFirstScreen();
+        this.loadTuto();
     }
 
     static deleteWidgets() {
@@ -182,6 +183,10 @@ class Lifecycle {
             this.loadMainScreen();
             this.firstTurn();
         }, 7000);
+    }
+
+    finishedTutoScreen(){
+        console.error("finished tuto screen");
     }
 
     /* ==========  Screens inflaters  ========== */
@@ -271,7 +276,7 @@ class Lifecycle {
 
     loadTuto(){
         this.clearScreen();
-        const tuto = new TutoScreen();
+        const tuto = new TutoScreen(this);
         tuto.populate();
     }
 
