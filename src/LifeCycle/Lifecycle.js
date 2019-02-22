@@ -20,14 +20,14 @@ import PionsBRWidget from "../MainScreen/PionsBRWidget";
 
 //const io = require('socket.io-client'); // SALE: chercher a mettre cette constante dans index pour quelle ne soit appellee que une fois
 const separator = ",";
-var done = [false, false];
+var done = [false, false]; //reset
 
-var end = [false, false];
+var end = [false, false]; //reset
 var pause_time = 0;
 var question_type = 'PAR_';
-var videoTop = null;
-var videoBot = null;
-
+// var videoTop = null;
+// var videoBot = null;
+var terminer_ = [false, false]; //reset
 
 function theEnd() {
     client.send('ask-result', '');
@@ -51,9 +51,29 @@ function endBot() {
     console.log("theEndBotOut");
 }
 
+function terminerTop() {
+    console.log("termine");
+    terminer_[1] = true;
+    if (terminer_[0] && terminer_[1]) {
+        console.log("terminer for real");
+        client.send("terminer", '');
+    }
+    $('#butTop').text("OK");
+}
+
+function terminerBot() {
+    console.log("termine");
+    terminer_[0] = true;
+    if (terminer_[0] && terminer_[1]) {
+        console.log("terminer for real");
+        client.send("terminer", '');
+    }
+    $('#butBot').text("OK");
+}
+
 function enableMessage() {
-    //const videoTop = $("#videoTop");
-    //const videoBot = $("#videoBot");
+    const videoTop = $("#videoTop");
+    const videoBot = $("#videoBot");
 
     const paneBot = $("#paneBot");
     const paneTop = $("#paneTop");
@@ -83,18 +103,16 @@ function enableMessage() {
 
 }
 
-function playT(event) {
-    console.log(event);
+function playT() {
     const vidT = document.getElementById('videoTop');
     vidT.play();
-    event.textContent = "||";
+    $("#butTop").text("||");
 }
 
-function playB(event) {
-    console.log(event);
+function playB() {
     const vidB = document.getElementById('videoBot');
     vidB.play();
-    event.textContent = "||";
+    $("#butBot").text("||");
 
 } //vidB.addEventListener('timeupdate', pause);}
 
@@ -193,23 +211,24 @@ class Lifecycle {
         this.startingTeam = "";
         this.premierAppel = true;
         this.initConnexion();
-        this.loadFirstScreen();
+        //this.loadFirstScreen();
 
+        this.loadQuestionScreen_par();
     }
 
     static deleteWidgets() {
-      /*  for (var i = 0; i < FormationWidget.listeAEffacer.length; i++) {
-            FormationWidget.listeAEffacer[i].delete();
-        }
-        for (var j = 0; j < TerrainWidget.listeAEffacer.length; j++) {
-            TerrainWidget.listeAEffacer[j].delete();
-        }
-        for (var k = 0; k < PionsWidget.listeAEffacer.length; k++) {
-            PionsWidget.listeAEffacer[k].delete();
-        }
-        for (var l = 0; l < BallonWidget.listeAEffacer.length; l++) {
-            BallonWidget.listeAEffacer[l].delete();
-        }*/
+        /*  for (var i = 0; i < FormationWidget.listeAEffacer.length; i++) {
+              FormationWidget.listeAEffacer[i].delete();
+          }
+          for (var j = 0; j < TerrainWidget.listeAEffacer.length; j++) {
+              TerrainWidget.listeAEffacer[j].delete();
+          }
+          for (var k = 0; k < PionsWidget.listeAEffacer.length; k++) {
+              PionsWidget.listeAEffacer[k].delete();
+          }
+          for (var l = 0; l < BallonWidget.listeAEffacer.length; l++) {
+              BallonWidget.listeAEffacer[l].delete();
+          }*/
         FormationWidget.listeAEffacer = [];
         TerrainWidget.listeAEffacer = [];
         PionsWidget.listeAEffacer = [];
@@ -324,15 +343,23 @@ class Lifecycle {
         done = [false, false];
         pause_time = 24;
         question_type = 'PAR_';
+
+        var done = [false, false]; //reset
+
+        end = [false, false]; //reset
+        var videoTop = null;
+        var videoBot = null;
+        terminer_ = [false, false]; //reset
         client.send('question-collectif-par', '');
         $('#app').load('src/questionnaire/questionnaire_par.html', () => {
             //console.log('load question');
 
+
             const paneBot = $("#paneBot");
             const paneTop = $("#paneTop");
 
-            paneBot.append('<p ><br><br>Observer bien la vidéo</p>');
-            paneTop.append('<p ><br><br>Observer bien la vidéo</p>');
+            paneBot.append('<p ><br><br>Observez bien la vidéo</p>');
+            paneTop.append('<p ><br><br>Observez bien la vidéo</p>');
 
             // paneBot.append('<div id="alertBot" class="auto msg"><img class="auto photo" src="assets/tablette.jpg" alt="monimage"></div>');
             // paneTop.append('<div id="alertTop" class="auto msg"><img class="auto photo" src="assets/tablette.jpg" alt="monimage"></div>');
@@ -344,8 +371,8 @@ class Lifecycle {
             videoTop.on('timeupdate', myScript);
             videoBot.on('timeupdate', myScript2);
 
-            $("#butBot").on("click", () => playB($("#butBot")));
-            $("#butTop").on("click", () => playT($("#butTop")));
+            $("#butBot").on("click", () => playB());
+            $("#butTop").on("click", () => playT());
         });
     }
 
@@ -356,8 +383,20 @@ class Lifecycle {
         });
 
         client.getSocket().on('result', (msg) => {
-            $('#messageT').css("visibility", "visible");
-            $('#messageB').css("visibility", "visible");
+            console.log('result');
+            $('#app').load('src/questionnaire/result.html', () => {
+
+                for (let q of msg.data.good_answers) {
+                    $('#paneBot').append('<div class="pane"><p>' + q + '</p></div>');
+                    $('#paneTop').append('<div class="pane"><p>' + q + '</p></div>');
+                }
+                $('#butBot').click(() => terminerBot());
+                $('#butTop').click(() => terminerTop());
+            });
+        });
+
+        client.getSocket().on('terminer', (msg) => {
+            this.loadMainScreen('red');
         });
 
         client.getSocket().on('all-answered', (msg) => {
@@ -366,10 +405,14 @@ class Lifecycle {
             const paneTop = $("#paneTop");
             paneBot.empty();
             paneTop.empty();
-            $("#butBot").textContent = "Continuer";
-            $("#butTop").textContent = "Continuer";
-            $("#butBot").on("click", () => playB($("#butBot")));
-            $("#butTop").on("click", () => playT($("#butTop")));
+
+            paneBot.append('<p ><br><br>Observez bien la vidéo</p>');
+            paneTop.append('<p ><br><br>Observez bien la vidéo</p>');
+
+            $("#butBot").text("Continuer");
+            $("#butTop").text("Continuer");
+            $("#butBot").on("click", () => playB());
+            $("#butTop").on("click", () => playT());
             $('#videoTop').on('ended', endTop);
             $('#videoBot').on('ended', endBot);
         });
