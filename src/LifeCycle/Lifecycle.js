@@ -212,9 +212,9 @@ class Lifecycle {
         this.startingTeam = "";
         this.premierAppel = true;
         this.initConnexion();
-        //this.loadFirstScreen();
+        this.loadFirstScreen();
 
-        this.loadQuestionScreen_par();
+        //this.loadQuestionScreen_par();
     }
 
     static deleteWidgets() {
@@ -276,7 +276,7 @@ class Lifecycle {
         this.loadTuto();
     }
 
-    finishedTutoScreen(){
+    finishedTutoScreen() {
         this.clearScreen();
         this.loadMainScreen();
         this.firstTurn();
@@ -356,7 +356,7 @@ class Lifecycle {
         var videoTop = null;
         var videoBot = null;
         terminer_ = [false, false]; //reset
-        client.send('question-collectif-par', '');
+        //client.send('question-collectif-par', '');
         $('#app').load('src/questionnaire/questionnaire_par.html', () => {
             //console.log('load question');
 
@@ -382,13 +382,13 @@ class Lifecycle {
         });
     }
 
-    loadScoreScreen(tab){
+    loadScoreScreen(tab) {
         this.clearScreen();
         const scoreScreen = new ScoreScreen(tab);
         scoreScreen.populate();
     }
 
-    loadTuto(){
+    loadTuto() {
         this.clearScreen();
         const tuto = new TutoScreen(this);
         tuto.populate();
@@ -400,6 +400,9 @@ class Lifecycle {
             console.log(msg);
         });
 
+        client.getSocket().on('start-question', (msg) => {
+            this.loadQuestionScreen_par();
+        });
         client.getSocket().on('result', (msg) => {
             console.log('result');
             $('#app').load('src/questionnaire/result.html', () => {
