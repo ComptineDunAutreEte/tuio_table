@@ -306,7 +306,6 @@ class Lifecycle {
         const mainScreen = new MainScreen(WINDOW_WIDTH, WINDOW_HEIGHT, this, PionsWidget.valuesSaved, this.startingTeam, this.premierAppel);
         this.premierAppel = false;
         this.actualScreen = mainScreen;
-        PionsWidget.valuesSaved = [];
         mainScreen.populate("app");
         // mainScreen.startOfTurn(teamToplay);
     }
