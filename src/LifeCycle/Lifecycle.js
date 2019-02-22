@@ -115,7 +115,6 @@ class Lifecycle {
     start() {
         this.initConnexion();
         this.loadFirstScreen();
-        this.loadTuto();
     }
 
     static deleteWidgets() {
@@ -176,17 +175,14 @@ class Lifecycle {
     }
 
     finishedFormationScreen() {
-        console.log("FormationScreen DONE. transition to next screen");
         this.clearScreen();
         this.loadTuto();
-        setTimeout(() => {
-            this.loadMainScreen();
-            this.firstTurn();
-        }, 7000);
     }
 
     finishedTutoScreen(){
-        console.error("finished tuto screen");
+        this.clearScreen();
+        this.loadMainScreen();
+        this.firstTurn();
     }
 
     /* ==========  Screens inflaters  ========== */
